@@ -1,0 +1,12 @@
+p This guide is designed to follow a few principles of sane data handling. It all boils down to #[em transparency] and #[em reproducibility]. Transparency allows our editors (and readers) to #[a(href="https://github.com/jplusplus/check/blob/master/method.en.md") fact check] what we have been doing. Reproducibility allows us to easily rerun to whole analyzis when new data is available, or the original data contained an error.
+
+p #[span.lead Never alter data.] We avoid using functions like 
+  if language == "Swedish"
+    | “text till kolumner” or “sök och ersätt” 
+  else
+    | “text to columns” or “search and replace” 
+  | to clean up data. Instead, we rely on #[em functions], like !{f("split")}.
+
+p #[span.lead Never mix data.] We keep each dataset in a separate tab.
+
+p #[span.lead Make the analysis readable.] We avoid overly complex nested formulas, and prefer doing the analysis in smaller steps, to make it easier for others (and ourselves!) to follow what we have done.

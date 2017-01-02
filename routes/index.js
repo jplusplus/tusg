@@ -28,7 +28,8 @@ router.get('/', function(req, res, next) {
   }
 
   var chapters = {
-    "What software should I use?": "chosing-software"
+    "What software should I use?": "chosing-software",
+    "Guiding principles": "best-practices",
   }
 
   for (var default_ in defaults){
@@ -49,6 +50,8 @@ router.get('/', function(req, res, next) {
     var activeOS = null
   }
 
+  var formula = require("../lib/formulas.js")(defaults.language.selected).formula
+
   var chaptersContent = {}
   for (chapter in chapters){
     var slug = chapters[chapter]
@@ -59,6 +62,7 @@ router.get('/', function(req, res, next) {
         version: versions[defaults.software.selected].selected,
         language: defaults.language.selected,
         locale: defaults.locale.selected,
+        f: formula,
       }
     )
   }
