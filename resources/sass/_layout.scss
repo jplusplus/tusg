@@ -29,3 +29,8 @@ h3.numbered::before {
   counter-increment: numbered;
   content: counter(numbered) ". ";
 }
+figure img {
+  margin-left:auto;margin-right:auto;
+  padding: .2em;
+  max-width: 100%;
+}
