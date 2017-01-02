@@ -10,8 +10,8 @@ var config = {
 }
 
 gulp.task('css', function() { 
-    return sass(config.sassPath + '/**/*.scss', {
-             style: 'compressed'
+    return sass(config.sassPath + '/*.scss', {
+             style: 'compressed',
     })
     .pipe(gulp.dest('./public/css')); 
 });
