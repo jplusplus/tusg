@@ -50,36 +50,39 @@ router.get('/', function(req, res, next) {
     var activeOS = null
   }
 
-  var formula = require("../lib/formulas.js")(defaults.language.selected).formula
+  // async module (needs to load i18n data)
+  var formulas = require("../lib/formulas.js")
+  formulas.init(defaults.language.selected, function(){
+    var chaptersContent = {}
+    for (chapter in chapters){
+      var slug = chapters[chapter]
+      chaptersContent[slug] = pug.renderFile(
+        'views/chapters/'+slug+'.pug', {
+          software: defaults.software.selected,
+          os: activeOS,
+          version: versions[defaults.software.selected].selected,
+          language: defaults.language.selected,
+          locale: defaults.locale.selected,
+          f: formulas.formula,
+        }
+      )
+    }
 
-  var chaptersContent = {}
-  for (chapter in chapters){
-    var slug = chapters[chapter]
-    chaptersContent[slug] = pug.renderFile(
-      'views/chapters/'+slug+'.pug', {
-        software: defaults.software.selected,
-        os: activeOS,
-        version: versions[defaults.software.selected].selected,
-        language: defaults.language.selected,
-        locale: defaults.locale.selected,
-        f: formula,
-      }
-    )
-  }
+    res.render('index', {
+      lang: "en",
+      availableSoftwares: defaults.software.allowed,
+      activeSoftware: defaults.software.selected,
+      activeOS: activeOS,
+      availableVersions: versions[defaults.software.selected],
+      activeVersion: versions[defaults.software.selected].selected,
+      availableLanguages: defaults.language.allowed,
+      activeLanguage: defaults.language.selected,
+      availableLocales: defaults.locale.allowed,
+      activeLocale: defaults.locale.selected,
+      chapters: chapters,
+      chaptersContent: chaptersContent,
+    })
 
-  res.render('index', {
-    lang: "en",
-    availableSoftwares: defaults.software.allowed,
-    activeSoftware: defaults.software.selected,
-    activeOS: activeOS,
-    availableVersions: versions[defaults.software.selected],
-    activeVersion: versions[defaults.software.selected].selected,
-    availableLanguages: defaults.language.allowed,
-    activeLanguage: defaults.language.selected,
-    availableLocales: defaults.locale.allowed,
-    activeLocale: defaults.locale.selected,
-    chapters: chapters,
-    chaptersContent: chaptersContent,
   })
 
 })
