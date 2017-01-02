@@ -4,8 +4,9 @@ block head
   title The Ultimate Spreadsheet Guide
 
 block content
-  menu#settings.col-md-10
-    form(method='get',name="form").form
+  menu.settings.col-md-10.show
+    button.btn.pull-right(type="button", data-toggle="collapse" data-target="#menu", aria-expanded="true" aria-controls="menu") toggle menu
+    form#menu(method='get',name="form").form.collapse.in
       .form-group
         label(for='software') Software
           select(name="software", id="software", onchange="this.form.submit()").form-control
@@ -36,9 +37,16 @@ block content
   article.col-md-10
     h1 The ultimate spreadsheet guide
 
-    p.lead This guide is aimed towards journalists who use Excel or similar software to find news in data. It covers the most common tasks involved in cleaning up and analyzing spreadsheets, as well as some ‘best practices’. There will be errors and omissions. Please let us know as you find them, using the #[a(href="https://trello.com/b/Z4AlvcX2/j-the-ultimate-spreadsheet-guide") Trello board]! With love, from #[a(href="http://jplusplus.se", title="Swedish site", rel="author") Journalism++ (sv)] | #[a(href="http://jplusplus.org", title="International site") (en)].
+    p.lead This guide is aimed towards journalists who use Excel or similar software to find news in data. It covers the most common tasks involved in cleaning up and analyzing spreadsheets, as well as some ‘best practices’. There will be errors and omissions. Please let us know as you find them, using the #[a(href="https://trello.com/b/Z4AlvcX2/j-the-ultimate-spreadsheet-guide") Trello board]! From #[a(href="http://jplusplus.se", title="Swedish site", rel="author") Journalism++ (sv)] | #[a(href="http://jplusplus.org", title="International site") (en)] with love!
+    p This is a dynamic guide. Content will change as you select different combinations in the form above.
 
     h2 Table of contents
     ol.toc
-      for link, name in chapters
-        li #[a(href="#"+link) #{name}]
+      for slug, name in chapters
+        li #[a(href="#"+slug) #{name}]
+
+    for slug, name in chapters
+      section(id=slug)
+        a.pull-right(href="#menu") Back to top ↑
+        h2 #{name}
+        .body !{chaptersContent[slug]}

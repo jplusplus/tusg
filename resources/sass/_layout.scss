@@ -15,3 +15,10 @@ figure > *{
   margin-left:auto;margin-right:auto;
 }
 
+body {
+  counter-reset: section;
+}
+section h2::before {
+  counter-increment: section;
+  content: counter(section) ". ";
+}

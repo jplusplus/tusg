@@ -1,5 +1,6 @@
 var router = require('express').Router()
-var textFunctions = require("../lib/text-functions.js")("sv-SE")
+var textFunctions = require("../lib/text-functions.js")("en-GB")
+var pug = require('pug')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -27,7 +28,7 @@ router.get('/', function(req, res, next) {
   }
 
   var chapters = {
-    "What software should I use?": "software-intro"
+    "What software should I use?": "chosing-software"
   }
 
   for (var default_ in defaults){
@@ -48,6 +49,19 @@ router.get('/', function(req, res, next) {
     var activeOS = null
   }
 
+  var chaptersContent = {}
+  for (chapter in chapters){
+    var slug = chapters[chapter]
+    chaptersContent[slug] = pug.renderFile(
+      'views/chapters/'+slug+'.pug', {
+        software: defaults.software.selected,
+        os: activeOS,
+        version: versions[defaults.software.selected].selected,
+        language: defaults.language.selected,
+        locale: defaults.locale.selected,
+      }
+    )
+  }
 
   res.render('index', {
     lang: "en",
@@ -61,6 +75,7 @@ router.get('/', function(req, res, next) {
     availableLocales: defaults.locale.allowed,
     activeLocale: defaults.locale.selected,
     chapters: chapters,
+    chaptersContent: chaptersContent,
   })
 
 })
