@@ -4,6 +4,15 @@ block head
   title The Ultimate Spreadsheet Guide
 
 block content
+  menu#settings
+    form(method='get',name="form").col-md-10.form-inline
+      .form-group
+        label(for='software') Software
+          select(name="software",id="software",onchange="this.form.submit()").form-control
+            each software in availableSoftwares
+              option(value=software, selected=activeSoftware == software) #{software}
+
+
   article
     h1 MyTitle
     p My text
