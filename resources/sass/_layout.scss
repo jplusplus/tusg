@@ -22,3 +22,10 @@ section h2::before {
   counter-increment: section;
   content: counter(section) ". ";
 }
+section {
+  counter-reset: numbered;
+}
+h3.numbered::before {
+  counter-increment: numbered;
+  content: counter(numbered) ". ";
+}
