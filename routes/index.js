@@ -30,6 +30,7 @@ router.get('/', function(req, res, next) {
   var chapters = {
     "What software should I use?": "chosing-software",
     "Guiding principles": "best-practices",
+    "Cleaning up your sheet": "cleaning-up",
   }
 
   for (var default_ in defaults){
