@@ -15,7 +15,7 @@ p You do not want any rows with totals and sub totals in your data. Every row sh
   Bad
 
 h3.numbered Fill out row labels 
-p Sometimes only the first in a series of rows is labeled. We want to explicitly label reach and every row. You can achieve this with a clever little !{f("if")} formula. This formula will check if column A is empty in the example pictured, and if so, take the value from the previous cell: !{f("if", 'A2=""', 'D1', 'A2')}
+p Sometimes only the first in a series of rows is labeled. We want to explicitly label reach and every row. You can achieve this with a clever little !{f("if")} formula. This formula will check if column A is empty in the example pictured, and if so, take the value from the previous cell: !{f("if", 'A2=""', 'D1', 'A2')}. Finally autofill to the bottom.
 
 :image(cleaning-up-fill-blank-labels-(en).png)
   In this screenshot we use an English formula name, and comma as separator. This might be different in your environment (see above).
@@ -42,3 +42,19 @@ if software == "LibreOffice/OpenOffice"
 if software == "Excel"
   :image(cleaning-up-merged-cells-excel-(sv).png, small)
   | Select all cells by !{key("Ctrl", "A")}, right click, chose !{menu("Format Cells")} and make sure that the box !{menu("Merge Cells")} is unticked.
+
+h3.numbered Make sure numbers are numbers and text is text
+
+p TBD
+
+h3 Optionally add an index column
+
+p Adding an extra column with a unique number for each row is convenient not only for undoing any sorting (in case the order of your rows matter), but having that extra column also provides an extra visual clue as to the sanity of your data. By sorting on the index column, it will be easier to spot missing rows or forgotten filters early.
+
+if software == "LibreOffice/OpenOffice"
+  :image(cleaning-up-index-column-libre.png, small)
+  p Insert an extra, leftmost column, give it a name, add a “1” to cell #[code A2], and then autofill to the bottom.
+else
+  :image(cleaning-up-index-column.png, small)
+  p Insert an extra, leftmost column, give it a name, add a “1” to cell #[code A2], a “2” to cell #[code A3], and then autofill to the bottom.
+
