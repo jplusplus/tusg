@@ -33,8 +33,11 @@ if software == "Google Sheets"
   | Select all cells by !{key("Ctrl", "A")} and choose !{menu("Format", "Merge cells", "Unmerge")}. 
 
 if software == "LibreOffice/OpenOffice"
-  | Select all cells by !{key("Ctrl", "A")} and choose !{menu("Format", "Merge Cells", "Split Cells")}. 
-  :image(cleaning-up-merged-cells-libre-(en).png)
+  | Select all cells by !{key("Ctrl", "A")} and choose !{menu("Format", "Merge Cells", "Split Cells")}.
+  if language == "Swedish"
+    :image(cleaning-up-merged-cells-libre-(sv).png)
+  else
+    :image(cleaning-up-merged-cells-libre-(en).png)
 
 if software == "Excel"
   :image(cleaning-up-merged-cells-excel-(sv).png, small)
