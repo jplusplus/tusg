@@ -17,6 +17,10 @@ router.get('/', function(req, res, next) {
     locale: {
       allowed: ["sv-SE", "en-US", "en-GB"],
       default: "en-US"
+    },
+    os: {
+      allowed: ["Windows", "MacOS", "Linux"],
+      default: "Windows"
     }
   }
   var versions = {
@@ -51,32 +55,34 @@ router.get('/', function(req, res, next) {
     var activeOS = null
   }
 
+  if (defaults.software.selected == "NeoOffice"){
+    var software = "LibreOffice/OpenOffice"
+    var mapping = {
+      "NeoOffice 2015": "3.1.1",
+      "NeoOffice 2014": "3.1.1",
+      "NeoOffice 2013": "3.1.1",
+      "NeoOffice 3.4": "3.1.1",
+      "NeoOffice 3.3": "3.1.1",
+      "NeoOffice 3.2": "3.1.1",
+      "NeoOffice 3.1": "3.1.1",
+      "NeoOffice 3.0": "3.0.1",
+    }
+    var version = mapping[versions[defaults.software.selected].selected]
+  } else if (defaults.software.selected.includes("Excel")) {
+    var software = "Excel"
+    var version = versions[defaults.software.selected].selected
+  } else {
+    var software = defaults.software.selected
+    var version = versions[defaults.software.selected].selected
+  }
+
+
   // async module (needs to load i18n data)
   var formulas = require("../lib/formulas.js")
   formulas.init(defaults.language.selected, function(){
     var chaptersContent = {}
     for (chapter in chapters){
       var slug = chapters[chapter]
-      if (defaults.software.selected == "NeoOffice"){
-        var software = "LibreOffice/OpenOffice"
-        var mapping = {
-          "NeoOffice 2015": "3.1.1",
-          "NeoOffice 2014": "3.1.1",
-          "NeoOffice 2013": "3.1.1",
-          "NeoOffice 3.4": "3.1.1",
-          "NeoOffice 3.3": "3.1.1",
-          "NeoOffice 3.2": "3.1.1",
-          "NeoOffice 3.1": "3.1.1",
-          "NeoOffice 3.0": "3.0.1",
-        }
-        var version = mapping[versions[defaults.software.selected].selected]
-      } else if (defaults.software.selected.includes("Excel")) {
-        var software = "Excel"
-        var version = versions[defaults.software.selected].selected
-      } else {
-        var software = defaults.software.selected
-        var version = versions[defaults.software.selected].selected
-      }
       chaptersContent[slug] = pug.renderFile(
         'views/chapters/'+slug+'.pug', {
           software: software,
