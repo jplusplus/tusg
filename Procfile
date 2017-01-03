@@ -1,1 +1,1 @@
-bash ./start.sh
+web: node app.js
