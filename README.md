@@ -1,9 +1,11 @@
 # The Ultimate Spreadsheet Guide
 
-## Installing
+## Getting started
 
     npm install
+    ./develop.sh
 
+`develop.sh` set environment variables to defaults and starts in development mode
 
 ## Environment variables
 
