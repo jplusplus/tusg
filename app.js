@@ -3,6 +3,7 @@ var path = require('path')
 var favicon = require('serve-favicon')
 var logger = require('morgan')
 var compression = require('compression')
+var bodyParser = require('body-parser')
 
 
 /* Shortcut for creating path strings */
@@ -15,6 +16,7 @@ var p = function(){
 }
 
 var index = require(p('routes', 'index'))
+var content = require(p('routes', 'content'))
 
 var app = express()
 
@@ -24,10 +26,19 @@ app.set('view engine', 'pug')
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
-app.use(compression())
+//app.use(compression())
 app.use(express.static(p('public')))
 
 app.use('/', index)
+
+//app.use(bodyParser.json())
+//app.use(bodyParser.urlencoded({ extended: false }))
+//app.use('/content', content)
+
+//var urlParser = bodyParser.urlencoded({ extended: false })
+var jsonParser = bodyParser.json()
+app.post('/content', jsonParser, content)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
