@@ -85,11 +85,7 @@ router.get('/', function(req, res, next) {
           language: defaults.language.selected,
           locale: defaults.locale.selected,
           f: formulas.formula,
-          // !{menu("File", "Save As")}
-          menu: function(){
-            var args = [...arguments]
-            return "<code class='menu-opts'>" + args.join(" > ") + "</code>"
-          },
+          menu: formulas.menu,
           // !{key(key 1, key 2, ...)}
           key: function(){
             var parts = []
@@ -112,7 +108,8 @@ router.get('/', function(req, res, next) {
             //   [Caption]
             image: function(text, options){
               var filename = Object.keys(options)[0]
-              var html = '<figure>'
+              var class_ = Object.keys(options)[1] === "small" ? " class='col-md-5 pull-right'" : ""
+              var html = '<figure' + class_ + '>'
               html += '<img src="/img/'+filename+'">'
               if (text){
                 html += '<figcaption>'+text+'</figcaption>'
