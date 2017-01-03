@@ -4,6 +4,7 @@ var pug = require('pug')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log("Getting there!")
 
   var defaults = {
     software: {
@@ -11,7 +12,7 @@ router.get('/', function(req, res, next) {
       default: "Excel for Windows",
     },
     language: {
-      allowed: ["English", "Swedish"],
+      allowed: ["English", "Swedish", "Finnish"],
       default: "English"
     },
     locale: {
