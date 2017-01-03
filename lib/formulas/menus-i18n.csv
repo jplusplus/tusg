@@ -1,7 +1,7 @@
-"English","Swedish","Finnish"
-"Format","Formatera",
-"Format Cells","Formatera celler",
-"Merge Cells","Sammanfoga celler",
-"Text to Columns","Text till kolumner",
-"Search and Replace","Sök och ersätt",
-"Split Cells","Dela celler",
+English,Swedish,Finnish
+Format,Formatera,Muotoilu
+Format Cells,Formatera celler,
+Merge Cells,Sammanfoga celler,Yhdistä solut
+Text to Columns,Text till kolumner,
+Search and Replace,Sök och ersätt,Etsi ja korvaa
+Split Cells,Dela celler,Jaa solut
