@@ -59,4 +59,4 @@ gulp.task('start-dev', function () {
      gulp.watch('resources/js/*.js', ['compress']); 
 });
   gulp.task('default', ['css', 'compress', 'lint']);
-  gulp.task('develop', ['css', 'compress', 'watch', 'start-dev']);
+  gulp.task('develop', ['css', 'compress', 'lint', 'watch', 'start-dev']);
