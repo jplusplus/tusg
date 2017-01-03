@@ -28,10 +28,13 @@ if software == "LibreOffice/OpenOffice"
 
 h3.numbered Remove any merged cells
 p Simply never use them.
+
 if software == "Google Sheets"
   | Select all cells by !{key("Ctrl", "A")} and choose !{menu("Format", "Merge cells", "Unmerge")}. 
+
 if software == "LibreOffice/OpenOffice"
   | Select all cells by !{key("Ctrl", "A")} and choose !{menu("Format", "Merge Cells", "Split Cells")}. 
+  :image(cleaning-up-merged-cells-libre-(en).png)
 
 if software == "Excel"
   :image(cleaning-up-merged-cells-excel-(sv).png, small)
