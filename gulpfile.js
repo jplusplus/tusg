@@ -12,8 +12,9 @@ var config = {
 }
 
 gulp.task('lint', function () {
-  gulp.src('./**/*.js')
+  gulp.src('./resources/js/*.js')
     .pipe(jshint())
+    .pipe(jshint.reporter('default'))
 })
 
 gulp.task('css', function() { 
