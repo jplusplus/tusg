@@ -18,9 +18,18 @@ block content
         - var disableVersion = false
       .form-group
         label(for='version') Version
-          select(name="version", id="version", onchange="this.form.submit()" disabled=disableVersion).form-control
+          select(name="version", id="version", onchange="this.form.submit()", disabled=disableVersion).form-control
             each version in availableVersions
               option(value=version, selected=activeVersion == version) #{version}
+      if activeOS !== selectedOS 
+        - var disableOS = true
+      else
+        - var disableOS = false
+      .form-group
+        label(for='os') OS
+          select(name="os", id="os", onchange="this.form.submit()", disabled=disableOS).form-control
+            each os in availableOS
+              option(value=os, selected=activeOS == os) #{os}
       .form-group
         label(for='language') Language
           select(name="language", id="language", onchange="this.form.submit()").form-control

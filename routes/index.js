@@ -37,6 +37,7 @@ router.get('/', function(req, res, next) {
     "Cleaning up your sheet": "cleaning-up",
   }
 
+  // Fetch url parameters or defaults
   for (var default_ in defaults){
     if (req.query[default_] && (defaults[default_].allowed.indexOf(req.query[default_]) > -1)){
       defaults[default_].selected = req.query[default_]
@@ -44,19 +45,27 @@ router.get('/', function(req, res, next) {
       defaults[default_].selected = defaults[default_].default
     }
   }
-
-  if (defaults.software.selected == "Excel for Windows") {
-    var activeOS = "Windows"
-  } else if (defaults.software.selected == "Excel for Mac") {
-    var activeOS = "MacOS"
-  } else if (defaults.software.selected == "NeoOffice") {
-    var activeOS = "MacOS"
-  } else {
-    var activeOS = null
+  var selectedVersion = req.query.version
+  if (versions[defaults.software.selected].indexOf(selectedVersion) == -1){
+    // Default to latest version
+    selectedVersion = versions[defaults.software.selected][0]
   }
 
-  if (defaults.software.selected == "NeoOffice"){
-    var software = "LibreOffice/OpenOffice"
+  var selectedOS = defaults.os.selected
+  var activeOS = selectedOS
+  // Change OS in case of incompatible parameters
+  if (defaults.software.selected == "Excel for Windows") {
+    activeOS = "Windows"
+  } else if (defaults.software.selected == "Excel for Mac") {
+    activeOS = "MacOS"
+  } else if (defaults.software.selected == "NeoOffice") {
+    activeOS = "MacOS"
+  }
+
+  var software = defaults.software.selected
+  // treat NeoOffice as OpenOffice (because it is)
+  if (software == "NeoOffice"){
+    software = "LibreOffice/OpenOffice"
     var mapping = {
       "NeoOffice 2015": "3.1.1",
       "NeoOffice 2014": "3.1.1",
@@ -67,15 +76,15 @@ router.get('/', function(req, res, next) {
       "NeoOffice 3.1": "3.1.1",
       "NeoOffice 3.0": "3.0.1",
     }
-    var version = mapping[versions[defaults.software.selected].selected]
-  } else if (defaults.software.selected.includes("Excel")) {
-    var software = "Excel"
-    var version = versions[defaults.software.selected].selected
+    var version = mapping[version]
   } else {
-    var software = defaults.software.selected
-    var version = versions[defaults.software.selected].selected
+    var varsion = selectedVersion
   }
 
+  // Normalize Excel varietes
+  if (software.includes("Excel")) {
+    software = "Excel"
+  }
 
   // async module (needs to load i18n data)
   var formulas = require("../lib/formulas.js")
@@ -132,9 +141,11 @@ router.get('/', function(req, res, next) {
       lang: "en",
       availableSoftwares: defaults.software.allowed,
       activeSoftware: defaults.software.selected,
+      availableOS: defaults.os.allowed,
       activeOS: activeOS,
+      selectedOS: selectedOS,
       availableVersions: versions[defaults.software.selected],
-      activeVersion: versions[defaults.software.selected].selected,
+      activeVersion: selectedVersion,
       availableLanguages: defaults.language.allowed,
       activeLanguage: defaults.language.selected,
       availableLocales: defaults.locale.allowed,
