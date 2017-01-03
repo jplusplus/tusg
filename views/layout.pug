@@ -15,25 +15,6 @@ html(lang=lang)
   body
     div.container
       block content
-  script.
-    function selectText(element) {
-      var doc = document;
+  script(src="/js/main.js")
 
-      if (doc.body.createTextRange) { // ms
-        var range = doc.body.createTextRange();
-        range.moveToElementText(element);
-        range.select();
-      } else if (window.getSelection) { // moz, opera, webkit
-        var selection = window.getSelection();            
-        var range = doc.createRange();
-        range.selectNodeContents(element);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      }
-    }
-    $(function() {
-      $(".selectonclick").on("click", function(){
-        selectText(this);
-      });
-    });
 
