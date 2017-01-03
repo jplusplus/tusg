@@ -57,14 +57,56 @@ router.get('/', function(req, res, next) {
     var chaptersContent = {}
     for (chapter in chapters){
       var slug = chapters[chapter]
+      if (defaults.software.selected == "NeoOffice"){
+        var software = "LibreOffice/OpenOffice"
+        var mapping = {
+          "NeoOffice 2015": "3.1.1",
+          "NeoOffice 2014": "3.1.1",
+          "NeoOffice 2013": "3.1.1",
+          "NeoOffice 3.4": "3.1.1",
+          "NeoOffice 3.3": "3.1.1",
+          "NeoOffice 3.2": "3.1.1",
+          "NeoOffice 3.1": "3.1.1",
+          "NeoOffice 3.0": "3.0.1",
+        }
+        var version = mapping[versions[defaults.software.selected].selected]
+      } else if (defaults.software.selected.includes("Excel")) {
+        var software = "Excel"
+        var version = versions[defaults.software.selected].selected
+      } else {
+        var software = defaults.software.selected
+        var version = versions[defaults.software.selected].selected
+      }
       chaptersContent[slug] = pug.renderFile(
         'views/chapters/'+slug+'.pug', {
-          software: defaults.software.selected,
+          software: software,
           os: activeOS,
-          version: versions[defaults.software.selected].selected,
+          version: version,
           language: defaults.language.selected,
           locale: defaults.locale.selected,
           f: formulas.formula,
+          // !{menu("File", "Save As")}
+          menu: function(){
+            var args = [...arguments]
+            return "<code class='menu-opts'>" + args.join(" > ") + "</code>"
+          },
+          // !{key(key 1, key 2, ...)}
+          key: function(){
+            var parts = []
+            for (part in arguments){
+              var name = arguments[part]
+              if (name.toLowerCase() === "shift"){
+                name = "<span title='Shift'>⇧</span>"
+              }
+              if (activeOS === "MacOS"){
+                if (name === "Ctrl"){
+                  name = "<span title='Command key'>⌘</span>"
+                }
+              }
+              parts.push(name)
+            }
+            return "<kbd>"+parts.join("-")+"</kbd>"
+          },
           filters: {
             // :image(filenamn)
             //   [Caption]
