@@ -4,7 +4,6 @@ var pug = require('pug')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log("Getting there!")
 
   var defaults = {
     software: {
