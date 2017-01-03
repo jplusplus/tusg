@@ -17,4 +17,17 @@ $(function() {
   $(".selectonclick").on("click", function(){
     selectText(this);
   });
+
+  var w = $(window);
+  var t = $('#topbar');
+  if ($(w).scrollTop() > 380) {
+    $(t).fadeIn();
+  }
+  $(w).scroll(function () {
+    if ($(w).scrollTop() > 380) {
+      $(t).fadeIn();
+    } else {
+      $(t).fadeOut();
+    }
+});
 });
