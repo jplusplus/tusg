@@ -65,6 +65,20 @@ router.get('/', function(req, res, next) {
           language: defaults.language.selected,
           locale: defaults.locale.selected,
           f: formulas.formula,
+          filters: {
+            // :image(filenamn)
+            //   [Caption]
+            image: function(text, options){
+              var filename = Object.keys(options)[0]
+              var html = '<figure>'
+              html += '<img src="/img/'+filename+'">'
+              if (text){
+                html += '<figcaption>'+text+'</figcaption>'
+              }
+              html += '</figure>'
+              return html
+            }
+          }
         }
       )
     }
