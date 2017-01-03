@@ -4,7 +4,7 @@ block head
   title The Ultimate Spreadsheet Guide
 
 block content
-  menu.settings.col-md-10.show
+  menu.settings.col-md-10.show.hidden-print
     button.btn.pull-right(type="button", data-toggle="collapse" data-target="#menu", aria-expanded="true" aria-controls="menu") toggle menu
     form#menu(method='get',name="form").form.collapse.in
       .form-group
@@ -47,6 +47,6 @@ block content
 
     for slug, name in chapters
       section(id=slug)
-        a.pull-right(href="#menu") Back to top ↑
+        a.pull-right.hidden-print(href="#menu") Back to top ↑
         h2 #{name}
         .body !{chaptersContent[slug]}
