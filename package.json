@@ -27,5 +27,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "gulp-jshint": "^2.0.4",
+    "gulp-nodemon": "^2.2.1",
+    "jshint": "^2.9.4"
   }
 }
