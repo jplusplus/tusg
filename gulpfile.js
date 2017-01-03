@@ -31,7 +31,7 @@ gulp.task('compress', function (cb) {
     ], cb);
 });
 
-gulp.task('develop', function () {
+gulp.task('start-dev', function () {
   var stream = nodemon({
       script: 'bin/www',
       ext: 'js pug',
@@ -58,3 +58,4 @@ gulp.task('develop', function () {
      gulp.watch('resources/js/*.js', ['compress']); 
 });
   gulp.task('default', ['css', 'compress', 'lint']);
+  gulp.task('develop', ['css', 'compress', 'watch', 'start-dev']);
