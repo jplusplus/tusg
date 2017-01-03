@@ -53,13 +53,17 @@ router.get('/', function(req, res, next) {
 
   var selectedOS = defaults.os.selected
   var activeOS = selectedOS
+  var lockOS = false
   // Change OS in case of incompatible parameters
   if (defaults.software.selected == "Excel for Windows") {
     activeOS = "Windows"
+    lockOS = true
   } else if (defaults.software.selected == "Excel for Mac") {
     activeOS = "MacOS"
+    lockOS = true
   } else if (defaults.software.selected == "NeoOffice") {
     activeOS = "MacOS"
+    lockOS = true
   }
 
   var software = defaults.software.selected
@@ -78,7 +82,7 @@ router.get('/', function(req, res, next) {
     }
     var version = mapping[version]
   } else {
-    var varsion = selectedVersion
+    var version = selectedVersion
   }
 
   // Normalize Excel varietes
@@ -88,6 +92,7 @@ router.get('/', function(req, res, next) {
 
   // async module (needs to load i18n data)
   var formulas = require("../lib/formulas.js")
+  var helpers = require("../lib/helpers.js")(activeOS)
   formulas.init(defaults.language.selected, software, function(){
     var chaptersContent = {}
     for (chapter in chapters){
@@ -101,37 +106,9 @@ router.get('/', function(req, res, next) {
           locale: defaults.locale.selected,
           f: formulas.formula,
           menu: formulas.menu,
-          // !{key(key 1, key 2, ...)}
-          key: function(){
-            var parts = []
-            for (part in arguments){
-              var name = arguments[part]
-              if (name.toLowerCase() === "shift"){
-                name = "<span title='Shift'>⇧</span>"
-              }
-              if (activeOS === "MacOS"){
-                if (name === "Ctrl"){
-                  name = "<span title='Command key'>⌘</span>"
-                }
-              }
-              parts.push(name)
-            }
-            return "<kbd>"+parts.join("-")+"</kbd>"
-          },
+          key: helpers.key,
           filters: {
-            // :image(filenamn)
-            //   [Caption]
-            image: function(text, options){
-              var filename = Object.keys(options)[0]
-              var class_ = Object.keys(options)[1] === "small" ? " class='col-md-5 pull-right'" : ""
-              var html = '<figure' + class_ + '>'
-              html += '<img src="/img/'+filename+'">'
-              if (text){
-                html += '<figcaption>'+text+'</figcaption>'
-              }
-              html += '</figure>'
-              return html
-            }
+            image: helpers.image
           }
         }
       )
@@ -144,6 +121,7 @@ router.get('/', function(req, res, next) {
       availableOS: defaults.os.allowed,
       activeOS: activeOS,
       selectedOS: selectedOS,
+      lockOS: lockOS,
       availableVersions: versions[defaults.software.selected],
       activeVersion: selectedVersion,
       availableLanguages: defaults.language.allowed,

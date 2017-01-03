@@ -4,43 +4,71 @@ block head
   title The Ultimate Spreadsheet Guide
 
 block content
-  menu.settings.col-md-10.show.hidden-print
-    button.btn.pull-right(type="button", data-toggle="collapse" data-target="#menu", aria-expanded="true" aria-controls="menu") toggle menu
-    form#menu(method='get',name="form").form.collapse.in
+  .settings.col-md-10.show.hidden-print
+
+    nav#topbar.navbar.navbar-default.navbar-fixed-top.hidden-xs
+      .container
+          span.dropdown
+            button(type="button", data-toggle="dropdown").btn.btn-primary.dropdown-toggle Chapters
+              span.caret
+            ul.dropdown-menu
+              li
+                a test
+          form(method='get',name="form", style="display:inline-block").form-inline
+            .form-group
+              select(name="software", id="software", onchange="this.form.submit()").form-control
+                each software in availableSoftwares
+                  option(value=software, selected=activeSoftware == software) #{software}
+            if activeSoftware != "Google Sheets"
+              .form-group
+                select(name="version", id="version", onchange="this.form.submit()", disabled=disableVersion).form-control
+                  each version in availableVersions
+                    option(value=version, selected=activeVersion == version) #{version}
+            if !lockOS
+              .form-group
+                select(name="os", id="os", onchange="this.form.submit()", disabled=disableOS).form-control
+                  each os in availableOS
+                    option(value=os, selected=activeOS == os) #{os}
+            .form-group
+              select(name="language", id="language", onchange="this.form.submit()").form-control
+                each language in availableLanguages
+                  option(value=language, selected=activeLanguage == language) #{language}
+            .form-group
+              select(name="locale", id="locale", onchange="this.form.submit()").form-control
+                each locale in availableLocales
+                  option(value=locale, selected=activeLocale == locale) #{locale}
+
+    form#menu(method='get',name="form").form
       .form-group
         label(for='software') Software
-          select(name="software", id="software", onchange="this.form.submit()").form-control
-            each software in availableSoftwares
-              option(value=software, selected=activeSoftware == software) #{software}
+        select(name="software", id="software", onchange="this.form.submit()").form-control
+          each software in availableSoftwares
+            option(value=software, selected=activeSoftware == software) #{software}
       if activeSoftware == "Google Sheets"
         - var disableVersion = true
       else
         - var disableVersion = false
       .form-group
         label(for='version') Version
-          select(name="version", id="version", onchange="this.form.submit()", disabled=disableVersion).form-control
-            each version in availableVersions
-              option(value=version, selected=activeVersion == version) #{version}
-      if activeOS !== selectedOS 
-        - var disableOS = true
-      else
-        - var disableOS = false
+        select(name="version", id="version", onchange="this.form.submit()", disabled=disableVersion).form-control
+          each version in availableVersions
+            option(value=version, selected=activeVersion == version) #{version}
       .form-group
         label(for='os') OS
-          select(name="os", id="os", onchange="this.form.submit()", disabled=disableOS).form-control
-            each os in availableOS
-              option(value=os, selected=activeOS == os) #{os}
+        select(name="os", id="os", onchange="this.form.submit()", disabled=lockOS).form-control
+          each os in availableOS
+            option(value=os, selected=activeOS == os) #{os}
       .form-group
         label(for='language') Language
-          select(name="language", id="language", onchange="this.form.submit()").form-control
-            each language in availableLanguages
-              option(value=language, selected=activeLanguage == language) #{language}
+        select(name="language", id="language", onchange="this.form.submit()").form-control
+          each language in availableLanguages
+            option(value=language, selected=activeLanguage == language) #{language}
         p The language of your software interface (e.g. menus)
       .form-group
         label(for='locale') Locale
-          select(name="locale", id="locale", onchange="this.form.submit()").form-control
-            each locale in availableLocales
-              option(value=locale, selected=activeLocale == locale) #{locale}
+        select(name="locale", id="locale", onchange="this.form.submit()").form-control
+          each locale in availableLocales
+            option(value=locale, selected=activeLocale == locale) #{locale}
         p The content language setting. Things like decimal separators depend on a combination of language and location, e.g. #[code sv-FI] for Swedish in Finland.
 
   article.col-md-10
