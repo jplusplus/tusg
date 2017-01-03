@@ -88,7 +88,7 @@ router.get('/', function(req, res, next) {
 
   // async module (needs to load i18n data)
   var formulas = require("../lib/formulas.js")
-  formulas.init(defaults.language.selected, function(){
+  formulas.init(defaults.language.selected, software, function(){
     var chaptersContent = {}
     for (chapter in chapters){
       var slug = chapters[chapter]
