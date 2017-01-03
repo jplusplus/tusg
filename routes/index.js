@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   var defaults = {
     software: {
       allowed: ["Excel for Windows", "Excel for Mac", "Google Sheets", "LibreOffice/OpenOffice", "NeoOffice"],
-      default: "Excel for Window",
+      default: "Excel for Windows",
     },
     language: {
       allowed: ["English", "Swedish"],
