@@ -15,9 +15,12 @@ function selectText(element) {
 }
 $(function() {
   // Select snippets on single click
-  $(".selectonclick").on("click", function(){
-    selectText(this);
-  });
+  function addSelectOnClick(scope){
+    $(scope).find(".selectonclick").on("click", function(){
+      selectText(this);
+    });
+  }
+  addSelectOnClick("body");
 
   // Show topbar on scroll
   var w = $(window);
@@ -104,6 +107,7 @@ $(function() {
           var sectionElem = $("section#"+section+" div.body");
           $(sectionElem).fadeOut(75, function(){
             $(this).html(res[$(this).data("slug")]);
+            addSelectOnClick(this);
           }).fadeIn(150);
         }
       }
