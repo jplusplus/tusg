@@ -38,12 +38,13 @@ $(function() {
   $("#software").add("#software-top").on("change", function(){
     var val = $(this).val();
     // force and diable OS
+    var os = $("#os").add("#os-top");
     if (val === "Excel for Mac" || val === "NeoOffice"){
-      $("#os").add("#os-top").val("MacOS").attr("disabled", true);
+      $(os).val("MacOS").attr("disabled", true);
     } else if (val === "Excel for Windows"){
-      $("#os").add("#os-top").val("Windows").attr("disabled", true);
+      $(os).val("Windows").attr("disabled", true);
     } else {
-      $("#os").add("#os-top").attr("disabled", false);
+      $(os).attr("disabled", false);
     }
     // set available version
     var selectedVersion = $("#version").val();
@@ -67,13 +68,14 @@ $(function() {
         }
         selectHtml += ' value="' + allowedVersion[i] + '">' + allowedVersion[i] + '</option>';
     }
-    $("#version").add("#version-top").html(selectHtml);
+    var version = $("#version").add("#version-top");
+    $(version).html(selectHtml);
 
     // disable version
     if (val === "Google Sheets"){
-      $("#version").add("#version-top").attr("disabled", true);
+      $(version).attr("disabled", true);
     } else {
-      $("#version").add("#version-top").attr("disabled", false);
+      $(version).attr("disabled", false);
     }
   });
 
