@@ -1,6 +1,9 @@
 .js .js-hide {
   display:none;
 }
+.no-js .js-only {
+	display:none;
+}
 @import "bootstrap";
 @import "typography";
 @import "layout";
