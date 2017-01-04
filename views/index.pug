@@ -12,9 +12,9 @@ block content
             button(type="button", data-toggle="dropdown").btn.btn-primary.dropdown-toggle Chapters
               span.caret
             ul.dropdown-menu
-              li
-                a test
-          form(method='get',name="form", style="display:inline-block").form-inline
+              for slug, name in chapters
+                li #[a(href="#"+slug) #{name}]
+          form(style="display:inline-block;padding-left:1em;").form.form-inline
             .form-group
               select(name="software", id="software").form-control
                 each software in availableSoftwares
@@ -38,7 +38,7 @@ block content
                 each locale in availableLocales
                   option(value=locale, selected=activeLocale == locale) #{locale}
 
-    form#menu(method='get', name="form", action="/").form
+    form#menu(method='get', action="/").form
       .form-group
         label(for='software') Software
         select(name="software", id="software").form-control
