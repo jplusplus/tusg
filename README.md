@@ -16,11 +16,17 @@ In your chapter files, you can access a number of variables and helper functions
 
 ### Variables
 
-These are accessed like this: `#{os}`, eg:
+These are accessed like this:
 
 ```pug
     if os == "MacOS"
       p Character encoding can sometimes be an issue when importing CSV files.
+```
+
+or inline like this:
+
+```pug
+    p The bitwise AND function is written #{version < "Excel 2013" ? "with an ugly hack using SUBSTITUTE" : "BITAND"} in Excel.
 ```
 
 * `os`: Operating system, e.g. `Windows`.
@@ -38,7 +44,7 @@ These are accessed like this: `!{f()}`, eg:
 ```
 
 * `f()`: Translates a spreadsheet function when needed (for Excel in other languages than English), and uses the right argument delimiter (comma och semicolon). First argument is the English name of the function, and the rest is treated like arguments to that function. E.g. `!{f("left", A1, 4)}` => `=VÄNSTER(A1; 4)`
-* `menu()`: Translates a menu path, and formats is like nicely. E.g. `!{menu("Format", "Cells")}` => `Formatera > Celler`
+* `menu()`: Translates an option or a menu path, and formats is like nicely. E.g. `!{menu("Format", "Cells")}` => `Formatera > Celler`
 * `key()`: Translates keyboard shortcut to the current OS. E.g. `!{key("Ctrl", "A")}` => `⌘-A`
 
 ### Filters
@@ -50,10 +56,14 @@ These are accessed like this: `:image(name.png)`, eg:
       Here goes a caption to that image
 ```
 
- * `image()`: Embeds an image from the `/public/img` folder. Use `small` as the second argument to inline a smaller, floating image. 
+ * `image()`: Embeds an image from the `/public/img` folder. Use `small` as the second argument to inline a smaller, floating image. If the filename contains a comma you will have to enclose it in quotes.
 
 
 ## Environment variables
 
  - `export DEBUG=tusg` to enable debug messages
  - `export NODE_ENV=development` to run in development mode, `export NODE_ENV=production` otherwise
+
+## Changelog
+
+* 0.0.1: First version
