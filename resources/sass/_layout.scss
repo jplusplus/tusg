@@ -24,6 +24,7 @@ section h2::before {
 }
 section {
   counter-reset: numbered;
+  clear: both;
 }
 h3.numbered::before {
   counter-increment: numbered;
