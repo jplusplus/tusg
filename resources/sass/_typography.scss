@@ -35,3 +35,9 @@ code.formula{
   color:green;
   background-color:#f5f5f5;
 }
+
+/* Avoid section h3's to be hidden below navbar */
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
