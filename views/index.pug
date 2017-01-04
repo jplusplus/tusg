@@ -25,7 +25,7 @@ block content
                   each version in availableVersions
                     option(value=version, selected=activeVersion == version) #{version}
             .form-group
-              select(name="os", id="os-top", data-pair="os", disable=lockOS).form-control
+              select(name="os", id="os-top", data-pair="os", disabled=lockOS).form-control
                 each os in availableOS
                   option(value=os, selected=activeOS == os) #{os}
             .form-group
