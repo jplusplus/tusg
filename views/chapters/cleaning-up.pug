@@ -10,9 +10,9 @@ p Make sure to remove all headers, footers and comments. Your data sheet should 
 h3.numbered Remove all aggreggates
 p You do not want any rows with totals and sub totals in your data. Every row should represent the same thing. In a sheet containing municipality populations, each row should represent a municipality. Rows with county population do not &mdash; they belong in a different sheet and should be deleted.
 :image(cleaning-up-no-aggreggates-bad.png)
-  Bad
+  Bad. “Män” and “kvinnor” are both genders, but “totalt” is the sub-total of them both. Those rows do not belong here. 
 :image(cleaning-up-no-aggreggates-good.png)
-  Bad
+  Good
 
 h3.numbered Fill out row labels 
 p Sometimes only the first in a series of rows is labeled. We want to explicitly label reach and every row. You can achieve this with a clever little !{f("if")} formula. This formula will check if column A is empty in the example pictured, and if so, take the value from the previous cell: !{f("if", 'A2=""', 'D1', 'A2')}. Finally autofill to the bottom.
