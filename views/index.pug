@@ -16,32 +16,32 @@ block content
                 li #[a(href="#"+slug) #{name}]
           form(style="display:inline-block;padding-left:1em;").form.form-inline
             .form-group
-              select(name="software", id="software").form-control
+              select(name="software", id="software-top" data-pair="software").form-control
                 each software in availableSoftwares
                   option(value=software, selected=activeSoftware == software) #{software}
             if activeSoftware != "Google Sheets"
               .form-group
-                select(name="version", id="version", disabled=disableVersion).form-control
+                select(name="version", id="version-top" data-pair="version").form-control
                   each version in availableVersions
                     option(value=version, selected=activeVersion == version) #{version}
             if !lockOS
               .form-group
-                select(name="os", id="os", disabled=disableOS).form-control
+                select(name="os", id="os-top", data-pair="os").form-control
                   each os in availableOS
                     option(value=os, selected=activeOS == os) #{os}
             .form-group
-              select(name="language", id="language").form-control
+              select(name="language", id="language-top", data-pair="language").form-control
                 each language in availableLanguages
                   option(value=language, selected=activeLanguage == language) #{language}
             .form-group
-              select(name="locale", id="locale").form-control
+              select(name="locale", id="locale-top", data-pair="locale").form-control
                 each locale in availableLocales
                   option(value=locale, selected=activeLocale == locale) #{locale}
 
     form#menu(method='get', action="/").form
       .form-group
         label(for='software') Software
-        select(name="software", id="software").form-control
+        select(name="software", id="software", data-pair="software-top").form-control
           each software in availableSoftwares
             option(value=software, selected=activeSoftware == software) #{software}
       if activeSoftware == "Google Sheets"
@@ -50,23 +50,23 @@ block content
         - var disableVersion = false
       .form-group
         label(for='version') Version
-        select(name="version", id="version", disabled=disableVersion).form-control
+        select(name="version", id="version", disabled=disableVersion, data-pair="version-top").form-control
           each version in availableVersions
             option(value=version, selected=activeVersion == version) #{version}
       .form-group
         label(for='os') OS
-        select(name="os", id="os", disabled=lockOS).form-control
+        select(name="os", id="os", disabled=lockOS, data-pair="os-top").form-control
           each os in availableOS
             option(value=os, selected=activeOS == os) #{os}
       .form-group
         label(for='language') Language
-        select(name="language", id="language").form-control
+        select(name="language", id="language", data-pair="language-top").form-control
           each language in availableLanguages
             option(value=language, selected=activeLanguage == language) #{language}
         p The language of your software interface (e.g. menus)
       .form-group
         label(for='locale') Locale
-        select(name="locale", id="locale").form-control
+        select(name="locale", id="locale", data-pair="locale-top").form-control
           each locale in availableLocales
             option(value=locale, selected=activeLocale == locale) #{locale}
         p The content language setting. Things like decimal separators depend on a combination of language and location, e.g. #[code sv-FI] for Swedish in Finland.
