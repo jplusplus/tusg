@@ -24,11 +24,10 @@ block content
                 select(name="version", id="version-top" data-pair="version").form-control
                   each version in availableVersions
                     option(value=version, selected=activeVersion == version) #{version}
-            if !lockOS
-              .form-group
-                select(name="os", id="os-top", data-pair="os").form-control
-                  each os in availableOS
-                    option(value=os, selected=activeOS == os) #{os}
+            .form-group
+              select(name="os", id="os-top", data-pair="os", disable=lockOS).form-control
+                each os in availableOS
+                  option(value=os, selected=activeOS == os) #{os}
             .form-group
               select(name="language", id="language-top", data-pair="language").form-control
                 each language in availableLanguages
