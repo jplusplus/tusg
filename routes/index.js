@@ -30,8 +30,9 @@ router.get('/', function(req, res, next) {
   urlParams = [
   ].join("&")
 
-  request.post("http://localhost:3000/content", {
-      url: "http://localhost:3000/content",
+  var port = process.env.PORT || 3000
+  request.post({
+      url: "http://localhost:"+port+"/content",
       json: true,
       body: {
         language: defaults.language.selected
