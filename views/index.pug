@@ -87,4 +87,4 @@ block content
       section(id=slug)
         a.pull-right.hidden-print(href="#menu") Back to top ↑
         h2 #{name}
-        .body !{chaptersContent[slug]}
+        .body(data-slug=slug) !{chaptersContent[slug]}

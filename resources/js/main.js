@@ -103,7 +103,7 @@ $(function() {
         for (var section in res){
           var sectionElem = $("section#"+section+" div.body");
           $(sectionElem).fadeOut(75, function(){
-            $(this).html(res[section]);
+            $(this).html(res[$(this).data("slug")]);
           }).fadeIn(150);
         }
       }
