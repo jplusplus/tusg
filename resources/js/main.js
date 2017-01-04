@@ -14,10 +14,12 @@ function selectText(element) {
   }
 }
 $(function() {
+  // Select snippets on single click
   $(".selectonclick").on("click", function(){
     selectText(this);
   });
 
+  // Show topbar on scroll
   var w = $(window);
   var t = $('#topbar');
   if ($(w).scrollTop() > 380) {
@@ -29,5 +31,36 @@ $(function() {
     } else {
       $(t).fadeOut();
     }
-});
+  });
+
+  // Update page on form changes
+  $("form :input").on("change", function(){
+    //Get form data as object
+    var data = $(this).closest('form').serializeArray().reduce(function(obj, item) {
+      obj[item.name] = item.value;
+      return obj;
+    }, {});
+    $.ajax({
+      url: "/content",
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'POST',
+      processData: false,
+      data: JSON.stringify(data),
+      success: function(res){
+        for (var section in res){
+          var sectionElem = $("section#"+section+" div.body");
+          $(sectionElem).html(res[section]);
+/*          var position = $(window).scrollTop();
+          $(sectionElem).fadeOut("fast", function(){
+            $(sectionElem).html(res[section]);
+            $(sectionElem).fadeIn(100, function(){
+              console.log(position);
+              $(window).scrollTo(position);
+            });
+          });*/
+        }
+      }
+    });
+  });
 });
