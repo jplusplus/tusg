@@ -55,11 +55,10 @@ $(function() {
       data: JSON.stringify(data),
       success: function(res){
         for (var section in res){
-          console.log(section, res[section]);
           var sectionElem = $("section#"+section+" div.body");
-          $(sectionElem).fadeOut(100, function(){
-            $(sectionElem).html(res[section]);
-          }).fadeIn(200);
+          $(sectionElem).fadeOut(75, function(){
+            $(this).html(res[section]);
+          }).fadeIn(150);
         }
       }
     });
