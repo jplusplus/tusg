@@ -33,6 +33,12 @@ $(function() {
     }
   });
 
+  // Pair form controls
+  $("form :input").on("change", function(){
+    var partner = $(this).data("pair");
+    $("#"+partner).val($(this).val());
+  });
+
   // Update page on form changes
   $("form :input").on("change", function(){
     //Get form data as object
@@ -49,6 +55,7 @@ $(function() {
       data: JSON.stringify(data),
       success: function(res){
         for (var section in res){
+          console.log(section, res[section]);
           var sectionElem = $("section#"+section+" div.body");
           $(sectionElem).fadeOut(100, function(){
             $(sectionElem).html(res[section]);
