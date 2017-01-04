@@ -4,7 +4,6 @@ var settings = require('../settings')
 var optParser = require('../lib/opt-parser')
 
 var content =  function(req, res, next) {
-  console.log("BODY:", req.body)
 
   var defaults = settings.defaults
   var versions = settings.versions
