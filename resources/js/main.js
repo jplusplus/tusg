@@ -50,15 +50,9 @@ $(function() {
       success: function(res){
         for (var section in res){
           var sectionElem = $("section#"+section+" div.body");
-          $(sectionElem).html(res[section]);
-/*          var position = $(window).scrollTop();
-          $(sectionElem).fadeOut("fast", function(){
+          $(sectionElem).fadeOut(100, function(){
             $(sectionElem).html(res[section]);
-            $(sectionElem).fadeIn(100, function(){
-              console.log(position);
-              $(window).scrollTo(position);
-            });
-          });*/
+          }).fadeIn(200);
         }
       }
     });
