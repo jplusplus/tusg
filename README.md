@@ -40,10 +40,10 @@ or inline like this:
 These are accessed like this: `!{f()}`, eg:
 
 ```pug
-    p Use the function !{f("mid")} to extract a substring from a string, like this: !{f("mid", A1, 2, 6)}.
+    p Use the function !{f("mid")} to extract a substring from a string, like this: !{f("mid", "A1", "2", "6")}.
 ```
 
-* `f()`: Translates a spreadsheet function when needed (for Excel in other languages than English), and uses the right argument delimiter (comma och semicolon). First argument is the English name of the function, and the rest is treated like arguments to that function. E.g. `!{f("left", A1, 4)}` => `=VÄNSTER(A1; 4)`
+* `f()`: Translates a spreadsheet function when needed (for Excel in other languages than English), and uses the right argument delimiter (comma och semicolon). First argument is the English name of the function, and the rest is treated like arguments to that function. E.g. `!{f("left", "A1", "4")}` => `=VÄNSTER(A1; 4)`
 * `menu()`: Translates an option or a menu path, and formats is like nicely. E.g. `!{menu("Format", "Cells")}` => `Formatera > Celler`
 * `key()`: Translates keyboard shortcut to the current OS. E.g. `!{key("Ctrl", "A")}` => `⌘-A`
 
