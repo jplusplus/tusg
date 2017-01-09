@@ -37,6 +37,7 @@ settings.chapters = {
   "What software should I use?": "chosing-software",
   "Guiding principles": "best-practices",
   "Cleaning up your sheet": "cleaning-up",
+  "Combining data": "lookup-functions",
 }
 
 module.exports = settings
