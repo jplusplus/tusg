@@ -30,6 +30,9 @@ app.use(compression())
 app.use(express.static(p('public')))
 
 app.use('/', index)
+app.get('/spreadsheet', function(req, res, next){
+  res.render('spreadsheet')
+})
 
 var jsonParser = bodyParser.json()
 app.post('/content', jsonParser, content)
