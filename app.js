@@ -26,16 +26,11 @@ app.set('view engine', 'pug')
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
-//app.use(compression())
+app.use(compression())
 app.use(express.static(p('public')))
 
 app.use('/', index)
 
-//app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({ extended: false }))
-//app.use('/content', content)
-
-//var urlParser = bodyParser.urlencoded({ extended: false })
 var jsonParser = bodyParser.json()
 app.post('/content', jsonParser, content)
 
