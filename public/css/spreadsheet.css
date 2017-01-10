@@ -5,30 +5,31 @@
     width: 100%;
 }
 
-table {
+#spreadsheet table {
     border-collapse: collapse;
 }
 
-td {
+#spreadsheet td, #spreadsheet th {
     border: 1px solid lightgray;
-    padding: 0;
+    padding: 2px 4px;
     margin: 0;
 }
+#spreadsheet td:hover {
+    outline: 2px solid darkgreen;
+    cursor: default;
+}
 
-    tr:first-child td, td:first-child {
-        background-color: whitesmoke;
-        text-align: center;
-        border-color: darkgray;
-        padding: 1px 3px;
-    }
+#spreadsheet th:first-child {
+    width:2em;
+}
 
-
-        tr:first-child td:hover, td:first-child:hover {
-            background-color: lightgray;
-            color: darkgreen;
-            border-bottom: 3px solid darkgreen;
-            cursor: pointer;
-        }
+#spreadsheet th {
+    background-color: whitesmoke;
+    text-align: center;
+    border-color: darkgray;
+    padding: 1px 3px;
+    font-weight:100;
+}
 
 input {
     text-align: right;
@@ -38,20 +39,13 @@ input {
     font-size: 14px;
 }
 
-    input:hover {
-        border: solid;
-        border-width: 2px;
-        border-color: darkgreen;
-        cursor: default;
-    }
-
-    input:focus {
-        text-align: left;
-        border: solid;
-        border-color: darkgreen;
-        border-width: 2px;
-        outline: none;
-    }
+input:focus {
+    text-align: left;
+    border: solid;
+    border-color: darkgreen;
+    border-width: 2px;
+    outline: none;
+}
 
 .selected {
     background-color: lightgray !important;
