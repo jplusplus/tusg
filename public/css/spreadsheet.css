@@ -3,9 +3,6 @@
     overflow-x: auto;
     border: 1px solid darkgray;
     width: 100%;
-}
-
-#spreadsheet table {
     border-collapse: collapse;
 }
 
@@ -14,7 +11,7 @@
     padding: 2px 4px;
     margin: 0;
 }
-#spreadsheet td:hover {
+#spreadsheet td.active {
     outline: 2px solid darkgreen;
     cursor: default;
 }
@@ -31,20 +28,11 @@
     font-weight:100;
 }
 
-input {
+input#spreadsheet {
     text-align: right;
     border: none;
     height: 22px;
-    width: 80px;
     font-size: 14px;
-}
-
-input:focus {
-    text-align: left;
-    border: solid;
-    border-color: darkgreen;
-    border-width: 2px;
-    outline: none;
 }
 
 .selected {
