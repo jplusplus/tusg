@@ -6,18 +6,27 @@ block head
 
 block content
   h1 Test bed for spreadsheets
-  div.spreadsheet
+  div.spreadsheet("tabIndex"=1)
     form
       span.topleft 𝑓𝑥
       input(disabled=true)
     table
-      tr
-        th
-        for col in cols
-          th(scope="col") #{col}
-      for row in data
+      thead
         tr
-          th(scope="row") 1
-          for cell in row
-            td(data-formula=cell.formula || cell.value) #{cell.value}
-    
+          th
+          for col in cols
+            th(scope="col") #{col}
+      tbody
+        - var r = 1
+        for row in data
+          tr
+            th(scope="row") #{r}
+            - r++
+            - var c = 1
+            for cell in row
+              td(data-formula=cell.formula || cell.value,
+                 col=c-1, row=r-1) #{cell.value}
+              - c++
+
+    div.diagonal.diagonal-one
+    div.diagonal.diagonal-two

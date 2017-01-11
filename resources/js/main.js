@@ -13,6 +13,32 @@ function selectText(element) {
     selection.addRange(range);
   }
 }
+/* Spreadsheets*/
+$(function() {
+  var activeCell;
+  $(".spreadsheet").each(function(spreadsheetIndex){
+    var spreadsheet = this;
+    var fBar = $(spreadsheet).find("input");
+    // Event handlers to each cell
+    $(this).find("td").each(function(cellIndex){
+      var cell = this;
+      console.log(cell);
+      $(cell).on('click touch', function(){
+        if (!$(cell).hasClass("active")){
+          // clear other active cells and activate this
+          $("td.active").removeClass("active");
+          $(cell).addClass("active");
+          $(fBar).val($(cell).data("formula"));
+        }
+      });
+    });
+    // Clear active cells when leaving a spreadsheet
+    $(spreadsheet).on("blur", function(){
+      $("td.active").removeClass("active");
+      $(fBar).val('');
+    });
+  });
+});
 $(function() {
   // Select snippets on single click
   function addSelectOnClick(scope){
@@ -92,7 +118,7 @@ $(function() {
   // Update page on form changes
   $("form :input").on("change", function(){
     //Get form data as object
-    var data = $(this).closest('form').serializeArray().reduce(function(obj, item) {
+    var data = $(this).closest('form').serializeArray().reduce(function(obj, item){
       obj[item.name] = item.value;
       return obj;
     }, {});
