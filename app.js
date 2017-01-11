@@ -31,7 +31,13 @@ app.use(express.static(p('public')))
 
 app.use('/', index)
 app.get('/spreadsheet', function(req, res, next){
-  res.render('spreadsheet')
+  if (process.env.GOOGLE_CLIENT_EMAIL && process.env.GOOGLE_PRIVATE_KEY){
+    res.render('spreadsheet')
+  } else {
+    var err = new Error("No Google API credentials setup")
+    err.status = 501
+    next(err)
+  }
 })
 
 var jsonParser = bodyParser.json()
