@@ -35,7 +35,8 @@ router.get('/', function(req, res, next) {
       url: "http://localhost:"+port+"/content",
       json: true,
       body: {
-        language: defaults.language.selected
+        language: defaults.language.selected,
+        locale: defaults.locale.selected,
       },
       'content-type': 'application/json',
     },

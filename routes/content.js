@@ -52,7 +52,10 @@ var content =  function(req, res, next) {
   // async module (needs to load i18n data)
   var formulas = require("../lib/formulas.js")
   var helpers = require("../lib/helpers.js")(activeOS)
-  formulas.init(req.body.language, software, function(){
+  formulas.init(software,
+                req.body.language,
+                req.body.locale,
+                function(){
     var chaptersContent = {}
     for (chapter in chapters){
       var slug = chapters[chapter]
