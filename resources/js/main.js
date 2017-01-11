@@ -36,12 +36,14 @@ $(function() {
     }
   });
 
+  var os = $("#os").add("#os-top");
+  var software = $("#software").add("#software-top");
+  var version = $("#version").add("#version-top");
   // Force change and disable OS and version as needed
   // to reflect the ”real” status
-  $("#software").add("#software-top").on("change", function(){
+  $(software).on("change", function(){
     var val = $(this).val();
-    // force and diable OS
-    var os = $("#os").add("#os-top");
+    // force and disable OS
     if (val === "Excel for Mac" || val === "NeoOffice"){
       $(os).val("MacOS").attr("disabled", true);
     } else if (val === "Excel for Windows"){
@@ -71,7 +73,6 @@ $(function() {
         }
         selectHtml += ' value="' + allowedVersion[i] + '">' + allowedVersion[i] + '</option>';
     }
-    var version = $("#version").add("#version-top");
     $(version).html(selectHtml);
 
     // disable version
