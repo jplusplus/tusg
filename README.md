@@ -8,6 +8,8 @@ This is a dynamic spreadsheet guide for journalists. It contains the everyday sk
     npm install
     gulp develop
 
+To make the Google Sheets integration work, you will also need to add a API key.
+
 `gulp develop` will set environment variables to defaults and start the app in development mode. You should now be able to access the site at [localhost:3000](http://localhost:3000)
 
 Each pug file in [`views/chapters`](https://github.com/jplusplus/tusg/tree/master/views/chapters) corresponds to one chapter in the guide. Just edit the pug files, and reload the page.
@@ -63,6 +65,12 @@ These are accessed like this: `:image(name.png)`, eg:
 
  - `export DEBUG=tusg` to enable debug messages
  - `export NODE_ENV=development` to run in development mode, `export NODE_ENV=production` otherwise
+ - `export GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"` private API key (json format with line breaks, and explicit `=`'s) for your Google Drive service account (see [this guide](https://github.com/theoephraim/node-google-spreadsheet#user-content-service-account-recommended-method) for step by step insctuctions on how to do this).
+ 
+ For Heroku, the corresponding commands would be:
+  - `heroku config:add DEBUG=tusg`
+  - `heroku config:add NODE_ENV=production`
+  - `heroku config:add GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"`
 
 ## Changelog
 
