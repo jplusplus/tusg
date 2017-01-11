@@ -1,4 +1,12 @@
-﻿#spreadsheet {
+﻿div.spreadsheet{
+    border: 1px solid gray;
+    padding: 2px;
+}
+div.spreadsheet.active{
+    border: 2px solid darkgreen;
+}
+
+.spreadsheet table {
     overflow-y: auto;
     overflow-x: auto;
     border: 1px solid darkgray;
@@ -6,21 +14,21 @@
     border-collapse: collapse;
 }
 
-#spreadsheet td, #spreadsheet th {
+.spreadsheet table td, .spreadsheet table th {
     border: 1px solid lightgray;
     padding: 2px 4px;
     margin: 0;
 }
-#spreadsheet td.active {
+.spreadsheet table td.active {
     outline: 2px solid darkgreen;
     cursor: default;
 }
 
-#spreadsheet th:first-child {
+.spreadsheet table th:first-child {
     width:2em;
 }
 
-#spreadsheet th {
+.spreadsheet table th {
     background-color: whitesmoke;
     text-align: center;
     border-color: darkgray;
@@ -28,11 +36,34 @@
     font-weight:100;
 }
 
-input#spreadsheet {
+.spreadsheet form{
+    width:100%;
+    position:relative;
+    margin:0;padding:0;
+    height:22px;
+}
+.spreadsheet form span.topleft {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    height:22px;
+    width: 2em;
+    border-right: 1px solid gray;
+    z-index: 4;
+    background-color: white;
     text-align: right;
+    padding-right: 5px;
+}
+.spreadsheet form input {
+    display: inline-block;
+    position: absolute;
+    text-align: left;
+    background-color: white;
     border: none;
-    height: 22px;
+    height: 22px; 
     font-size: 14px;
+    width: 100%;
+    padding-left: 2em;
 }
 
 .selected {
