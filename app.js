@@ -17,6 +17,7 @@ var p = function(){
 
 var index = require(p('routes', 'index'))
 var content = require(p('routes', 'content'))
+var spreadsheet = require(p('routes', 'spreadsheet'))
 
 var app = express()
 
@@ -32,7 +33,7 @@ app.use(express.static(p('public')))
 app.use('/', index)
 app.get('/spreadsheet', function(req, res, next){
   if (process.env.GOOGLE_CLIENT_EMAIL && process.env.GOOGLE_PRIVATE_KEY){
-    res.render('spreadsheet')
+    spreadsheet(req, res, next)
   } else {
     var err = new Error("No Google API credentials setup")
     err.status = 501

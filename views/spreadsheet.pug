@@ -9,13 +9,11 @@ block content
   table#spreadsheet
     tr
       th
-      th(scope="col") A
-      th(scope="col") B
-    tr
-      th(scope="row") 1
-      td content
-      td content
-    tr
-      th(scope="row") 2
-      td content
-      td content
+      for col in cols
+        th(scope="col") #{col}
+    for row in data
+      tr
+        th(scope="row") 1
+        for cell in row
+          td(data-formula=cell.formula || cell.value) #{cell.value}
+  
