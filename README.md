@@ -1,14 +1,27 @@
 # The Ultimate Spreadsheet Guide
 This is a dynamic spreadsheet guide for journalists. It contains the everyday skills needed in a newsroom, adopted to your platform, software version and language. Live demo: https://tusg.herokuapp.com
 
-## Getting started
+## Installation
+
+To install:
 
     git clone https://github.com/jplusplus/tusg.git
     cd tusg
     npm install
-    gulp develop
 
-To make the Google Sheets integration work, you will also need to add a API key.
+Optionally, to make the Google Sheets integration work, you will also need to add a API key:
+ - Get an API key (json format with line breaks, and explicit `=`'s) for your Google Drive service account (see [this guide](https://github.com/theoephraim/node-google-spreadsheet#user-content-service-account-recommended-method) for step by step insctuctions on how to do this).
+ - Open the downloaded json file, and copy the private key to a separate text file.
+ - Replace `\n` with actual line breaks.
+ - Replace `\u003d` with `=`
+ - `export GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"`
+ - `export GOOGLE_CLIENT_EMAIL=yourserviceaccountemail@google.com`
+
+## Developing
+
+To get started:
+
+    gulp develop
 
 `gulp develop` will set environment variables to defaults and start the app in development mode. You should now be able to access the site at [localhost:3000](http://localhost:3000)
 
@@ -65,13 +78,17 @@ These are accessed like this: `:image(name.png)`, eg:
 
  - `export DEBUG=tusg` to enable debug messages
  - `export NODE_ENV=development` to run in development mode, `export NODE_ENV=production` otherwise
- - `export GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"` private API key (json format with line breaks, and explicit `=`'s) for your Google Drive service account (see [this guide](https://github.com/theoephraim/node-google-spreadsheet#user-content-service-account-recommended-method) for step by step insctuctions on how to do this).
- 
- For Heroku, the corresponding commands would be:
-  - `heroku config:add DEBUG=tusg`
-  - `heroku config:add NODE_ENV=production`
-  - `heroku config:add GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"`
 
+To enable Google Sheets integration:
+ - `export GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"` private API key (json format with line breaks, and explicit `=`'s) for your Google Drive service account (see [this guide](https://github.com/theoephraim/node-google-spreadsheet#user-content-service-account-recommended-method) for step by step insctuctions on how to do this).
+ - `export GOOGLE_CLIENT_EMAIL=yourserviceaccountemail@google.com`
+ 
+For Heroku, the corresponding commands would be:
+ - `heroku config:add DEBUG=tusg`
+ - `heroku config:add NODE_ENV=production`
+ - `heroku config:add GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"`
+ - `heroku config:add GOOGLE_CLIENT_EMAIL=yourserviceaccountemail@google.com`
+ 
 ## Changelog
 
 * 0.0.1: First version
