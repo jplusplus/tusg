@@ -6,7 +6,7 @@ block head
 
 block content
   h1 Test bed for spreadsheets
-  div.spreadsheet("tabIndex"=1)
+  div.spreadsheet("tabIndex"=1, data-columns=cols.length, data-rows=data.length)
     form
       span.topleft 𝑓𝑥
       input(disabled=true)
@@ -25,7 +25,8 @@ block content
             - var c = 1
             for cell in row
               td(data-formula=cell.formula || cell.value,
-                 col=c-1, row=r-1) #{cell.value}
+                 data-col=c-1, data-row=r-1,
+                 class="c"+(c-1)+"r"+(r-1)) #{cell.value}
               - c++
 
     div.diagonal.diagonal-one
