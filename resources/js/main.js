@@ -16,28 +16,59 @@ function selectText(element) {
 /* Spreadsheets*/
 $(function() {
   var activeCell;
+  function moveTo(sheet, col, row){
+    col = Math.max(0, col);
+    col = Math.min($(sheet).data("columns") - 1, col);
+    row = Math.max(1, row);
+    row = Math.min($(sheet).data("rows"), row);
+    $(activeCell).removeClass("active");
+    var cell = $(sheet).find(".c"+col+"r"+row);
+    $(cell).addClass("active");
+    activeCell = cell;
+    $(sheet).find("input").val($(cell).data("formula"));    
+  }
   $(".spreadsheet").each(function(spreadsheetIndex){
     var spreadsheet = this;
     var fBar = $(spreadsheet).find("input");
     // Event handlers to each cell
-    $(this).find("td").each(function(cellIndex){
+    $(spreadsheet).find("td").each(function(cellIndex){
       var cell = this;
-      console.log(cell);
       $(cell).on('click touch', function(){
-        if (!$(cell).hasClass("active")){
-          // clear other active cells and activate this
-          $("td.active").removeClass("active");
-          $(cell).addClass("active");
-          $(fBar).val($(cell).data("formula"));
-        }
+        moveTo(spreadsheet, $(cell).data("col"), $(cell).data("row"));
       });
     });
     // Clear active cells when leaving a spreadsheet
     $(spreadsheet).on("blur", function(){
       $("td.active").removeClass("active");
       $(fBar).val('');
+      activeCell = null;
+    });
+    /* Arrow key navigation */
+    $(spreadsheet).on("keydown", function(e) {
+      if (!activeCell){
+        // Start navigating if not already activated
+        moveTo(this, 0, 1);
+      }
+      switch(e.keyCode){
+        case 37:  // Left
+          moveTo(this, $(activeCell).data("col") - 1, $(activeCell).data("row"));
+          return false;
+        case 38:  // Up
+          moveTo(this, $(activeCell).data("col"), $(activeCell).data("row") - 1);
+          return false;
+        case 39:  // Right
+          moveTo(this, $(activeCell).data("col") + 1, $(activeCell).data("row"));
+          return false;
+        case 40:  // Down
+          moveTo(this, $(activeCell).data("col"), $(activeCell).data("row") + 1);
+          return false;
+        case 27:  // ESC
+          $(this).blur();
+          return false;
+      }
     });
   });
+
 });
 $(function() {
   // Select snippets on single click
