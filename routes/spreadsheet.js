@@ -1,5 +1,8 @@
 var router = require('express').Router()
 var textFunctions = require("../lib/text-functions.js")("en-GB")
+var formulas = require("../lib/formulas.js")
+var optParser = require('../lib/opt-parser')
+var settings = require("../settings.js")
 var pug = require('pug')
 var GoogleSpreadsheet = require('google-spreadsheet')
 var async = require('async')
@@ -7,8 +10,13 @@ var async = require('async')
 /* GET home page. */
 module.exports = function(req, res, next) {
 
+  // Fetch url parameters or defaults
+  var defaults = settings.defaults
+  optParser.parse(req.query, settings.defaults)
+
   var spreadsheetKey = req.query.key
   var doc = new GoogleSpreadsheet(spreadsheetKey)
+
   var sheet
   var data = []
   var numcols = 0 // last column with a value
@@ -23,13 +31,25 @@ module.exports = function(req, res, next) {
     },
     function getInfoAndWorksheets(step) {
       doc.getInfo(function(err, info) {
-        console.log('Loaded doc: '+info.title)
+        if (err || (typeof info == "undefined")){
+          var error = new Error("Failed to load spreadsheet")
+          error.status = 501
+          next(error)
+          return
+        }
         sheet = info.worksheets[0]
-        console.log('sheet 1: '+sheet.title)
         step()
       })
     },
-    function workingWithRows(step) {
+    function getHelpers(step){
+      var step = step
+      formulas.init(defaults.software.selected,
+                  defaults.language.selected,
+                  defaults.locale.selected, function(){
+                    step()
+                  })
+    },
+    function getRows(step) {
       sheet.getCells({
         'min-row': 1,
         'max-row': 20,
@@ -42,9 +62,16 @@ module.exports = function(req, res, next) {
           if (!(row in data)){
             data[row] = []
           }
+          if (cell.formula){
+            var formula = formulas.parseString(cell.formula)
+            formula = "=" + formulas.format(formula)
+          } else {
+            var formula = cell.value
+          }
           data[row][col] = {
             value: cell.value,
-            formula: cell.formula
+            formula: formula,
+            numericValue: cell.numericValue,
           }
           if (cell.value){
             numcols = Math.max(numcols, col)
