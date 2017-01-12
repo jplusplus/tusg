@@ -64,7 +64,12 @@ module.exports = function(req, res, next) {
           }
           if (cell.formula){
             var formula = formulas.parseString(cell.formula)
-            formula = "=" + formulas.format(formula)
+            if (formula){
+              formula = "=" + formulas.format(formula)
+            } else {
+              console.log("Failed to parse formula: ", cell.formula)
+              formula = cell.formula
+            }
           } else {
             var formula = cell.value
           }
