@@ -20,7 +20,7 @@ $(function() {
     col = Math.max(0, col);
     col = Math.min(sheet.numCols - 1, col);
     row = Math.max(1, row);
-    row = Math.min($(sheet).data("rows"), row);
+    row = Math.min(sheet.numRows, row);
     $(activeCell).removeClass("active");
     var cell = $(sheet).find(".c"+col+"r"+row);
     $(cell).addClass("active");
@@ -31,6 +31,7 @@ $(function() {
   $(".spreadsheet").each(function(spreadsheetIndex){
     var spreadsheet = this;
     spreadsheet.numCols = $(spreadsheet).data("columns");
+    spreadsheet.numRows = $(spreadsheet).data("rows");
     spreadsheet.lastPos = [0, 1];
     var fBar = $(spreadsheet).find("input");
     // Event handlers to each cell
@@ -52,6 +53,12 @@ $(function() {
     /* Arrow key navigation */
     $(spreadsheet).on("keydown", function(e) {
       switch(e.keyCode){
+        case 33:  // PgUp
+          moveTo(this, $(activeCell).data("col"), 1);
+          return false;
+        case 34:  // PgDn
+          moveTo(this, $(activeCell).data("col"), spreadsheet.numRows);
+          return false;
         case 35:  // End
           moveTo(this, spreadsheet.numCols, $(activeCell).data("row"));
           return false;
