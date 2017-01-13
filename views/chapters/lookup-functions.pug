@@ -1,6 +1,6 @@
 p This chapter will guide yout through combining data from two tables with the !{f("vlookup")} function.
 h3 Merging tables
-p Given a table of Finnish MP's, and their party name, we want to add a third column separating them into opposition and government politicians. This information can be looked up in the table to the right. We want to look up the party name from #[code B2] in the table to the right, and insert the value from the second column in that table. This is written !{f("vlookup", "B2", "E$2:F$9", "2")}, where #[code B2] is the value to look up, the #[code E$2:F$9], the table to fetch data from, and #[code 2] meaning ”second column”. An optional fourth argument should, if included, be #[code 0] or #[code FALSE] in this case.
+p Given a table of Finnish MP's, and their party name, we want to add a third column separating them into opposition and government politicians. This information can be looked up in the table to the right. We want to look up the party name from #[code B2] in the table to the right, and insert the value from the second column in that table. This is written !{f("VLOOKUP", "B2", "E$2:F$9", "2")}, where #[code B2] is the value to look up, the #[code E$2:F$9], the table to fetch data from, and #[code 2] meaning ”second column”. An optional fourth argument should, if included, be #[code 0] or !{menu("FALSE")} in this case.
 if software == "LibreOffice/OpenOffice"
   if language == "Swedish"
     :image(lookup-functions-libre-(sv).png)
