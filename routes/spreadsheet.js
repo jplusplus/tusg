@@ -87,9 +87,6 @@ module.exports = function(req, res, next) {
           if (cell.formula){
             var formula = formulas.parseString(cell.formula)
             if (formula){
-              // TODO: translate references
-              // 
-              // TODO: hilight references cells
               formula = "=" + formulas.format(formula, col, row)
             } else {
               console.log("Failed to parse formula: ", cell.formula)
