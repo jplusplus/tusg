@@ -66,6 +66,7 @@ var content =  function(req, res, next) {
           version: req.body.version,
           language: req.body.language,
           locale: req.body.locale,
+          t: formulas.t,
           f: formulas.formula,
           menu: formulas.menu,
           key: helpers.key,
