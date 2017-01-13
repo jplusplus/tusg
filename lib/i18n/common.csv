@@ -1,9 +1,15 @@
-"English","French","Dutch","German","Spanish","Portuguese","Russian","Swedish","Italian","Danish","Polish","Finnish","Norwegian","Czech","Hungarian","Turkish"
-"Format",,,,,,,"Formatera",,,,"Muotoilu",,,,
-"Format Cells",,,,,,,"Formatera celler",,,,,,,,
-"Merge Cells",,,,,,,"Sammanfoga celler",,,,"Yhdistä solut",,,,
-"Text to Columns",,,,,,,"Text till kolumner",,,,"Teksti sarakkeisiin",,,,
-"Search and Replace",,,,,,,"Sök och ersätt",,,,"Etsi ja korvaa",,,,
-"Split Cells",,,,,,,"Dela celler",,,,"Jaa solut",,,,
-"TRUE","VRAI","WAAR","WAHR","VERDADERO","VERDADEIRO","ИСТИНА","SANT","VERO","SAND","PRAWDA","TOSI","SANN","PRAVDA","IGAZ","DOĞRU"
-"FALSE","FAUX","ONWAAR","FALSCH","FALSO","FALSO","ЛОЖЬ","FALSKT","FALSO","FALSK","FAŁSZ","EPÄTOSI","USANN","NEPRAVDA","HAMIS","YANLIŞ"
+"English","French","Dutch","German","Spanish","Portuguese","Russian","Swedish","Italian","Danish","Polish","Finnish","Norwegian","Czech","Hungarian","Turkish","Greek"
+"Format",,,,,,,"Formatera",,,,"Muotoilu",,,,,
+"Format Cells",,,,,,,"Formatera celler",,,,,,,,,
+"Merge Cells",,,,,,,"Sammanfoga celler",,,,"Yhdistä solut",,,,,
+"Text to Columns",,,,,,,"Text till kolumner",,,,"Teksti sarakkeisiin",,,,,
+"Search and Replace",,,,,,,"Sök och ersätt",,,,"Etsi ja korvaa",,,,,
+"Split Cells",,,,,,,"Dela celler",,,,"Jaa solut",,,,,
+"TRUE","VRAI","WAAR","WAHR","VERDADERO","VERDADEIRO","ИСТИНА","SANT","VERO","SAND","PRAWDA","TOSI","SANN","PRAVDA","IGAZ","DOĞRU",
+"FALSE","FAUX","ONWAAR","FALSCH","FALSO","FALSO","ЛОЖЬ","FALSKT","FALSO","FALSK","FAŁSZ","EPÄTOSI","USANN","NEPRAVDA","HAMIS","YANLIŞ",
+"#VALUE!","#VALEUR!","#WAARDE!","#WERT!","#¡VALOR!","#VALOR!","#ЗНАЧ!","#VÄRDEFEL!","#VALORE!","#VÆRDI!","#ARG!","#ARVO!","#VERDI!","#HODNOTA!","#ÉRTÉK!","#DEĞER!",
+"#N/A",,"#N/B","#NV",,"#N/D","#Н/Д","#SAKNAS!","#N/D","#I/T","#N/D!","#PUUTTUU!","#I/T","#NENÍ_K_DISPOZICI","#HIÁNYZIK","#YOK","#Δ/Υ"
+"#NULL!","#NUL!","#LEEG!",,"#¡NULO!","#NULO!","#ПУСТО!","#SKÄRNING!",,"#NUL!","#ZERO!","#TYHJÄ!",,,"#NULLA!","#BOŞ!","#ΚΕΝΟ!"
+"#DIV/0!",,,,,,,"#DIVISION/0!",,,,,,,,,
+"#REF!",,,,,,,"#REFERENS!",,,,,,,,,
+"#NAME?","#NOM?","#NAAM?",,"#¿NOMBRE?","#NOME?","#ИМЯ?","#NAMN?",,"#NAVN?","#NAZWA?","#NIMI?","#NAVN?",,,"#AD?","#ΟΝΟΜΑ?"
