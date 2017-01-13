@@ -18,17 +18,20 @@ $(function() {
   var activeCell;
   function moveTo(sheet, col, row){
     col = Math.max(0, col);
-    col = Math.min($(sheet).data("columns") - 1, col);
+    col = Math.min(sheet.numCols - 1, col);
     row = Math.max(1, row);
     row = Math.min($(sheet).data("rows"), row);
     $(activeCell).removeClass("active");
     var cell = $(sheet).find(".c"+col+"r"+row);
     $(cell).addClass("active");
     activeCell = cell;
+    sheet.lastPos = [cell.data("col"), cell.data("row")];
     $(sheet).find("input").val($(cell).data("formula"));    
   }
   $(".spreadsheet").each(function(spreadsheetIndex){
     var spreadsheet = this;
+    spreadsheet.numCols = $(spreadsheet).data("columns");
+    spreadsheet.lastPos = [0, 1];
     var fBar = $(spreadsheet).find("input");
     // Event handlers to each cell
     $(spreadsheet).find("td").each(function(cellIndex){
@@ -43,13 +46,18 @@ $(function() {
       $(fBar).val('');
       activeCell = null;
     });
+    $(spreadsheet).on("focus", function(){
+      moveTo(this, spreadsheet.lastPos[0], spreadsheet.lastPos[1]);
+    });
     /* Arrow key navigation */
     $(spreadsheet).on("keydown", function(e) {
-      if (!activeCell){
-        // Start navigating if not already activated
-        moveTo(this, 0, 1);
-      }
       switch(e.keyCode){
+        case 35:  // End
+          moveTo(this, spreadsheet.numCols, $(activeCell).data("row"));
+          return false;
+        case 36:  // Home
+          moveTo(this, 0, $(activeCell).data("row"));
+          return false;
         case 37:  // Left
           moveTo(this, $(activeCell).data("col") - 1, $(activeCell).data("row"));
           return false;
