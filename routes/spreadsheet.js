@@ -1,11 +1,11 @@
 var router = require('express').Router()
-var textFunctions = require("../lib/text-functions.js")("en-GB")
 var formulas = require("../lib/formulas.js")
 var optParser = require('../lib/opt-parser')
 var settings = require("../settings.js")
 var pug = require('pug')
 var GoogleSpreadsheet = require('google-spreadsheet')
 var async = require('async')
+var textFunctions
 
 /* GET home page. */
 module.exports = function(req, res, next) {
@@ -43,6 +43,8 @@ module.exports = function(req, res, next) {
     },
     function getHelpers(step){
       var step = step
+      textFunctions = require("../lib/text-functions.js")(defaults.locale.selected)
+
       formulas.init(defaults.software.selected,
                   defaults.language.selected,
                   defaults.locale.selected, function(){
@@ -62,21 +64,34 @@ module.exports = function(req, res, next) {
           if (!(row in data)){
             data[row] = []
           }
+          // Localize numerical value
+          if (typeof cell.numericValue !== "undefined"){
+            var value = textFunctions.number(cell.numericValue, 9)
+            var cellClass = "number"
+          } else{
+            var value = cell.value
+            var cellClass = "text"
+          }
+          // Parse and localize formulas
           if (cell.formula){
             var formula = formulas.parseString(cell.formula)
             if (formula){
-              formula = "=" + formulas.format(formula)
+              // TODO: translate references
+              // 
+              // TODO: hilight references cells
+              formula = "=" + formulas.format(formula, col, row)
             } else {
               console.log("Failed to parse formula: ", cell.formula)
               formula = cell.formula
             }
           } else {
-            var formula = cell.value
+            var formula = value
           }
+          // Data
           data[row][col] = {
-            value: cell.value,
+            value: value,
             formula: formula,
-            numericValue: cell.numericValue,
+            class: cellClass
           }
           if (cell.value){
             numcols = Math.max(numcols, col)
@@ -96,6 +111,7 @@ module.exports = function(req, res, next) {
       res.render("spreadsheet", {
         data: data,
         cols: columnHeaders,
+        softwareClass: defaults.software.selected.split("/")[0].replace(" ","_").toLowerCase()
       })
     },
   ])  // async
