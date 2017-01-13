@@ -64,13 +64,24 @@ module.exports = function(req, res, next) {
           if (!(row in data)){
             data[row] = []
           }
+
+          // Set defaults for cell 
+          var value = cell.value
+          var cellClass = "text"
           // Localize numerical value
           if (typeof cell.numericValue !== "undefined"){
-            var value = textFunctions.number(cell.numericValue, 9)
-            var cellClass = "number"
-          } else{
-            var value = cell.value
-            var cellClass = "text"
+            value = textFunctions.number(cell.numericValue, 9)
+            cellClass = "number"
+          }
+          // Localize reserved words
+          if (["TRUE", "FALSE"].indexOf(value) > -1){
+            value = formulas.t(value)
+            cellClass = "boolean"
+          }
+          // Localize error messages
+          if (value[0] === "#"){
+            value = formulas.t(value)
+            cellClass = "error"
           }
           // Parse and localize formulas
           if (cell.formula){
