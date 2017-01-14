@@ -9,13 +9,15 @@ To install:
     cd tusg
     npm install
 
-Optionally, to make the Google Sheets integration work, you will also need to add a API key:
+Optionally, to make the Google Sheets integration work, you will also need to add a API key and either Memcached or MemCachier.
  - Get an API key (json format with line breaks, and explicit `=`'s) for your Google Drive service account (see [this guide](https://github.com/theoephraim/node-google-spreadsheet#user-content-service-account-recommended-method) for step by step insctuctions on how to do this).
  - Open the downloaded json file, and copy the private key to a separate text file.
  - Replace `\n` with actual line breaks.
  - Replace `\u003d` with `=`
  - `export GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"`
  - `export GOOGLE_CLIENT_EMAIL=yourserviceaccountemail@google.com`
+ - `apt-get install memcached` (Ubuntu) or `brew install memcached` (OS X) to install Memcached.
+ - `export MEMCACHIER_SERVERS=127.0.0.1:11211` (depending on your server setup. This is the defult for many systems) to set the Memcached server.
 
 ## Developing
 

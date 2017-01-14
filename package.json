@@ -21,6 +21,7 @@
     "gulp-ruby-sass": "^2.1.1",
     "gulp-uglify": "^2.0.0",
     "intl": "^1.2.5",
+    "memjs": "^0.10.0",
     "morgan": "~1.6.1",
     "node-cache": "^3.2.1",
     "pug": "^2.0.0-beta6",
