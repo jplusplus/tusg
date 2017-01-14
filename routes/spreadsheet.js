@@ -1,3 +1,6 @@
+var memjs = require('memjs')
+var cache = memjs.Client.create()
+
 var router = require('express').Router()
 var formulas = require("../lib/formulas.js")
 var optParser = require('../lib/opt-parser')
@@ -17,19 +20,39 @@ module.exports = function(req, res, next) {
   var spreadsheetKey = req.query.key
   var doc = new GoogleSpreadsheet(spreadsheetKey)
 
-  var sheet
-  var data = []
+  //cache.set('hello', JSON.stringify({abc: "def"}), function(){})
+  var cells // data from Google Sheets
+  var data = [] // parsed data
   var numcols = 0 // last column with a value
 
   async.series([
+    function getCache(step){
+      cache.get(spreadsheetKey, function(err, val) {
+        if (err){
+          console.log("MemCachier error:", err)
+        } else {
+          cells = val ? JSON.parse(val.toString()) : null
+        }
+        step()
+      })
+    },
     function setAuth(step) {
+      if (cells){
+        // skip if already fetched from cache
+        step()
+      }
       var creds = {
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
         private_key: process.env.GOOGLE_PRIVATE_KEY
       }
       doc.useServiceAccountAuth(creds, step)
     },
-    function getInfoAndWorksheets(step) {
+    function getData(step) {
+      var step = step
+      if (cells){
+        // skip if already fetched from cache
+        step()
+      }
       doc.getInfo(function(err, info) {
         if (err || (typeof info == "undefined")){
           var error = new Error("Failed to load spreadsheet")
@@ -38,7 +61,14 @@ module.exports = function(req, res, next) {
           return
         }
         sheet = info.worksheets[0]
-        step()
+        sheet.getCells({
+          'min-row': 1,
+          'max-row': 20,
+          'return-empty': true
+        }, function( err, c ){
+          cells = c
+          step()
+        })
       })
     },
     function getHelpers(step){
@@ -51,62 +81,56 @@ module.exports = function(req, res, next) {
                     step()
                   })
     },
-    function getRows(step) {
-      sheet.getCells({
-        'min-row': 1,
-        'max-row': 20,
-        'return-empty': true
-      }, function( err, cells ){
-        for (let cell of cells) {
-          row = cell.row - 1
-          col = cell.col - 1
+    function parseData(step) {
+      for (let cell of cells) {
+        row = cell.row - 1
+        col = cell.col - 1
 
-          if (!(row in data)){
-            data[row] = []
-          }
-
-          // Set defaults for cell 
-          var value = cell.value
-          var cellClass = "text"
-          // Localize numerical value
-          if (typeof cell.numericValue !== "undefined"){
-            value = textFunctions.number(cell.numericValue, 9)
-            cellClass = "number"
-          }
-          // Localize reserved words
-          if (["TRUE", "FALSE"].indexOf(value) > -1){
-            value = formulas.t(value)
-            cellClass = "boolean"
-          }
-          // Localize error messages
-          if (value[0] === "#"){
-            value = formulas.t(value)
-            cellClass = "error"
-          }
-          // Parse and localize formulas
-          if (cell.formula){
-            var formula = formulas.parseString(cell.formula)
-            if (formula){
-              formula = "=" + formulas.format(formula, col, row)
-            } else {
-              console.log("Failed to parse formula: ", cell.formula)
-              formula = cell.formula
-            }
-          } else {
-            var formula = value
-          }
-          // Data
-          data[row][col] = {
-            value: value,
-            formula: formula,
-            class: cellClass
-          }
-          if (cell.value){
-            numcols = Math.max(numcols, col)
-          }
+        if (!(row in data)){
+          data[row] = []
         }
-        step()
-      })
+
+        // Set defaults for cell 
+        var value = cell.value
+        var cellClass = "text"
+        // Localize numerical value
+        if (typeof cell.numericValue !== "undefined"){
+          value = textFunctions.number(cell.numericValue, 9)
+          cellClass = "number"
+        }
+        // Localize reserved words
+        if (["TRUE", "FALSE"].indexOf(value) > -1){
+          value = formulas.t(value)
+          cellClass = "boolean"
+        }
+        // Localize error messages
+        if (value[0] === "#"){
+          value = formulas.t(value)
+          cellClass = "error"
+        }
+        // Parse and localize formulas
+        if (cell.formula){
+          var formula = formulas.parseString(cell.formula)
+          if (formula){
+            formula = "=" + formulas.format(formula, col, row)
+          } else {
+            console.log("Failed to parse formula: ", cell.formula)
+            formula = cell.formula
+          }
+        } else {
+          var formula = value
+        }
+        // Data
+        data[row][col] = {
+          value: value,
+          formula: formula,
+          class: cellClass
+        }
+        if (cell.value){
+          numcols = Math.max(numcols, col)
+        }
+      }
+      step()
     },
     function render(step){
       columnHeaders = Array.from(" ".repeat(numcols+1))
