@@ -22,7 +22,7 @@
     "gulp-uglify": "^2.0.0",
     "intl": "^1.2.5",
     "morgan": "~1.6.1",
-    "node-cache": "^3.0.0",
+    "node-cache": "^3.2.1",
     "pug": "^2.0.0-beta6",
     "pump": "^1.0.2",
     "request": "^2.65.0",
