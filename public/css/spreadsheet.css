@@ -1,9 +1,10 @@
 ﻿div.spreadsheet{
     border: 1px solid gray;
     padding: 2px;
+    overflow: hidden;
 }
-div.spreadsheet.active{
-    border: 2px solid darkgreen;
+div.spreadsheet:focus{
+    outline: 2px solid darkgreen;
 }
 
 .spreadsheet table {
@@ -19,9 +20,18 @@ div.spreadsheet.active{
     padding: 2px 4px;
     margin: 0;
 }
+.spreadsheet table td.number {
+    text-align:right;
+}
+.spreadsheet table td.boolean, .spreadsheet table td.error {
+    text-align:center;
+}
 .spreadsheet table td.active {
     outline: 2px solid darkgreen;
     cursor: default;
+}
+.spreadsheet table tr:first-child td {
+    font-weight: bold;
 }
 
 .spreadsheet table th:first-child {
@@ -63,11 +73,23 @@ div.spreadsheet.active{
     height: 22px; 
     font-size: 14px;
     width: 100%;
-    padding-left: 2em;
+    padding-left: 3em;
 }
 
 .selected {
     background-color: lightgray !important;
     color: darkgreen;
     border-bottom: 3px solid darkgreen !important;
+}
+.bad .diagonal-one {
+    transform-origin: right;
+    transform: rotateZ(30deg);
+}
+.bad .diagonal-two {
+    transform-origin: left;
+    transform: rotateZ(-30deg);
+}
+.bad .diagonal {
+    height: 2px;
+    background-color: red;
 }
