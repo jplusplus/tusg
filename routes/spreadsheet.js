@@ -20,7 +20,6 @@ module.exports = function(req, res, next) {
   var spreadsheetKey = req.query.key
   var doc = new GoogleSpreadsheet(spreadsheetKey)
 
-  //cache.set('hello', JSON.stringify({abc: "def"}), function(){})
   var cells // data from Google Sheets
   var data = [] // parsed data
   var numcols = 0 // last column with a value
@@ -40,6 +39,7 @@ module.exports = function(req, res, next) {
       if (cells){
         // skip if already fetched from cache
         step()
+        return
       }
       var creds = {
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
@@ -52,6 +52,7 @@ module.exports = function(req, res, next) {
       if (cells){
         // skip if already fetched from cache
         step()
+        return
       }
       doc.getInfo(function(err, info) {
         if (err || (typeof info == "undefined")){
@@ -67,7 +68,12 @@ module.exports = function(req, res, next) {
           'return-empty': true
         }, function( err, c ){
           cells = c
-          step()
+          cache.set(spreadsheetKey, JSON.stringify(cells), function(err){
+            if (err) {
+              console.log("Failed setting cache: ", err)
+            }
+            step()
+          })
         })
       })
     },
