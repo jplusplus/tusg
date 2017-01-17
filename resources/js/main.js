@@ -13,78 +13,8 @@ function selectText(element) {
     selection.addRange(range);
   }
 }
-/* Spreadsheets*/
-$(function() {
-  var activeCell;
-  function moveTo(sheet, col, row){
-    col = Math.max(0, col);
-    col = Math.min(sheet.numCols - 1, col);
-    row = Math.max(1, row);
-    row = Math.min(sheet.numRows, row);
-    $(activeCell).removeClass("active");
-    var cell = $(sheet).find(".c"+col+"r"+row);
-    $(cell).addClass("active");
-    activeCell = cell;
-    sheet.lastPos = [cell.data("col"), cell.data("row")];
-    $(sheet).find("input").val($(cell).data("formula"));    
-  }
-  $(".spreadsheet").each(function(spreadsheetIndex){
-    var spreadsheet = this;
-    spreadsheet.numCols = $(spreadsheet).data("columns");
-    spreadsheet.numRows = $(spreadsheet).data("rows");
-    spreadsheet.lastPos = [0, 1];
-    var fBar = $(spreadsheet).find("input");
-    // Event handlers to each cell
-    $(spreadsheet).find("td").each(function(cellIndex){
-      var cell = this;
-      $(cell).on('click touch', function(){
-        moveTo(spreadsheet, $(cell).data("col"), $(cell).data("row"));
-      });
-    });
-    // Clear active cells when leaving a spreadsheet
-    $(spreadsheet).on("blur", function(){
-      $("td.active").removeClass("active");
-      $(fBar).val('');
-      activeCell = null;
-    });
-    $(spreadsheet).on("focus", function(){
-      moveTo(this, spreadsheet.lastPos[0], spreadsheet.lastPos[1]);
-    });
-    /* Arrow key navigation */
-    $(spreadsheet).on("keydown", function(e) {
-      switch(e.keyCode){
-        case 33:  // PgUp
-          moveTo(this, $(activeCell).data("col"), 1);
-          return false;
-        case 34:  // PgDn
-          moveTo(this, $(activeCell).data("col"), spreadsheet.numRows);
-          return false;
-        case 35:  // End
-          moveTo(this, spreadsheet.numCols, $(activeCell).data("row"));
-          return false;
-        case 36:  // Home
-          moveTo(this, 0, $(activeCell).data("row"));
-          return false;
-        case 37:  // Left
-          moveTo(this, $(activeCell).data("col") - 1, $(activeCell).data("row"));
-          return false;
-        case 38:  // Up
-          moveTo(this, $(activeCell).data("col"), $(activeCell).data("row") - 1);
-          return false;
-        case 39:  // Right
-          moveTo(this, $(activeCell).data("col") + 1, $(activeCell).data("row"));
-          return false;
-        case 40:  // Down
-          moveTo(this, $(activeCell).data("col"), $(activeCell).data("row") + 1);
-          return false;
-        case 27:  // ESC
-          $(this).blur();
-          return false;
-      }
-    });
-  });
 
-});
+/* General page layout */
 $(function() {
   // Select snippets on single click
   function addSelectOnClick(scope){
@@ -111,20 +41,32 @@ $(function() {
   var os = $("#os").add("#os-top");
   var software = $("#software").add("#software-top");
   var version = $("#version").add("#version-top");
+  var language = $("#language").add("#language-top");
+  $(language).on("change", function(){
+    _g_tusg_options.language = $(this).val();
+  });
+  var locale = $("#locale").add("#locale-top");
+  $(locale).on("change", function(){
+    _g_tusg_options.locale = $(this).val();
+  });
   // Force change and disable OS and version as needed
   // to reflect the ”real” status
   $(software).on("change", function(){
     var val = $(this).val();
+    _g_tusg_options.software = val;
     // force and disable OS
     if (val === "Excel for Mac" || val === "NeoOffice"){
       $(os).val("MacOS").attr("disabled", true);
+      _g_tusg_options.os = "MacOS";
     } else if (val === "Excel for Windows"){
       $(os).val("Windows").attr("disabled", true);
+      _g_tusg_options.os = "Windows";
     } else {
       $(os).attr("disabled", false);
     }
     // set available version
     var selectedVersion = $("#version").val();
+    _g_tusg_options.version = selectedVersion;
     var allowedVersion = {
       "Excel for Windows": ["Excel 2016", "Excel 2013", "Excel 2010", "Excel 2007"], 
       "Excel for Mac": ["Excel 2016", "Excel 2015", "Excel 2011", "Excel 2008"],
@@ -136,6 +78,7 @@ $(function() {
     var len = allowedVersion.length;
     if (allowedVersion.indexOf(selectedVersion) === -1){
       selectedVersion = allowedVersion[0];
+      _g_tusg_options.version = selectedVersion;
     }
     var selectHtml = '';
     for (var i = 0; i< len; i++) {
@@ -183,7 +126,115 @@ $(function() {
             addSelectOnClick(this);
           }).fadeIn(150);
         }
+        var timer = setTimeout(function(){
+          loadSpreadsheets();
+          clearTimeout(timer);
+        }, 900)
       }
     });
   });
+});
+
+var activeCell;
+function moveTo(sheet, col, row){
+  col = Math.max(0, col);
+  col = Math.min(sheet.numCols - 1, col);
+  row = Math.max(1, row);
+  row = Math.min(sheet.numRows, row);
+  $(activeCell).removeClass("active");
+  var cell = $(sheet).find(".c"+col+"r"+row);
+  $(cell).addClass("active");
+  activeCell = cell;
+  sheet.lastPos = [cell.data("col"), cell.data("row")];
+  $(sheet).find("input").val($(cell).data("formula"));    
+}
+
+var loadSpreadsheets = function(){
+  $(".replaceWithSpreadsheet").each(function(num){
+    var options = {
+      key: $(this).data("key"),
+      text: $(this).data("text"),
+      language: _g_tusg_options.language,
+      locale: _g_tusg_options.locale,
+      software: _g_tusg_options.software,
+    };
+    var self = $(this);
+    $.ajax({
+      url: "/spreadsheetAjax",
+      contentType: 'application/json',
+      dataType: 'json',
+      type: 'POST',
+      processData: false,
+      data: JSON.stringify(options),
+      success: function(res){
+        var div = self.html(res);
+        activateSpreadsheet(div.find(".spreadsheet")[0]);
+      }
+    });    
+  });
+
+};
+
+var activateSpreadsheet = function(spreadsheet){
+
+  var spreadsheet = spreadsheet;
+  spreadsheet.numCols = $(spreadsheet).data("columns");
+  spreadsheet.numRows = $(spreadsheet).data("rows");
+  spreadsheet.lastPos = [0, 1];
+  var fBar = $(spreadsheet).find("input");
+  // Event handlers to each cell
+  $(spreadsheet).find("td").each(function(cellIndex){
+    var cell = this;
+    $(cell).on('click touch', function(){
+      moveTo(spreadsheet, $(cell).data("col"), $(cell).data("row"));
+    });
+  });
+  // Clear active cells when leaving a spreadsheet
+  $(spreadsheet).on("blur", function(){
+    $("td.active").removeClass("active");
+    $(fBar).val('');
+    activeCell = null;
+  });
+  $(spreadsheet).on("focus", function(){
+    moveTo(this, spreadsheet.lastPos[0], spreadsheet.lastPos[1]);
+  });
+  /* Arrow key navigation */
+  $(spreadsheet).on("keydown", function(e) {
+    switch(e.keyCode){
+      case 33:  // PgUp
+        moveTo(this, $(activeCell).data("col"), 1);
+        return false;
+      case 34:  // PgDn
+        moveTo(this, $(activeCell).data("col"), spreadsheet.numRows);
+        return false;
+      case 35:  // End
+        moveTo(this, spreadsheet.numCols, $(activeCell).data("row"));
+        return false;
+      case 36:  // Home
+        moveTo(this, 0, $(activeCell).data("row"));
+        return false;
+      case 37:  // Left
+        moveTo(this, $(activeCell).data("col") - 1, $(activeCell).data("row"));
+        return false;
+      case 38:  // Up
+        moveTo(this, $(activeCell).data("col"), $(activeCell).data("row") - 1);
+        return false;
+      case 39:  // Right
+        moveTo(this, $(activeCell).data("col") + 1, $(activeCell).data("row"));
+        return false;
+      case 40:  // Down
+        moveTo(this, $(activeCell).data("col"), $(activeCell).data("row") + 1);
+        return false;
+      case 27:  // ESC
+        $(this).blur();
+        return false;
+    }
+  });
+}; // activate spreadsheets
+
+/* Add spreadsheets to page*/
+$(document).ready(function() {
+
+  loadSpreadsheets();
+
 });

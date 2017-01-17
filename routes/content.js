@@ -57,6 +57,7 @@ var content =  function(req, res, next) {
                 req.body.locale,
                 function(){
     var chaptersContent = {}
+    var totalSpreadsheets = 0
     for (chapter in chapters){
       var slug = chapters[chapter]
       chaptersContent[slug] = pug.renderFile(
@@ -71,8 +72,16 @@ var content =  function(req, res, next) {
           menu: formulas.menu,
           key: helpers.key,
           filters: {
-            image: helpers.image
-          }
+            image: helpers.image,
+            spreadsheet: function(text, options){
+              totalSpreadsheets++;
+              return "<div class='replaceWithSpreadsheet jsonly'" +
+                     " data-num='" + totalSpreadsheets + "'" +
+                     " data-text='" + text + "'" +
+                     " data-key='" + Object.keys(options)[0] + "'>" +
+                     "Loading spreadsheet ...</div><noscript>You need Javascript enabled to see this illustration</noscript>"
+             },
+          },
         }
       )
     }

@@ -17,8 +17,8 @@ var p = function(){
 
 var index = require(p('routes', 'index'))
 var content = require(p('routes', 'content'))
-var spreadsheetTest = require(p('routes', 'spreadsheet-test'))
 var spreadsheetAjax = require(p('routes', 'spreadsheet-ajax'))
+var spreadsheetTest = require(p('routes', 'spreadsheet-test'))
 
 var app = express()
 
@@ -43,8 +43,8 @@ app.get('/spreadsheet', function(req, res, next){
 })
 
 var jsonParser = bodyParser.json()
+app.post('/spreadsheetAjax', jsonParser, spreadsheetAjax)
 app.post('/content', jsonParser, content)
-app.post('/spreadsheet', jsonParser, spreadsheetAjax)
 
 
 // catch 404 and forward to error handler
