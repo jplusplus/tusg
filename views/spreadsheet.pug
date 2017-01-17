@@ -2,32 +2,11 @@ extends layout
 
 block head
   title The Ultimate Spreadsheet Guide
-  link(rel="stylesheet", href="/css/spreadsheet.css")
 
 block content
   h1 Test bed for spreadsheets
-  div.spreadsheet("tabIndex"=1, data-columns=cols.length, data-rows=data.length, class=softwareClass)
-    form
-      span.topleft 𝑓𝑥
-      input(disabled=true)
-    table
-      thead
-        tr
-          th
-          for col in cols
-            th(scope="col") #{col}
-      tbody
-        - var r = 1
-        for row in data
-          tr
-            th(scope="row") #{r}
-            - r++
-            - var c = 1
-            for cell in row
-              td(data-formula=cell.formula,
-                 data-col=c-1, data-row=r-1,
-                 class="c"+(c-1)+"r"+(r-1)+" "+cell.class) #{cell.value}
-              - c++
-
-    div.diagonal.diagonal-one
-    div.diagonal.diagonal-two
+  article
+    :spreadsheet(18w2ppKDSj5BkckAV78-Y0DXpoqSV_bLuJ4Ws_lRpMLk)
+      Det här är en bildtext
+    :spreadsheet(18w2ppKDSj5BkckAV78-Y0DXpoqSV_bLuJ4Ws_lRpMLk, bad)
+      Det här är ett exempel på hur det inte ska se ut
