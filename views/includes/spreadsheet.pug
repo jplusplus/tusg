@@ -16,7 +16,8 @@ div.spreadsheet("tabIndex"=1, data-columns=cols.length, data-rows=data.length, c
           - r++
           - var c = 1
           for cell in row
-            td(data-formula=cell.formula,
+            td(title=cell.formula,
+               data-formula=cell.formula,
                data-col=c-1, data-row=r-1,
                class="c"+(c-1)+"r"+(r-1)+" "+cell.class) #{cell.value}
             - c++
