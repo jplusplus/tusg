@@ -168,7 +168,9 @@ var loadSpreadsheets = function(){
       data: JSON.stringify(options),
       success: function(res){
         var div = self.html(res);
-        activateSpreadsheet(div.find(".spreadsheet")[0]);
+        if (res){
+          activateSpreadsheet(div.find(".spreadsheet")[0]);
+        }
       }
     });    
   });
