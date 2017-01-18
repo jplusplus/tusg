@@ -203,8 +203,6 @@ var loadSpreadsheets = function(){
 };
 
 var activateSpreadsheet = function(spreadsheet){
-
-  var spreadsheet = spreadsheet;
   spreadsheet.numCols = $(spreadsheet).data("columns");
   spreadsheet.numRows = $(spreadsheet).data("rows");
   spreadsheet.lastPos = [0, 1];
