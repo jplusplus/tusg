@@ -1,0 +1,25 @@
+div.spreadsheet("tabIndex"=1, data-columns=cols.length, data-rows=data.length, class=classes)
+  form
+    span.topleft 𝑓𝑥
+    input(disabled=true)
+  table
+    thead
+      tr
+        th
+        for col in cols
+          th(scope="col") #{col}
+    tbody
+      - var r = 1
+      for row in data
+        tr
+          th(scope="row") #{r}
+          - r++
+          - var c = 1
+          for cell in row
+            td(data-formula=cell.formula,
+               data-col=c-1, data-row=r-1,
+               class="c"+(c-1)+"r"+(r-1)+" "+cell.class) #{cell.value}
+            - c++
+
+  div.diagonal.diagonal-one
+  div.diagonal.diagonal-two
