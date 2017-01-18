@@ -71,8 +71,8 @@ $(function() {
   var os = $("#os").add("#os-top");
   var software = $("#software").add("#software-top");
   var version = $("#version").add("#version-top");
-  var language = $("#language").add("#language-top");
-  var locale = $("#locale").add("#locale-top");
+  //var language = $("#language").add("#language-top");
+  //var locale = $("#locale").add("#locale-top");
   // Force change and disable OS and version as needed
   // to reflect the ”real” status
   $(software).on("change", function(){
@@ -218,7 +218,7 @@ var activateSpreadsheet = function(spreadsheet){
   });
   // Clear active cells when leaving a spreadsheet
   $(spreadsheet).on("blur", function(){
-    $("td.active").removeClass("active");
+    $(activeCell).removeClass("active");
     $(fBar).val('');
     activeCell = null;
   });
