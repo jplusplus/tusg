@@ -13,14 +13,15 @@ router.get('/', function(req, res, next) {
   var chapters = settings.chapters
 
   // Fetch url parameters or defaults
-  optParser.parse(req.query, defaults)
+  var options = optParser.parse(req.query, defaults)
+  var software = options.software.selected
 
   // Make sure to use an available version
   // for this software
-  var selectedVersion = req.query.version
-  if (versions[defaults.software.selected].indexOf(selectedVersion) == -1){
+  var version = req.query.version
+  if (versions[software].indexOf(version) == -1){
     // Default to latest version
-    selectedVersion = versions[defaults.software.selected][0]
+    version = versions[software][0]
   }
 
   // Force and disable selection of OS for 
@@ -45,12 +46,12 @@ router.get('/', function(req, res, next) {
         res.render('index', {
           lang: "en",
           availableSoftwares: defaults.software.allowed,
-          activeSoftware: defaults.software.selected,
+          activeSoftware: software,
           availableOS: defaults.os.allowed,
           activeOS: activeOS,
           lockOS: forcedOS ? true : false,
-          availableVersions: versions[defaults.software.selected],
-          activeVersion: selectedVersion,
+          availableVersions: versions[software],
+          activeVersion: version,
           availableLanguages: defaults.language.allowed,
           activeLanguage: defaults.language.selected,
           availableLocales: defaults.locale.allowed,

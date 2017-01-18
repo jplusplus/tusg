@@ -14,6 +14,33 @@ function selectText(element) {
   }
 }
 
+function updateURL(key, val){
+  var url = window.location.href;
+  var reExp = new RegExp("[\?|\&]"+key + "=[0-9a-zA-Z\_\+\-\|\.\,\;]*");
+
+if(reExp.test(url))
+{ // update
+    reExp = new RegExp("[\?&]" + key + "=([^&#]*)");
+    var delimiter = reExp.exec(url)[0].charAt(0);
+    url = url.replace(reExp, delimiter + key + "=" + val);
+}
+else
+{ // add
+    var newParam = key + "=" + val;
+    if(url.indexOf('?') === -1){url += '?';}
+
+    if(url.indexOf('#') > -1){
+        var urlparts = url.split('#');
+        url = urlparts[0] +  "&" + newParam +  (urlparts[1] ?  "#" +urlparts[1] : '');
+    }
+    else
+    {
+        url += "&" + newParam;
+    }
+  }
+  window.history.pushState(null, document.title, url);
+}
+
 /* General page layout */
 $(function() {
   // Select snippets on single click
@@ -38,29 +65,31 @@ $(function() {
     }
   });
 
+  // Update global variables and url params
+  // on form change 
+  $(".form-control").on("change", function(){
+    var key = $(this).attr("name");
+    var val = $(this).val();
+    _g_tusg_options[key] = val;
+    updateURL(key, val);
+  });
   var os = $("#os").add("#os-top");
   var software = $("#software").add("#software-top");
   var version = $("#version").add("#version-top");
   var language = $("#language").add("#language-top");
-  $(language).on("change", function(){
-    _g_tusg_options.language = $(this).val();
-  });
   var locale = $("#locale").add("#locale-top");
-  $(locale).on("change", function(){
-    _g_tusg_options.locale = $(this).val();
-  });
   // Force change and disable OS and version as needed
   // to reflect the ”real” status
   $(software).on("change", function(){
     var val = $(this).val();
-    _g_tusg_options.software = val;
-    // force and disable OS
     if (val === "Excel for Mac" || val === "NeoOffice"){
       $(os).val("MacOS").attr("disabled", true);
       _g_tusg_options.os = "MacOS";
+      updateURL("os", "MacOS");
     } else if (val === "Excel for Windows"){
       $(os).val("Windows").attr("disabled", true);
       _g_tusg_options.os = "Windows";
+      updateURL("os", "Windows");
     } else {
       $(os).attr("disabled", false);
     }
@@ -79,6 +108,7 @@ $(function() {
     if (allowedVersion.indexOf(selectedVersion) === -1){
       selectedVersion = allowedVersion[0];
       _g_tusg_options.version = selectedVersion;
+      updateURL("version", selectedVersion);
     }
     var selectHtml = '';
     for (var i = 0; i< len; i++) {
@@ -129,7 +159,7 @@ $(function() {
         var timer = setTimeout(function(){
           loadSpreadsheets();
           clearTimeout(timer);
-        }, 900)
+        }, 900);
       }
     });
   });
