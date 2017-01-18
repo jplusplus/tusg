@@ -50,17 +50,18 @@ or inline like this:
 * `software`: E.g. `Excel`.
 * `version`: E.g. `Excel 2010`
 * `language`: Interface language for the software, e.g. `Swedish`
-* `locale`: Locale settings for the workbook, e.g. `sv-SE`. Mostly relevant for Google Sheets, where argument delimiter differ by locale.
+* `locale`: Locale settings for the workbook, e.g. `sv-SE`. 
 
 ### Functions
 
 These are accessed like this: `!{f()}`, eg:
 
 ```pug
-    p Use the function !{f("mid")} to extract a substring from a string, like this: !{f("mid", "A1", "2", "6")}.
+    p Use the function !{f("=MID()")} to extract a substring from a string, like this: !{f('=MID(A1, FIND("-", A1), 6)')}.
 ```
 
-* `f()`: Translates a spreadsheet function when needed (for Excel in other languages than English), and uses the right argument delimiter (comma och semicolon). First argument is the English name of the function, and the rest is treated like arguments to that function. E.g. `!{f("left", "A1", "4")}` => `=VÄNSTER(A1; 4)`
+* `f()`: Translates a spreadsheet function, and uses the right argument delimiter (comma och semicolon). E.g. `!{f("=LEFT(A1, 4)")}` => `=VÄNSTER(A1; 4)`
+* `t()`: Translates a localized string. E.g. `!{t("TRUE")}` => `SANT`
 * `menu()`: Translates an option or a menu path, and formats is like nicely. E.g. `!{menu("Format", "Cells")}` => `Formatera > Celler`
 * `key()`: Translates keyboard shortcut to the current OS. E.g. `!{key("Ctrl", "A")}` => `⌘-A`
 
@@ -73,8 +74,8 @@ These are accessed like this: `:image(name.png)`, eg:
       Here goes a caption to that image
 ```
 
- * `image()`: Embeds an image from the `/public/img` folder. Use `small` as the second argument to inline a smaller, floating image. If the filename contains a comma you will have to enclose it in quotes.
-
+ * `image(filename.png)`: Embeds an image from the `/public/img` folder. Use `small` as the second argument to inline a smaller, floating image. If the filename contains a comma you will have to enclose it in quotes.
+ * `spreadsheet(KEY)`: Embeds an interactive spreadsheet, based on a Google Sheets identified by KEY, but localized.
 
 ## Environment variables
 
@@ -84,12 +85,14 @@ These are accessed like this: `:image(name.png)`, eg:
 To enable Google Sheets integration:
  - `export GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"` private API key (json format with line breaks, and explicit `=`'s) for your Google Drive service account (see [this guide](https://github.com/theoephraim/node-google-spreadsheet#user-content-service-account-recommended-method) for step by step insctuctions on how to do this).
  - `export GOOGLE_CLIENT_EMAIL=yourserviceaccountemail@google.com`
+ - `export MEMCACHIER_SERVERS=127.0.0.1:11211`
  
 For Heroku, the corresponding commands would be:
  - `heroku config:add DEBUG=tusg`
  - `heroku config:add NODE_ENV=production`
  - `heroku config:add GOOGLE_PRIVATE_KEY="$(cat google_private_key.txt)"`
  - `heroku config:add GOOGLE_CLIENT_EMAIL=yourserviceaccountemail@google.com`
+ - `heroku config:add MEMCACHIER_SERVERS=127.0.0.1:11211`
  
 ## Changelog
 
