@@ -2,6 +2,14 @@ extends layout
 
 block head
   title The Ultimate Spreadsheet Guide
+  script.
+    var _g_tusg_options = {
+      language: "#{activeLanguage}",
+      software: "#{activeSoftware}",
+      version: "#{activeVersion}",
+      os: "#{activeOS}",
+      locale: "#{activeLocale}",
+    };
 
 block content
   h1 Test bed for spreadsheets
