@@ -18,7 +18,6 @@ var p = function(){
 var index = require(p('routes', 'index'))
 var content = require(p('routes', 'content'))
 var spreadsheetAjax = require(p('routes', 'spreadsheet-ajax'))
-var spreadsheetTest = require(p('routes', 'spreadsheet-test'))
 
 var app = express()
 
@@ -32,7 +31,7 @@ app.use(compression())
 app.use(express.static(p('public')))
 
 app.use('/', index)
-app.get('/spreadsheet', function(req, res, next){
+/*app.get('/spreadsheet', function(req, res, next){
   if (process.env.GOOGLE_CLIENT_EMAIL && process.env.GOOGLE_PRIVATE_KEY){
     spreadsheetTest(req, res, next)
   } else {
@@ -40,7 +39,7 @@ app.get('/spreadsheet', function(req, res, next){
     err.status = 501
     next(err)
   }
-})
+})*/
 
 var jsonParser = bodyParser.json()
 app.post('/spreadsheetAjax', jsonParser, spreadsheetAjax)
