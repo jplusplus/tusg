@@ -5,6 +5,14 @@ var logger = require('morgan')
 var compression = require('compression')
 var bodyParser = require('body-parser')
 
+/* Middleware for parsing options common to all endpoints */
+var settings = require('./settings')
+var optParser = require('./lib/opt-parser')
+var optionsParser = function(req, res, next){
+  var params = req.body || req.query
+  req.options = optParser.parse(params, settings.defaults)
+  next(null)
+}
 
 /* Shortcut for creating path strings */
 var p = function(){
@@ -29,6 +37,7 @@ app.set('view engine', 'pug')
 app.use(logger('dev'))
 app.use(compression())
 app.use(express.static(p('public')))
+app.use(optionsParser)
 
 app.use('/', index)
 /*app.get('/spreadsheet', function(req, res, next){

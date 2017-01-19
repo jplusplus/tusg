@@ -1,9 +1,6 @@
-var settings = require('../settings')
-var optParser = require('../lib/opt-parser')
-
 var spreadsheetAjax = function(req, res, next) {
   // Fetch url parameters or defaults
-  var options = optParser.parse(req.body, settings.defaults)
+  var options = req.options
 
   var spreadsheetKey = req.body.key
   var text = req.body.text

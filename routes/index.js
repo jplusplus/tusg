@@ -8,12 +8,9 @@ var optParser = require('../lib/opt-parser')
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  var defaults = settings.defaults
   var versions = settings.versions
   var chapters = settings.chapters
-
-  // Fetch url parameters or defaults
-  var options = optParser.parse(req.query, defaults)
+  var options = req.options
   var software = options.software.selected
 
   // Make sure to use an available version
@@ -26,18 +23,20 @@ router.get('/', function(req, res, next) {
 
   // Force and disable selection of OS for 
   // software limited to one OS
-  var forcedOS = optParser.forceParam(defaults.software.selected, settings.forcedOS)
-  var activeOS = forcedOS ? forcedOS : defaults.os.selected
+  var forcedOS = optParser.forceParam(options.software.selected, settings.forcedOS)
+  var activeOS = forcedOS ? forcedOS : options.os.selected
   urlParams = [
   ].join("&")
+  var activeLanguage = options.language.selected
+  var activeLocale = options.locale.selected
 
   var port = process.env.PORT || 3000
   request.post({
       url: "http://localhost:"+port+"/content",
       json: true,
       body: {
-        language: defaults.language.selected,
-        locale: defaults.locale.selected,
+        language: activeLanguage,
+        locale: activeLocale,
       },
       'content-type': 'application/json',
     },
@@ -45,17 +44,17 @@ router.get('/', function(req, res, next) {
       if (!error && response.statusCode == 200) {
         res.render('index', {
           lang: "en",
-          availableSoftwares: defaults.software.allowed,
+          availableSoftwares: options.software.allowed,
           activeSoftware: software,
-          availableOS: defaults.os.allowed,
+          availableOS: options.os.allowed,
           activeOS: activeOS,
           lockOS: forcedOS ? true : false,
           availableVersions: versions[software],
           activeVersion: version,
-          availableLanguages: defaults.language.allowed,
-          activeLanguage: defaults.language.selected,
-          availableLocales: defaults.locale.allowed,
-          activeLocale: defaults.locale.selected,
+          availableLanguages: options.language.allowed,
+          activeLanguage: activeLanguage,
+          availableLocales: options.locale.allowed,
+          activeLocale: activeLocale,
           chapters: chapters,
           chaptersContent: response.body,
         })

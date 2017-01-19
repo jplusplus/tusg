@@ -5,27 +5,24 @@ var optParser = require('../lib/opt-parser')
 
 var content =  function(req, res, next) {
 
-  var defaults = settings.defaults
   var versions = settings.versions
   var chapters = settings.chapters
-
-  // Fetch url parameters or defaults
-  optParser.parse(req.body, defaults)
+  var reqOptions = req.options
 
   // Make sure to use an available version
   // for this software
   var selectedVersion = req.body.version
-  if (versions[defaults.software.selected].indexOf(selectedVersion) == -1){
+  if (versions[reqOptions.software.selected].indexOf(selectedVersion) == -1){
     // Default to latest version
-    selectedVersion = versions[defaults.software.selected][0]
+    selectedVersion = versions[reqOptions.software.selected][0]
   }
 
   // Force and disable selection of OS for 
   // software limited to one OS
-  var forcedOS = optParser.forceParam(defaults.software.selected, settings.forcedOS)
-  var activeOS = forcedOS ? forcedOS : defaults.os.selected
+  var forcedOS = optParser.forceParam(reqOptions.software.selected, settings.forcedOS)
+  var activeOS = forcedOS ? forcedOS : reqOptions.os.selected
 
-  var software = defaults.software.selected
+  var software = reqOptions.software.selected
   // Internally treat NeoOffice as OpenOffice (because it is)
   if (software == "NeoOffice"){
     software = "LibreOffice/OpenOffice"
