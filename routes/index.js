@@ -8,27 +8,18 @@ var optParser = require('../lib/opt-parser')
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  var versions = settings.versions
   var chapters = settings.chapters
+  var selectedOptions = req.selectedOptions
   var options = req.options
-  var software = options.software.selected
-
-  // Make sure to use an available version
-  // for this software
-  var version = req.query.version
-  if (versions[software].indexOf(version) == -1){
-    // Default to latest version
-    version = versions[software][0]
-  }
 
   // Force and disable selection of OS for 
   // software limited to one OS
-  var forcedOS = optParser.forceParam(options.software.selected, settings.forcedOS)
-  var activeOS = forcedOS ? forcedOS : options.os.selected
+  var forcedOS = optParser.forceParam(selectedOptions.software, settings.forcedOS)
+  var activeOS = forcedOS ? forcedOS : options.os
   urlParams = [
   ].join("&")
-  var activeLanguage = options.language.selected
-  var activeLocale = options.locale.selected
+  var activeLanguage = options.language
+  var activeLocale = options.locale
 
   var port = process.env.PORT || 3000
   request.post({
@@ -44,16 +35,16 @@ router.get('/', function(req, res, next) {
       if (!error && response.statusCode == 200) {
         res.render('index', {
           lang: "en",
-          availableSoftwares: options.software.allowed,
-          activeSoftware: software,
-          availableOS: options.os.allowed,
+          availableSoftwares: settings.defaults.software.allowed,
+          activeSoftware: selectedOptions.software,
+          availableOS: settings.defaults.os.allowed,
           activeOS: activeOS,
           lockOS: forcedOS ? true : false,
-          availableVersions: versions[software],
-          activeVersion: version,
-          availableLanguages: options.language.allowed,
+          availableVersions: settings.versions[selectedOptions.software],
+          activeVersion: options.version,
+          availableLanguages: settings.defaults.language.allowed,
           activeLanguage: activeLanguage,
-          availableLocales: options.locale.allowed,
+          availableLocales: settings.defaults.locale.allowed,
           activeLocale: activeLocale,
           chapters: chapters,
           chaptersContent: response.body,

@@ -1,23 +1,36 @@
 var settings = {}
 
+settings.locales = {
+  "Denmark": "da-DK",
+  "Finland (Finnish)": "fi-FI",
+  "Finland (Swedish)": "sv-FI",
+  "Germany": "de-DE",
+  "Norway (Bokmål)": "nb-NO",
+  "Norway (Nynorsk)": "nn-NO",
+  "Sweden": "sv-SE",
+  "United Kingdom": "en-GB",
+  "United States": "en-US",
+}
+
 settings.defaults = {
   software: {
     allowed: ["Excel for Windows", "Excel for Mac", "Google Sheets", "LibreOffice/OpenOffice", "NeoOffice"],
     default: "Excel for Windows",
   },
   language: {
-    allowed: ["Danish", "English", "Finnish", "Norwegian", "Swedish"],
+    allowed: ["Danish", "English", "Finnish", "German", "Norwegian", "Swedish"],
     default: "English"
   },
   locale: {
-    allowed: ["sv-SE", "en-US", "en-GB"],
-    default: "en-US"
+    allowed: [],  // Uses settings.locale keys, above
+    default: "United Kingdom"
   },
   os: {
     allowed: ["Windows", "MacOS", "Linux"],
     default: "Windows"
   }
 }
+settings.defaults.locale.allowed = Object.keys(settings.locales)
 
 settings.versions = {
   "Excel for Windows": ["Excel 2016", "Excel 2013", "Excel 2010", "Excel 2007"], 

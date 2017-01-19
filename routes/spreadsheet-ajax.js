@@ -4,11 +4,11 @@ var spreadsheetAjax = function(req, res, next) {
 
   var spreadsheetKey = req.body.key
   var text = req.body.text
-  
+
   var spreadsheet = require("../lib/spreadsheet")({
-    language: options.language.selected,
-    locale: options.locale.selected,
-    software: options.software.selected,
+    language: options.language,
+    locale: options.locale,
+    software: options.software,
   })
   var opts = {};opts[spreadsheetKey] = true
   spreadsheet.filter(text, opts, function(content){
