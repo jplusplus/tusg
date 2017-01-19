@@ -1,8 +1,8 @@
-section:first-of-type {
-  border-top: none;
+section:last-of-type {
+  border-bottom: none;
 }
 section {
-  border-top: 3px double gray;
+  border-bottom: 3px double gray;
   margin-bottom: 2em;
 }
 
