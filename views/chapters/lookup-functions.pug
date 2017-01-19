@@ -12,6 +12,11 @@ p In the illustration above, the tables we want to combine are place next to eac
 
 h3 Finding missing values
 
+p Let's say you have a dataset with municipality names in one column, and want to check if any municipality is not present. You can use a pivot table to count the number of municipalities, but how do you find which ones are missing? A quick way is by doing using a !{f("=VLOOKUP()")} function “in reverse”, starting from the list of municipalities, and checking for each municipality in the original data.
+:spreadsheet(19yq26hxDLvxBpu1pn6bZ63EMKxb5rEEntqQewVBuqrI)
+    Ängelholm is the missing municipality in the data sheet! The fourth argument is there to make sure we only get exact matches.
+p Having one municipality too much? Try applying the same logic, but the other way around, using a !{f("=VLOOKUP()")} from the data sheet to the sheet with the list of municipalities.
+
 h3 Finding the pair with the biggest difference
 
 h3 Categorizing
