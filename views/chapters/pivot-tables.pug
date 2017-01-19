@@ -1,0 +1,35 @@
+p Pivot tables let analyze you data by turning it around, and rearranging it in different ways. Given a table with number of students per school, each row representing one school, we can create a new table giving the number of students per municipality instead:
+:image(pivot-overview.png)
+  With a pivot table, we can summarize the number of students by municipality.
+
+h3 Creating a pivot table
+
+if software == "LibreOffice/OpenOffice"
+  p Create a pivot table by selecting all data (click anywhere in you data and press !{key("Ctrl", "A")}). Chose !{menu("Insert", "Pivot table")}, and press ok. In the next step you get to choose what each row in your pivot table should represent, and what values to display for each row. Click and drag from the box !{menu("available fields")}, where you have your column headers, and put one of them in the !{menu("rows")} box, and another in the !{menu("data fields")} box. To create the pivot table above, we should put ”municipality” in !{menu("rows")}, and ”students” in !{menu("data fields")}.
+  :image(pivot-dialog2-libre-(sv).png)
+  p Pressing OK should give you your pivot table. By default, a data column will contain sums of all values, but you could also display averages, median, any much more. Right-click your table and choose !{menu("Edit layout")}, to go back to the previous dialogue box. Double click a field name in the !{menu("data fields")} box to change from sum, to something else.
+
+if software == "Excel"
+    p Start by selecting all data (click anywhere in you data and press !{key("Ctrl", "A")}).
+
+    if os == "MacOS" && version <= "Excel 2011"
+      p Chose !{menu("Data", "Pivot table")} or click #{t("Pivot table")} at the #{t("Data")} toolbar tab. Click ok to continue.
+    else
+      p Chose !{menu("Insert", "Pivot table")} or click #{t("Pivot table")} at the #{t("Insert")} toolbar tab. Click ok to continue.
+
+    p You will now end up with an empty pivot table, and a pivot table editor where you get to select what each row in your pivot table should represent, and what values to display for each row. Click and drag a field to the #{t("rows")} box to make each row represent that field. In the example above, ”municipality” would be in the #{t("rows")} box. Then drag additional fields to the #{t("values")} box (in our case ”students”). You pivot table will update immediately.
+
+if software == "Google Sheets"
+  p Create a pivot table by selecting all data (click anywhere in you data and press !{key("Ctrl", "A")}). Press !{menu("Data", "Pivot table")}. You will now have an empty table to the left, and a pivot table editor to the right.
+  p Press !{menu("Row", "Add field")} to decide what your rows should represent. In the example above, that would be ”municipalities”. Then press !{menu("Values", "Add field")} to select what to display for each row. In our case that would be ”students”.
+  :image(pivot-editor-libre-(en).png, small)
+  p By default the pivot table will show the sum of all values, but you can use the black arrow next to !{menu("Summarize by", "SUM")} to change that to e.g. median, count, or a number of other things. You are usually probably interested in !{menu("SUM")}, !{menu("COUNTA")} (number of values) or !{menu("AVERAGE")}.
+
+h3 Pivot tables with columns
+  p TBD
+
+h3 Building a pivot table with formulas
+p While pivot tables are supposed to automatically reflect any changes in the original data, there are still cases where you might prefer to mimic the behaviour of a pivot table with regular formulas only. For sums, you can easily do this with a combination of !{f("=UNIQUE()")} and !{f("=SUMIF()")}. In the example below, we use !{f("=UNIQUE(B$2:B$9999)")} to create a column with one row for each unique value in the B column (the first 10000 rows). The we use !{f('=SUMIF(B:B,"="&E2,C:C)')} to summarize column #[code C], for all rows where column #[code B] is equal to column #[code E]. That last criterion has to be constructed <code>"="&E2"</code>, a slightly weird syntax that concatenates an equal sign and the contents of E2, to produce the comparison string that !{f("=SUMIF()")} needs.
+:spreadsheet(1azB6p1VXBSKgDwc31fqWNohs1Kc7plYOMHSJxvXSxas)
+  Building a pivot table with formulas.
+p You could also use !{f("=COUNTIF()")} in exactly the same way, to get the number of values, rather than the sum.

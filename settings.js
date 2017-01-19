@@ -51,6 +51,7 @@ settings.chapters = {
   "What software should I use?": "chosing-software",
   "Guiding principles": "best-practices",
   "Cleaning up your sheet": "cleaning-up",
+  "Analyzing: Pivot tables": "pivot-tables",
   "Combining data": "lookup-functions",
 }
 
