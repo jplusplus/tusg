@@ -4,6 +4,7 @@ settings.locales = {
   "Denmark": "da-DK",
   "Finland (Finnish)": "fi-FI",
   "Finland (Swedish)": "sv-FI",
+  "France": "fr-FR",
   "Germany": "de-DE",
   "Norway (Bokmål)": "nb-NO",
   "Norway (Nynorsk)": "nn-NO",
@@ -18,7 +19,7 @@ settings.defaults = {
     default: "Excel for Windows",
   },
   language: {
-    allowed: ["Danish", "English", "Finnish", "German", "Norwegian", "Swedish"],
+    allowed: ["Danish", "English", "Finnish", "French", "German", "Norwegian", "Portugese", "Spanish", "Swedish"],
     default: "English"
   },
   locale: {
