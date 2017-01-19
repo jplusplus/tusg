@@ -70,16 +70,13 @@ var content =  function(req, res, next) {
           t: formulas.t,
           f2: formulas.formula,
           f: function(str){
-            console.log(str)
             var formula = formulas.parseString(str)
-            console.log(formula)
             if (formula){
               formula = "=" + formulas.format(formula, 1, 1)
             } else {
               console.log("Failed to parse formula: ", str)
               formula = str
             }
-            console.log(formula)
             return "<code class='formula selectonclick'>"+formula+"</code>"
           },
           menu: formulas.menu,
