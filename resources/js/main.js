@@ -150,19 +150,7 @@ $(function() {
           $(sectionElem).fadeOut(75, function(){
             $(this).html(res[$(this).data("slug")]);
             addSelectOnClick(this);
-          }).fadeIn(130, function(){
-            var elm = this;
-            var timer = setInterval(function(){
-              // Some browser seem to report ready
-              // too early. Give them some extra time.
-              loadSpreadsheets(elm);
-              $(window).scrollTop(_g_tusg_tempScrollTop);
-              clearTimeout(timer);
-            }, 75);
-//            console.log("loading")
-//            loadSpreadsheets(sectionElem);
-//            $(window).scrollTop(_g_tusg_tempScrollTop);
-          });
+          }).fadeIn(130, loadSpreadsheets);
         }
       }
     });
@@ -184,7 +172,8 @@ function moveTo(sheet, col, row){
 }
 
 var loadSpreadsheets = function(sectionElem){
-  $(sectionElem).find(".replaceWithSpreadsheet").each(function(num){
+  _g_tusg_tempScrollTop = $(window).scrollTop();
+  $(sectionElem || this).find(".replaceWithSpreadsheet").each(function(num){
     var options = {
       key: $(this).data("key"),
       text: $(this).data("text"),
@@ -207,6 +196,7 @@ var loadSpreadsheets = function(sectionElem){
         var div = self.html(res);
         if (res){
           activateSpreadsheet(div.find(".spreadsheet")[0]);
+          $(window).scrollTop(_g_tusg_tempScrollTop);
         }
       }
     });    
@@ -271,5 +261,6 @@ var activateSpreadsheet = function(spreadsheet){
 
 /* Add spreadsheets to page*/
 $(document).ready(function() {
+  _g_tusg_tempScrollTop = $(window).scrollTop();
   loadSpreadsheets($(document));
 });
