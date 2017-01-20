@@ -55,4 +55,7 @@ settings.chapters = {
   "Combining data": "lookup-functions",
 }
 
+settings.defaultSpreadsheetHeight = 15
+// Number of rows
+
 module.exports = settings
