@@ -150,9 +150,18 @@ $(function() {
           $(sectionElem).fadeOut(75, function(){
             $(this).html(res[$(this).data("slug")]);
             addSelectOnClick(this);
-          }).fadeIn(150, function(){
-            loadSpreadsheets(sectionElem);
-            $(window).scrollTop(_g_tusg_tempScrollTop);
+          }).fadeIn(130, function(){
+            var elm = this;
+            var timer = setInterval(function(){
+              // Some browser seem to report ready
+              // too early. Give them some extra time.
+              loadSpreadsheets(elm);
+              $(window).scrollTop(_g_tusg_tempScrollTop);
+              clearTimeout(timer);
+            }, 75);
+//            console.log("loading")
+//            loadSpreadsheets(sectionElem);
+//            $(window).scrollTop(_g_tusg_tempScrollTop);
           });
         }
       }
