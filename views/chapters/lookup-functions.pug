@@ -20,6 +20,7 @@ p Having one municipality too much? Try applying the same logic, but the other w
 h3 Finding the pair with the biggest difference
 
 h3 Categorizing
-p
+
+p The !{f("=VLOOKUP()")} formula can be used for finding the nearest match. This is useful for categorizing data. In the example below, we want to translate the average score from an icecream test to labels according to the table to the right. By setting the fourth argument to #{t("TRUE")} in column C, we allow  non-exact matches, making the formula pick the nearest value: !{f("=VLOOKUP(B2,E2:F6,2,TRUE)")}.
 :spreadsheet(1fwRZr3ldeu10BXVFsgkyJoTh-pwKrWCBxIfBt4pWv8A)
     In column C we ask for the nearest match in the labels table to the right.
