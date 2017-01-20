@@ -17,7 +17,7 @@ p You do not want any rows with totals and sub totals in your data. Every row sh
 h3.numbered Fill out row labels 
 p Sometimes only the first in a series of rows is labeled. We want to explicitly label reach and every row. You can achieve this with a clever little !{f("=IF()")} formula. This formula will check if column A is empty in the example pictured, and if so, take the value from the previous cell: !{f('=IF(A2="", D1, A2)')}. Finally autofill to the bottom.
 
-:spreadsheet(1M1DtrOdmEIL_qlxkJSSTMpBW43hG-yi5LyjSUuSjyHY)
+:spreadsheet(1M1DtrOdmEIL_qlxkJSSTMpBW43hG-yi5LyjSUuSjyHY, highlight="D2,D3,D4,D5")
   Filling out empty cells of a column.
 
 p If you want to sort, or otherwise reorder this sheet, you have to copy and #[em paste values] only to remove the formulas, as they will break when the row order changes.

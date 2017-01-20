@@ -2,12 +2,12 @@ p This chapter will guide yout through combining data from two tables with the !
 h3 Merging tables
 
 p Given a table of Finnish MP's, and their party name, we want to add a third column separating them into opposition and government politicians. This information can be looked up in the table to the right. We want to look up the party name from #[code B2] in the table to the right, and insert the value from the second column in that table. This is written !{f('=VLOOKUP(B2, E$2:F$9, 2)')}, where #[code B2] is the value to look up, the #[code E$2:F$9], the table to fetch data from, and #[code 2] meaning ”second column”. An optional fourth argument should, if included, be #[code 0] or #[code #{t("FALSE")}] in this case.
-:spreadsheet(1DvTCLLMO3SRvbHUdTuW4li-XgzrMCrDtX098vz3dv3M)
+:spreadsheet(1DvTCLLMO3SRvbHUdTuW4li-XgzrMCrDtX098vz3dv3M, highlight="C2,C3,C4,C5")
       The value in <code>B2</code> is looked up in the table to the right, fetching the content from the second column there.
 
 p Before autofilling this formula to the bottom, you need to make sure that the row numbers in the reference to the table you are getting data from is locked, by putting $-signs #[em in front of the row number]. Otherwise the row number will be increase as you autofill down, move off the table boundaries. An alternative approach is to use whole columns in the reference, like this: !{f("=VLOOKUP(B2, E:F, 2)")}. If you have a #[a(href="#cleaning-up") clean sheet], this should normally work fine (except for the edge case when the column title can also appear as a value in that column.)
 p In the illustration above, the tables we want to combine are place next to each others, for illustrative purposes. Usually it is a #[em much] better idea to put the tables you want to combine on different sheets, in the same #{software == "Google Sheets" ? "document" : "file"}. You can switch sheets while writing a formula, to drag and select a cell reference area on a different sheet. Just be careful to finnish the formula before going back, or you will very likely end up polluting it with accidental cell references. Moving the second table a new sheet called #[code parties], our formula would look like this: !{f("=VLOOKUP(B2, parties!A:B, 2)")}, assuming we put our table to the left (columns A and B) in the new sheet. #[code 2] still refers to the second column, that is now column B.
-:spreadsheet(1Q-TVyWhafMnzUHg2LNx-_-tg6CiDqd3Z_fScvrhxUZ4)
+:spreadsheet(1Q-TVyWhafMnzUHg2LNx-_-tg6CiDqd3Z_fScvrhxUZ4, highlight="C2,C3,C4,C5")
   Here we have moved the second table to a separate sheet, as is good practice.
 
 h3 Finding missing values
