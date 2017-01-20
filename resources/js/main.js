@@ -136,6 +136,7 @@ $(function() {
       obj[item.name] = item.value;
       return obj;
     }, {});
+    var tempScrollTop = $(window).scrollTop();
     $.ajax({
       url: "/content",
       contentType: 'application/json',
@@ -149,12 +150,11 @@ $(function() {
           $(sectionElem).fadeOut(75, function(){
             $(this).html(res[$(this).data("slug")]);
             addSelectOnClick(this);
-          }).fadeIn(150);
+          }).fadeIn(150, function(){
+            loadSpreadsheets(sectionElem);
+            $(window).scrollTop(tempScrollTop);
+          });
         }
-        var timer = setTimeout(function(){
-          loadSpreadsheets();
-          clearTimeout(timer);
-        }, 900);
       }
     });
   });
@@ -174,8 +174,8 @@ function moveTo(sheet, col, row){
   $(sheet).find("input").val($(cell).data("formula"));    
 }
 
-var loadSpreadsheets = function(){
-  $(".replaceWithSpreadsheet").each(function(num){
+var loadSpreadsheets = function(sectionElem){
+  $(sectionElem).find(".replaceWithSpreadsheet").each(function(num){
     var options = {
       key: $(this).data("key"),
       text: $(this).data("text"),
@@ -262,7 +262,5 @@ var activateSpreadsheet = function(spreadsheet){
 
 /* Add spreadsheets to page*/
 $(document).ready(function() {
-
-  loadSpreadsheets();
-
+  loadSpreadsheets($(document));
 });
