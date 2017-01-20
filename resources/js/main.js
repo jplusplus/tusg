@@ -179,9 +179,12 @@ var loadSpreadsheets = function(){
     var options = {
       key: $(this).data("key"),
       text: $(this).data("text"),
+      highlight: $(this).data("highlight"),
       language: _g_tusg_options.language,
       locale: _g_tusg_options.locale,
       software: _g_tusg_options.software,
+      version: _g_tusg_options.version,
+      os: _g_tusg_options.os,
     };
     var self = $(this);
     $.ajax({
