@@ -38,7 +38,7 @@ else
     p While pivot tables are supposed to automatically reflect any changes in the original data, there are still cases where you might prefer to mimic the behaviour of a pivot table with regular formulas only. However, the only software that currenty allows you to do that in a simple way is Google Sheets. For #{software}, you will have to resort to a rather scary looking formula, as outlined #[a(href="http://stackoverflow.com/questions/1429899/getting-unique-values-in-excel-by-using-formulas-only#1436254") in this Stack Overflow answer].
     ol
       li First make a new column in your data, that checks if the value is the last of its kind in the column: !{f("=IF(EXACT(COUNTIF($B2:B$994, B2),1), 1, 0)")}
-      li Then find the position of these values, using !{f("=MATCH()")}, as in the #[code F] column.
+      li Then find the position of these values, using a combination of !{f("=MATCH()")} and either !{f("=INDIRECT()")} (as pictured here) or !{f("=INDEX()")}.
       li Finally use the values on those rows to build your emulated pivot table: !{f('=SUMIF(B:B,"="&G2,C:C)')}
     :spreadsheet(1VLiOAQqTFcQC50rLfsZDODYHc3xCe6mW8WPvD3ajWGA)
       You can use a variant of these formulas to recreate a pivottable. The 2 in F1 tells the formula on the next line where in what row to start searching.
