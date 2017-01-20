@@ -29,7 +29,18 @@ h3 Pivot tables with columns
   p TBD
 
 h3 Building a pivot table with formulas
-p While pivot tables are supposed to automatically reflect any changes in the original data, there are still cases where you might prefer to mimic the behaviour of a pivot table with regular formulas only. For sums, you can easily do this with a combination of !{f("=UNIQUE()")} and !{f("=SUMIF()")}. In the example below, we use !{f("=UNIQUE(B$2:B$9999)")} to create a column with one row for each unique value in the B column (the first 10000 rows). The we use !{f('=SUMIF(B:B,"="&E2,C:C)')} to summarize column #[code C], for all rows where column #[code B] is equal to column #[code E]. That last criterion has to be constructed <code>"="&E2"</code>, a slightly weird syntax that concatenates an equal sign and the contents of E2, to produce the comparison string that !{f("=SUMIF()")} needs.
-:spreadsheet(1azB6p1VXBSKgDwc31fqWNohs1Kc7plYOMHSJxvXSxas, highlight="E2,F2,F3")
-  Building a pivot table with formulas.
-p You could also use !{f("=COUNTIF()")} in exactly the same way, to get the number of values, rather than the sum.
+if software == "Google Sheets"
+  p While pivot tables are supposed to automatically reflect any changes in the original data, there are still cases where you might prefer to mimic the behaviour of a pivot table with regular formulas only. For sums, you can easily do this with a combination of !{f("=UNIQUE()")} and !{f("=SUMIF()")}. In the example below, we use !{f("=UNIQUE(B$2:B$9999)")} to create a column with one row for each unique value in the B column (the first 10000 rows). The we use !{f('=SUMIF(B:B,"="&E2,C:C)')} to summarize column #[code C], for all rows where column #[code B] is equal to column #[code E]. That last criterion has to be constructed <code>"="&E2"</code>, a slightly weird syntax that concatenates an equal sign and the contents of E2, to produce the comparison string that !{f("=SUMIF()")} needs.
+  :spreadsheet(1azB6p1VXBSKgDwc31fqWNohs1Kc7plYOMHSJxvXSxas, highlight="E2,F2,F3")
+    Building a pivot table with formulas.
+  p You could also use !{f("=COUNTIF()")} in exactly the same way, to get the number of values, rather than the sum.
+else
+    p While pivot tables are supposed to automatically reflect any changes in the original data, there are still cases where you might prefer to mimic the behaviour of a pivot table with regular formulas only. However, the only software that currenty allows you to do that in a simple way is Google Sheets. For #{software}, you will have to resort to a rather scary looking formula, as outlined #[a(href="http://stackoverflow.com/questions/1429899/getting-unique-values-in-excel-by-using-formulas-only#1436254") in this Stack Overflow answer].
+    ol
+      li First make a new column in your data, where each value is displayed only once.
+      li Then find the positions of each value (there are many ways to do this, below is one)
+      li Then group those columns.
+      li Finally use that summary to build your emulated pivot table.
+    :spreadsheet(1VLiOAQqTFcQC50rLfsZDODYHc3xCe6mW8WPvD3ajWGA)
+      You can use a variant of these formulas to recreate a pivottable.
+    p You could also use !{f("=COUNTIF()")} in column I, to get the number of values, rather than the sum.
