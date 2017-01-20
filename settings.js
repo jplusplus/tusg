@@ -19,7 +19,7 @@ settings.defaults = {
     default: "Excel for Windows",
   },
   language: {
-    allowed: ["Danish", "English", "Finnish", "French", "German", "Norwegian", "Portugese", "Spanish", "Swedish"],
+    allowed: ["Danish", "English", "Finnish", "French", "German", "Norwegian", "Portuguese", "Spanish", "Swedish"],
     default: "English"
   },
   locale: {
