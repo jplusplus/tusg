@@ -136,7 +136,7 @@ $(function() {
       obj[item.name] = item.value;
       return obj;
     }, {});
-    var tempScrollTop = $(window).scrollTop();
+    _g_tusg_tempScrollTop = $(window).scrollTop();
     $.ajax({
       url: "/content",
       contentType: 'application/json',
@@ -152,7 +152,7 @@ $(function() {
             addSelectOnClick(this);
           }).fadeIn(150, function(){
             loadSpreadsheets(sectionElem);
-            $(window).scrollTop(tempScrollTop);
+            $(window).scrollTop(_g_tusg_tempScrollTop);
           });
         }
       }
