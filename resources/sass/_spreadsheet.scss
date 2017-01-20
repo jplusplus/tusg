@@ -21,6 +21,9 @@ div.spreadsheet:focus{
     margin: 0;
     background-color:white;
 }
+.spreadsheet table td.highlight {
+    background-color: cornsilk;
+}
 .spreadsheet table td.number {
     text-align:right;
 }
