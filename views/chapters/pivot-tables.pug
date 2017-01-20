@@ -12,7 +12,7 @@ if software == "LibreOffice/OpenOffice"
 if software == "Excel"
     p Start by selecting all data (click anywhere in you data and press !{key("Ctrl", "A")}).
 
-    if version == "Excel 2011" || version == "Excel 2008"
+    if os == "MacOS" && version <= "Excel 2011"
       p Chose !{menu("Data", "Pivot table")} or click #{t("Pivot table")} at the #{t("Data")} toolbar tab. Click ok to continue.
     else
       p Chose !{menu("Insert", "Pivot table")} or click #{t("Pivot table")} at the #{t("Insert")} toolbar tab. Click ok to continue.
