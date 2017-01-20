@@ -11,12 +11,20 @@ var optParser = require('./lib/opt-parser')
 var optionsParser = function(req, res, next){
   var params = req.body || req.query
   var options = optParser.parse(params, settings.defaults)
+  options.version = params.version
   req.selectedOptions = optParser.parse(params, settings.defaults)
   req.options = options
 
-  // Internally treat NeoOffice as OpenOffice (because it is)
-  var software = options.software
   var version = options.version
+  var software = options.software
+  // Make sure to use an available version
+  // for this software
+  if (settings.versions[software].indexOf(version) == -1){
+    // Default to latest version
+    version = settings.versions[software][0]
+  }
+
+  // Internally treat NeoOffice as OpenOffice (because it is)
   if (software == "NeoOffice"){
     software = "LibreOffice/OpenOffice"
     var mapping = {
@@ -30,16 +38,6 @@ var optionsParser = function(req, res, next){
       "NeoOffice 3.0": "3.0.1",
     }
     var version = mapping[version]
-  }
-  // Make sure to use an available version
-  // for this software
-  if (settings.versions[software].indexOf(version) == -1){
-    // Default to latest version
-    version = settings.versions[software][0]
-  }
-  // Normalize Excel varietes
-  if (software.includes("Excel")) {
-    software = "Excel"
   }
 
   req.options.version = version

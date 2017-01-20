@@ -20,14 +20,18 @@ router.get('/', function(req, res, next) {
   ].join("&")
   var activeLanguage = options.language
   var activeLocale = options.locale
+  var activeVersion = options.version
 
   var port = process.env.PORT || 3000
   request.post({
       url: "http://localhost:"+port+"/content",
       json: true,
       body: {
+        os: activeOS,
         language: activeLanguage,
         locale: activeLocale,
+        software: options.software,
+        version: activeVersion,
       },
       'content-type': 'application/json',
     },
@@ -41,7 +45,7 @@ router.get('/', function(req, res, next) {
           activeOS: activeOS,
           lockOS: forcedOS ? true : false,
           availableVersions: settings.versions[selectedOptions.software],
-          activeVersion: options.version,
+          activeVersion: activeVersion,
           availableLanguages: settings.defaults.language.allowed,
           activeLanguage: activeLanguage,
           availableLocales: settings.defaults.locale.allowed,

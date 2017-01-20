@@ -7,21 +7,27 @@ var content =  function(req, res, next) {
 
   var chapters = settings.chapters
   var reqOptions = req.options
+  var userOptions = req.selectedOptions
 
   // Force and disable selection of OS for 
   // software limited to one OS
-  var forcedOS = optParser.forceParam(reqOptions.software, settings.forcedOS)
+  var forcedOS = optParser.forceParam(userOptions.software, settings.forcedOS)
   var activeOS = forcedOS ? forcedOS : reqOptions.os
 
   var language = reqOptions.language
   var locale = reqOptions.locale
   var software = reqOptions.software
+  // Normalize Excel varietes
+  if (software.includes("Excel")) {
+    software = "Excel"
+  }
   var version = reqOptions.version
+  console.log(version)
 
   // async module (needs to load i18n data)
   var formulas = require("../lib/formulas.js")
   var helpers = require("../lib/helpers.js")(activeOS)
-  formulas.init(software,
+  formulas.init(reqOptions.software,
                 language,
                 locale,
                 function(err, formulasInstance){

@@ -4,7 +4,10 @@ var spreadsheetAjax = function(req, res, next) {
 
   var spreadsheetKey = req.body.key
   var text = req.body.text
-
+  // Normalize Excel varietes
+  if (options.software.includes("Excel")) {
+    options.software = "Excel"
+  }
   var spreadsheet = require("../lib/spreadsheet")({
     language: options.language,
     locale: options.locale,
