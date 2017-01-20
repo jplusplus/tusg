@@ -22,7 +22,6 @@ var content =  function(req, res, next) {
     software = "Excel"
   }
   var version = reqOptions.version
-  console.log(version)
 
   // async module (needs to load i18n data)
   var formulas = require("../lib/formulas.js")
@@ -66,6 +65,7 @@ var content =  function(req, res, next) {
               return "<div class='replaceWithSpreadsheet jsonly'" +
                      " data-num='" + totalSpreadsheets + "'" +
                      " data-text='" + text + "'" +
+                     " data-highlight='" + ("highlight" in options ? options.highlight : "") + "'" +
                      " data-key='" + Object.keys(options)[0] + "'>" +
                      "Loading spreadsheet ...</div><noscript>You need Javascript enabled to see this illustration</noscript>"
              },

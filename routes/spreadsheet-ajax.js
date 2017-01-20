@@ -13,7 +13,10 @@ var spreadsheetAjax = function(req, res, next) {
     locale: options.locale,
     software: options.software,
   })
-  var opts = {};opts[spreadsheetKey] = true
+  var opts = {
+    key: spreadsheetKey,
+    highlight: req.body.highlight,
+  }
   spreadsheet.filter(text, opts, function(content){
     res.json(content)
   })
