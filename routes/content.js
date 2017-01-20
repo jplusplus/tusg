@@ -45,7 +45,7 @@ var content =  function(req, res, next) {
           version: version,
           language: language,
           locale: locale,
-          t: formulas.t,
+          t: formulasInstance.t,
           f: function(str){
             var formula = formulasInstance.parseString(str)
             if (formula){
