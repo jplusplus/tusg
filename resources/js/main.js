@@ -71,8 +71,6 @@ $(function() {
   var os = $("#os").add("#os-top");
   var software = $("#software").add("#software-top");
   var version = $("#version").add("#version-top");
-  //var language = $("#language").add("#language-top");
-  //var locale = $("#locale").add("#locale-top");
   // Force change and disable OS and version as needed
   // to reflect the ”real” status
   $(software).on("change", function(){
@@ -185,8 +183,8 @@ function closeCell(sheet){
 }
 function activateCell(sheet, cell){
   $(cell).addClass("active");
-  $("th.r"+($(cell).data("row")-1)).addClass("active");
-  $("th.c"+($(cell).data("col"))).addClass("active");
+  $(sheet).find("th.r"+($(cell).data("row")-1)).addClass("active");
+  $(sheet).find("th.c"+($(cell).data("col"))).addClass("active");
   activeCell = cell;
   sheet.lastPos = [cell.data("col"), cell.data("row")];
   $(sheet.fBar).val($(cell).data("formula"));    
@@ -195,8 +193,8 @@ function deactivateCell(sheet){
   if ($(activeCell).hasClass("open")){
     closeCell(sheet);
   }
-  $("th.r"+($(activeCell).data("row")-1)).removeClass("active");
-  $("th.c"+($(activeCell).data("col"))).removeClass("active");
+  $(sheet).find("th.r"+($(activeCell).data("row")-1)).removeClass("active");
+  $(sheet).find("th.c"+($(activeCell).data("col"))).removeClass("active");
   $(activeCell).removeClass("active");
   $(this.fBar).val('');
   activeCell = null;
