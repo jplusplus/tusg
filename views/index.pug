@@ -76,7 +76,7 @@ block content
         select(name="locale", id="locale", data-pair="locale-top").form-control
           each locale in availableLocales
             option(value=locale, selected=activeLocale == locale) #{locale}
-        p The content language setting. Things like decimal separators depend on a combination of language and location, e.g. #[code sv-FI] for Swedish in Finland.
+        p The content language setting. Things like decimal separators depend on a combination of language and location.
       .form-group
         input(type="submit", value="Update").js-hide
 
