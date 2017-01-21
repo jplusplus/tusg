@@ -41,3 +41,31 @@ section {
     padding-top: 60px;
     margin-top: -60px;
 }
+
+@font-face {
+  font-family: 'thenmap-icon';
+  src:url('//static.jplusplus.se/iconfonts/thenmap.eot?jj7e03');
+  src:url('//static.jplusplus.se/iconfonts/thenmap.eot?#iefixjj7e03') format('embedded-opentype'),
+    url('//static.jplusplus.se/iconfonts/thenmap.ttf?jj7e03') format('truetype'),
+    url('//static.jplusplus.se/iconfonts/thenmap.woff?jj7e03') format('woff'),
+    url('//static.jplusplus.se/iconfonts/thenmap.svg?jj7e03#thnmp') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont{
+  font-family: "thenmap-icon";
+}
+
+.jpluspluslogo{
+  font-family: "thenmap-icon";
+    position:relative;
+    margin:0 2em 0 1em;
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+.jpluspluslogo > span {position:absolute;left:0;color:darkgray;}
+.jpluspluslogo > span:first-child {color:#BE1525;}
+.jpluspluslogo > span:last-child {position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;}
