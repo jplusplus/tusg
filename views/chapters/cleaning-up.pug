@@ -45,10 +45,29 @@ if software == "Excel"
 
 h3.numbered Make sure numbers are numbers and text is text
 
-p TBD
+p Any spreadsheet software, much lika a programming language, needs to know if a numeric value is supposed to be treated as a text string or a number. Otherwise it has no clue adding 1 and 1 together should equal 11 or 2 &ndash; both answers make sense, in different context. And computers are not very good at context.
+
+p Most of your values will be either text or numbers, and you need to make sure that each column is of the right type. A numerical municipality code, for instance, is most likely something you want to store as text, not as a number. You are not going to make maths with it, and storing it as text makes sure that #{software} does not remove a leading zero, or does other funny stuff with it.
+
+p By default numbers are right aligned, and text is left aligned. In the spreadsheet below, the municipality code i stored as text, and therefore left aligned, just like the municipality name. Population, on the other hand, is a number, and right aligned.
+:spreadsheet(1_FU2CFocO7ARE3vZRHmxjEJADb57PeiBlxsAPkQI2rU)
+
+if software == "Google Sheets"
+  p To change the value type of a column, select the whole column and click !{menu("Format", "Number")}, and then select either !{menu("Plain text")} or !{menu("Number")}, as desired.
+
+if software == "Excel"
+  p To change the value type of a column, select the whole column and use the value types dropdown menu, where by default it says !{menu("General")} (with !{menu("General")}, Excel tries to guess how to best represent your data).
+
+if software == "LibreOffice/Openoffice"
+  p To change the value type of a column, select the whole column and click !{menu("Format", "Number format")}, and then select either !{menu("Text")} or !{menu("Number")}, as desired. If a format is not in that menu, you can find the full list of available formats under !{menu("Format", "Cells", "Number")}. You can also right click and select !{menu("Format Cells")}.
+
+p Using only number and text formats is often enough. Unless you really need all the extra functionality of the date/time value types, stay with text. #[a(href="https://en.wikipedia.org/wiki/ISO_8601") Strings like] "2017-01-21" sort and compare well, so you can do quite a lot of calculations with them as they are. Storing dates as text also makes it easy to export you data, avoiding a few pitholes.
+
+p If #{software} refuses to recognize you number as text, you will have to use a formula to convert it. There are many ways to represent a number textually (1102 could be written ”1,102”, ”1 102,00”, ”001102”, ”١١٠٢”, ”MCII”, etc), and because of this one-to-many relationship, you have you instruct your computer on exactly how you want it. The formula !{f('=TEXT()')} takes two argument: The number to convert to text, and the format you want the text in. In cell #[code B2] and #[code B3] below, the zero in !{f('=TEXT(A2,"0")')} tells #{software} to just output digits; no decimal part, no separators, or anything else. In cell #[code B5] and #[code B6] we've used four zeros to say that we want a four characters long string, adding leading zeros if needed.
+
+:spreadsheet(1YYUJP0csnTENjcEUt14ULYH_7P0ftUDbAY-f30721yo, highlight="B2,B3,B4,B5")
 
 h3 Optionally add an index column
-
 p Adding an extra column with a unique number for each row is convenient not only for undoing any sorting (in case the order of your rows matter), but having that extra column also provides an extra visual clue as to the sanity of your data. By sorting on the index column, it will be easier to spot missing rows or forgotten filters early.
 
 if software == "LibreOffice/OpenOffice"
