@@ -1,48 +1,75 @@
-﻿div.spreadsheet{
+﻿div.spreadsheet {
     border: 1px solid gray;
     padding: 2px;
     overflow: hidden;
 }
+
 div.spreadsheet:focus{
     outline: 2px solid darkgreen;
 }
 
-.spreadsheet table {
+.spreadsheet .table, .spreadsheet table {
+    display:table;
     overflow-y: auto;
     overflow-x: auto;
     border: 1px solid darkgray;
     width: 100%;
     border-collapse: collapse;
 }
+.spreadsheet .thead{
+    display:table-header-group;
+}
+.spreadsheet .tbody {
+    display:table-row-group;
+}
+.spreadsheet .tr {
+    display:table-row;
+}
 
-.spreadsheet table td, .spreadsheet table th {
+.spreadsheet .td, .spreadsheet .th {
+    display:table-cell;
     border: 1px solid lightgray;
     padding: 2px 4px;
     margin: 0;
     background-color:white;
 }
-.spreadsheet table td.highlight {
+.spreadsheet .td.highlight {
     background-color: cornsilk;
 }
-.spreadsheet table td.number {
+.spreadsheet .td.number {
     text-align:right;
 }
-.spreadsheet table td.boolean, .spreadsheet table td.error {
+.spreadsheet .td.boolean, .spreadsheet .td.error {
     text-align:center;
 }
-.spreadsheet table td.active {
+.spreadsheet .td.active {
     outline: 2px solid darkgreen;
     cursor: default;
 }
-.spreadsheet table tr:first-child td {
+.spreadsheet .td.open {
+    outline: none;
+    cursor: text;
+    overflow: visible;
+}
+.spreadsheet .formulaTooltip{
+    border: none;
+    padding: 2px 4px;
+    display: block;
+    z-index: 99;
+    position: absolute;
+    background-color: white;
+    outline: 2px solid darkgreen;
+    cursor:text;
+}
+.spreadsheet .tr:first-child .td {
     font-weight: bold;
 }
 
-.spreadsheet table th:first-child {
+.spreadsheet .th:first-child {
     width:2em;
 }
 
-.spreadsheet table th {
+.spreadsheet .th {
     background-color: whitesmoke;
     text-align: center;
     border-color: darkgray;
@@ -50,13 +77,13 @@ div.spreadsheet:focus{
     font-weight:100;
 }
 
-.spreadsheet form{
+.spreadsheet form.formula{
     width:100%;
     position:relative;
     margin:0;padding:0;
     height:22px;
 }
-.spreadsheet form span.topleft {
+.spreadsheet form.formula span.topleft {
     display: inline-block;
     position: absolute;
     left: 0;
@@ -68,7 +95,7 @@ div.spreadsheet:focus{
     text-align: right;
     padding-right: 5px;
 }
-.spreadsheet form input {
+.spreadsheet form.formula input.formula {
     display: inline-block;
     position: absolute;
     text-align: left;

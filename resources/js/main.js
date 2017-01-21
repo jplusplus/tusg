@@ -158,17 +158,55 @@ $(function() {
 });
 
 var activeCell;
-function moveTo(sheet, col, row){
+
+function getCell(sheet, col, row){
   col = Math.max(0, col);
   col = Math.min(sheet.numCols - 1, col);
   row = Math.max(1, row);
   row = Math.min(sheet.numRows, row);
-  $(activeCell).removeClass("active");
-  var cell = $(sheet).find(".c"+col+"r"+row);
+  return $(sheet).find(".c"+col+"r"+row);
+}
+function openCell(sheet, cell){
+  var position = $(cell).position();
+  var content = $(cell).data("formula");
+  $(sheet.formulaTooltip)
+    .css("visibility", "visible")
+    .css("left", position.left)
+    .css("top", position.top)
+    .val(content);
+  $(sheet.formulaTooltip)
+    .attr('size', content.length+3)
+    .css("min-width", $(cell).width()+8)
+  $(cell).addClass("open");
+}
+function closeCell(sheet){
+  $(activeCell).removeClass("open");
+  $(sheet.formulaTooltip).css("visibility", "hidden");
+}
+function activateCell(sheet, cell){
   $(cell).addClass("active");
   activeCell = cell;
   sheet.lastPos = [cell.data("col"), cell.data("row")];
-  $(sheet).find("input").val($(cell).data("formula"));    
+  $(sheet.fBar).val($(cell).data("formula"));    
+}
+function deactivateCell(sheet){
+  if ($(activeCell).hasClass("open")){
+    closeCell(sheet);
+  }
+  $(activeCell).removeClass("active");
+  $(this.fBar).val('');
+  activeCell = null;
+}
+/* Move to cell by index
+*/
+function moveTo(sheet, col, row){
+  var targetCell = getCell(sheet, col, row);
+  if (targetCell.is(activeCell)){
+    // Don't try and move to self
+  } else {
+    deactivateCell(sheet);
+    activateCell(sheet, targetCell);
+  }
 }
 
 var loadSpreadsheets = function(sectionElem){
@@ -208,19 +246,23 @@ var activateSpreadsheet = function(spreadsheet){
   spreadsheet.numCols = $(spreadsheet).data("columns");
   spreadsheet.numRows = $(spreadsheet).data("rows");
   spreadsheet.lastPos = [0, 1];
-  var fBar = $(spreadsheet).find("input");
+  spreadsheet.fBar = $(spreadsheet).find("input.formula")[0];
+  spreadsheet.formulaTooltip = $(spreadsheet).find(".formulaTooltip")[0];
   // Event handlers to each cell
-  $(spreadsheet).find("td").each(function(cellIndex){
+  $(spreadsheet).find(".td").each(function(cellIndex){
     var cell = this;
     $(cell).on('click touch', function(){
       moveTo(spreadsheet, $(cell).data("col"), $(cell).data("row"));
+      return true
+    });
+    $(cell).on('dblclick', function(){
+      openCell(spreadsheet, cell);
+      return false
     });
   });
   // Clear active cells when leaving a spreadsheet
   $(spreadsheet).on("blur", function(){
-    $(activeCell).removeClass("active");
-    $(fBar).val('');
-    activeCell = null;
+    deactivateCell(spreadsheet);
   });
   $(spreadsheet).on("focus", function(){
     moveTo(this, spreadsheet.lastPos[0], spreadsheet.lastPos[1]);
@@ -253,8 +295,18 @@ var activateSpreadsheet = function(spreadsheet){
         moveTo(this, $(activeCell).data("col"), $(activeCell).data("row") + 1);
         return false;
       case 27:  // ESC
-        $(this).blur();
+        // Close open cell, or leave sheet
+        if ($(activeCell).hasClass("open")){
+          closeCell(this);
+        } else {
+          $(this).blur();
+        }
         return false;
+      case 113:  //F2
+      case 13:  //Enter
+        if (!$(activeCell).hasClass("open")){
+          openCell(this, activeCell);
+        }
     }
   });
 }; // activate spreadsheets
