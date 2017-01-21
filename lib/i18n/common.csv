@@ -1,5 +1,5 @@
 "English","French","Dutch","German","Spanish","Portuguese","Russian","Swedish","Italian","Danish","Polish","Finnish","Norwegian","Czech","Hungarian","Turkish","Greek"
-"Format",,,,,,,"Formatera",,,,"Muotoilu",,,,,
+"Format","Format",,"Format",,,,"Formatera",,"Formater",,"Muotoilu","Format",,,,
 "Format Cells",,,,,,,"Formatera celler",,,,,,,,,
 "Merge Cells",,,,,,,"Sammanfoga celler",,,,"Yhdistä solut",,,,,
 "Text to Columns",,,,,,,"Text till kolumner",,,,"Teksti sarakkeisiin",,,,,
@@ -13,8 +13,8 @@
 "#DIV/0!",,,,,,,"#DIVISION/0!",,,,,,,,,
 "#REF!",,,,,,,"#REFERENS!",,,,,,,,,
 "#NAME?","#NOM?","#NAAM?",,"#¿NOMBRE?","#NOME?","#ИМЯ?","#NAMN?",,"#NAVN?","#NAZWA?","#NIMI?","#NAVN?",,,"#AD?","#ΟΝΟΜΑ?"
-"Insert",,,,,,,"Infoga",,,,,,,,,
-"Pivot table",,,,,,,"Pivottabell",,,,,,,,,
+"Insert","Insertion",,"Einfügen",,,,"Infoga",,"Indsæt",,"Lisää","Sett inn",,,,
+"Pivot table","Table de pilote",,,,,,"Pivottabell",,,,,,,,,
 "available fields",,,,,,,"tillgängliga fält",,,,,,,,,
 "data fields",,,,,,,"datafält",,,,,,,,,
 "Edit layout...",,,,,,,"Redigera layout...",,,,,,,,,
@@ -22,3 +22,9 @@
 "values",,,,,,,"värden",,,,,,,,,
 "Add field",,,,,,,"Lägg till fält",,,,,,,,,
 "SUM",,,,,,,"SUMMA",,,,,,,,,
+"File","Fichier",,"Datei",,,,"Arkiv",,"Filer",,"Tiedosto","Fil",,,,
+"Edit","Édition",,"Bearbeiten",,,,"Redigera",,"Rediger",,"Muokkaa","Rediger",,,,
+"View","Affichage",,"Ansicht",,,,"Visa",,"Vis",,"Näytä","Vis",,,,
+"Sheet","Feuille",,"Tabelle",,,,"Blad",,"Ark",,"Taulukko","Ark",,,,
+"Data","Données",,"Daten",,,,"Data",,"Data",,"Tiedot","Data",,,,
+"Tools","Outils",,"Extras",,,,"Verktyg",,"Funktioner",,"Tökalut","Verktøy",,,,
