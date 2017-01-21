@@ -10,13 +10,15 @@ div.spreadsheet(tabIndex=1,
     thead.thead
       tr.tr
         th.th
+        - var c = 1
         for col in cols
-          th.th(scope="col") #{col}
+          th.th(scope="col", class="c"+(c-1)) #{col}
+          - c++
     tbody.tbody
       - var r = 1
       for row in data
         tr.tr
-          th.th(scope="row") #{r}
+          th.th(scope="row", class="r"+(r-1)) #{r}
           - r++
           - var c = 1
           for cell in row

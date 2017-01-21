@@ -46,6 +46,7 @@ div.spreadsheet:focus{
     outline: 2px solid darkgreen;
     cursor: default;
 }
+
 .spreadsheet .td.open {
     outline: none;
     cursor: text;
@@ -68,7 +69,9 @@ div.spreadsheet:focus{
 .spreadsheet .th:first-child {
     width:2em;
 }
-
+.spreadsheet .th.active {
+    background-color: lightgray;
+}
 .spreadsheet .th {
     background-color: whitesmoke;
     text-align: center;

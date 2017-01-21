@@ -185,6 +185,8 @@ function closeCell(sheet){
 }
 function activateCell(sheet, cell){
   $(cell).addClass("active");
+  $("th.r"+($(cell).data("row")-1)).addClass("active");
+  $("th.c"+($(cell).data("col"))).addClass("active");
   activeCell = cell;
   sheet.lastPos = [cell.data("col"), cell.data("row")];
   $(sheet.fBar).val($(cell).data("formula"));    
@@ -193,6 +195,8 @@ function deactivateCell(sheet){
   if ($(activeCell).hasClass("open")){
     closeCell(sheet);
   }
+  $("th.r"+($(activeCell).data("row")-1)).removeClass("active");
+  $("th.c"+($(activeCell).data("col"))).removeClass("active");
   $(activeCell).removeClass("active");
   $(this.fBar).val('');
   activeCell = null;
