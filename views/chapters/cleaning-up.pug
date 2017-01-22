@@ -65,7 +65,7 @@ p Using only number and text formats is often enough. Unless you really need all
 
 p If #{software} refuses to recognize you number as text, you will have to use a formula to convert it. There are many ways to represent a number textually (1102 could be written ”1,102”, ”1 102,00”, ”001102”, ”١١٠٢”, ”MCII”, etc), and because of this one-to-many relationship, you have you instruct your computer on exactly how you want it. The formula !{f('=TEXT()')} takes two argument: The number to convert to text, and the format you want the text in. In cell #[code B2] and #[code B3] below, the zero in !{f('=TEXT(A2,"0")')} tells #{software} to just output digits; no decimal part, no separators, or anything else. In cell #[code B5] and #[code B6] we've used four zeros to say that we want a four characters long string, adding leading zeros if needed.
 
-:spreadsheet(1YYUJP0csnTENjcEUt14ULYH_7P0ftUDbAY-f30721yo, highlight="B2,B3,B4,B5")
+:spreadsheet(1YYUJP0csnTENjcEUt14ULYH_7P0ftUDbAY-f30721yo, highlight="B2,B3,B5,B6")
 
 h3 Optionally add an index column
 p Adding an extra column with a unique number for each row is convenient not only for undoing any sorting (in case the order of your rows matter), but having that extra column also provides an extra visual clue as to the sanity of your data. By sorting on the index column, it will be easier to spot missing rows or forgotten filters early.
