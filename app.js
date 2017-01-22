@@ -82,6 +82,19 @@ app.get('/', index)
   }
 })*/
 
+app.get('/invalidate', function(req, res, next){
+  var memjs = require('memjs')
+  var cache = memjs.Client.create()
+  var r = cache.flush(function(err, results) {
+    if (err){
+      var err = new Error("Failed to flush cache")
+      err.status = 500
+      next(err)
+    }
+    res.end("Cache invalidated")
+  })
+})
+
 var jsonParser = bodyParser.json()
 app.post('/spreadsheetAjax', jsonParser, optionsParser, spreadsheetAjax)
 app.post('/content', jsonParser, optionsParser, content)
