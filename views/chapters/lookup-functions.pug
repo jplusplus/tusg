@@ -19,6 +19,13 @@ p Having one municipality too much? Try applying the same logic, but the other w
 
 h3 Finding the pair with the biggest difference
 
+p When you have geographical data, it is ofter worth comparing neighbouring regions. If two neighbouring municipalities display very different values, you might have a story, or at the very least an interesting place to look for a case! For this to work, you will need a sheet with all neighbouring pairs, one pair on each column. Creating that sheet is outside the scope of this guide, but you can with relative ease use any GIS software, e.g. the open source QGIS, to produce such a table. You will find that this is a very useful sheet to have laying around.
+
+p Use !{f("=VLOOKUP()")} to fetch the value for both municipalities in the row. In the example below, we have the data in a sheet called #[code data], and can fetch it with  !{f("=VLOOKUP(A2, data!A:B, 2, 0)")} and !{f("=VLOOKUP(B2, data!A:B, 2, 0)")} respectively. Finally we calculate the difference, simply writing !{f("=C2-D2")} in the last column (if your table has to rows for each pair; both A, B and B, A), or !{f("=ABS(C2-D2)")} (to make all differences positive number) if your table has only one row for each pair of neighbours. Finally sort the sheet on the last column, to find out that Orust and Stenungsund are the two neighbouring municipalities with the greatest difference between them.
+
+:spreadsheet(1anmpj1p1m-eUZQdycRhym_QKpwvUN8-8V-L6pgAo1Y4)
+    In this example, table of neighbourgs contained two rows for each pair (both A,B and B,A). In case you only have one row for each pair, you will have to use the absolute value in the diff column.
+
 h3 Categorizing
 
 p The !{f("=VLOOKUP()")} formula can be used for finding the nearest match. This is useful for categorizing data. In the example below, we want to translate the average score from an icecream test to labels according to the table to the right. By setting the fourth argument to “#{t("TRUE")}” in column C, we allow  non-exact matches, making the formula pick the nearest value: !{f("=VLOOKUP(B2,E2:F6,2,TRUE)")}.
