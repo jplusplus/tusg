@@ -53,6 +53,7 @@ settings.chapters = {
   "Cleaning up your sheet": "cleaning-up",
   "Analyzing: Pivot tables": "pivot-tables",
   "Combining data": "lookup-functions",
+  "Splitting columns": "splitting-columns",
 }
 
 settings.defaultSpreadsheetHeight = 15
