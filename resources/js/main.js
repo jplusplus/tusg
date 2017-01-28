@@ -212,7 +212,6 @@ function moveTo(sheet, col, row){
 }
 
 var loadSpreadsheets = function(sectionElem){
-  _g_tusg_tempScrollTop = $(window).scrollTop();
   $(sectionElem || this).find(".replaceWithSpreadsheet").each(function(num){
     var options = {
       key: $(this).data("key"),
@@ -315,6 +314,5 @@ var activateSpreadsheet = function(spreadsheet){
 
 /* Add spreadsheets to page*/
 $(document).ready(function() {
-  _g_tusg_tempScrollTop = $(window).scrollTop();
   loadSpreadsheets($(document));
 });
