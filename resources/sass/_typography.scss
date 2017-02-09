@@ -69,3 +69,12 @@ section {
 .jpluspluslogo > span {position:absolute;left:0;color:darkgray;}
 .jpluspluslogo > span:first-child {color:#BE1525;}
 .jpluspluslogo > span:last-child {position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;}
+
+cell {
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    padding: 2px 4px;
+    font-size: 105%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
