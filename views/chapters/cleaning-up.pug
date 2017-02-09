@@ -1,7 +1,7 @@
 p So you have downloaded some data from a statistics site? These are the first things that you do. (#[a(href="https://docs.google.com/spreadsheets/d/1I2rDd7IKsi2oSb1FRMBkaF_ODraySCUICOmbZ05u3PQ") Example])
 
 h3.numbered Let your table start in cell A1
-p Make sure to remove all headers, footers and comments. Your data sheet should contain only data, and it should start in cell #[code.cell A1], with the first column name. You want column names on row 1, and values in the remaining rows. Any footnotes or comments that you might need later can be dropped in a separate sheet in your workbook, or in a text document in the same folder.
+p Make sure to remove all headers, footers and comments. Your data sheet should contain only data, and it should start in cell #[cell A1], with the first column name. You want column names on row 1, and values in the remaining rows. Any footnotes or comments that you might need later can be dropped in a separate sheet in your workbook, or in a text document in the same folder.
 :image(cleaning-up-start-in-a1-bad.png)
   Bad
 :image(cleaning-up-start-in-a1-good.png)
@@ -63,7 +63,7 @@ if software == "LibreOffice/Openoffice"
 
 p Using only number and text formats is often enough. Unless you really need all the extra functionality of the date/time value types, stay with text. #[a(href="https://en.wikipedia.org/wiki/ISO_8601") Strings like] "2017-01-21" sort and compare well, so you can do quite a lot of calculations with them as they are. Storing dates as text also makes it easy to export you data, avoiding a few pitholes.
 
-p If #{software} refuses to recognize you number as text, you will have to use a formula to convert it. There are many ways to represent a number textually (1102 could be written ”1,102”, ”1 102,00”, ”001102”, ”١١٠٢”, ”MCII”, etc), and because of this one-to-many relationship, you have you instruct your computer on exactly how you want it. The formula !{f('=TEXT()')} takes two argument: The number to convert to text, and the format you want the text in. In cell #[code B2] and #[code B3] below, the zero in !{f('=TEXT(A2,"0")')} tells #{software} to just output digits; no decimal part, no separators, or anything else. In cell #[code B5] and #[code B6] we've used four zeros to say that we want a four characters long string, adding leading zeros if needed.
+p If #{software} refuses to recognize you number as text, you will have to use a formula to convert it. There are many ways to represent a number textually (1102 could be written ”1,102”, ”1 102,00”, ”001102”, ”١١٠٢”, ”MCII”, etc), and because of this one-to-many relationship, you have you instruct your computer on exactly how you want it. The formula !{f('=TEXT()')} takes two argument: The number to convert to text, and the format you want the text in. In cell #[cell B2] and #[cell B3] below, the zero in !{f('=TEXT(A2,"0")')} tells #{software} to just output digits; no decimal part, no separators, or anything else. In cell #[cell B5] and #[code B6] we've used four zeros to say that we want a four characters long string, adding leading zeros if needed.
 
 :spreadsheet(1YYUJP0csnTENjcEUt14ULYH_7P0ftUDbAY-f30721yo, highlight="B2,B3,B5,B6")
 
@@ -72,8 +72,8 @@ p Adding an extra column with a unique number for each row is convenient not onl
 
 if software == "LibreOffice/OpenOffice"
   :image(cleaning-up-index-column-libre.png, small)
-  p Insert an extra, leftmost column, give it a name, add a “1” to cell #[code A2], and then autofill to the bottom.
+  p Insert an extra, leftmost column, give it a name, add a “1” to cell #[cell A2], and then autofill to the bottom.
 else
   :image(cleaning-up-index-column.png, small)
-  p Insert an extra, leftmost column, give it a name, add a “1” to cell #[code A2], a “2” to cell #[code A3], and then autofill to the bottom.
+  p Insert an extra, leftmost column, give it a name, add a “1” to cell #[cell A2], a “2” to cell #[cell A3], and then autofill to the bottom.
 
