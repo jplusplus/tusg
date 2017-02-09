@@ -1,3 +1,8 @@
+/* Custom elemets */
+//class xCell extends HTMLElement {
+//}
+//window.customElements.define('cell', HTMLUnknownElement);
+
 function selectText(element) {
   var doc = document;
   var range;
@@ -36,6 +41,7 @@ function updateURL(key, val){
   window.history.pushState(null, document.title, url);
 }
 
+var _g_tusg_tempScrollTop;
 /* General page layout */
 $(function() {
   // Select snippets on single click
@@ -235,7 +241,9 @@ var loadSpreadsheets = function(sectionElem){
         var div = self.html(res);
         if (res){
           activateSpreadsheet(div.find(".spreadsheet")[0]);
-          $(window).scrollTop(_g_tusg_tempScrollTop);
+          if (_g_tusg_tempScrollTop){
+            $(window).scrollTop(_g_tusg_tempScrollTop);
+          }
         }
       }
     });    
