@@ -1,7 +1,14 @@
 /* Custom elemets */
-//class xCell extends HTMLElement {
-//}
-//window.customElements.define('cell', HTMLUnknownElement);
+// http://stackoverflow.com/questions/15192722/javascript-extending-class#15192747
+// Equivalent to:  class xCell extends HTMLElement {};
+function xCell() {
+  // Call the parent constructor
+  HTMLElement.call(this);
+}
+xCell.prototype = Object.create(HTMLElement.prototype);
+xCell.prototype.constructor = xCell;
+
+window.customElements.define('x-cell', xCell);
 
 function selectText(element) {
   var doc = document;
@@ -180,7 +187,7 @@ function openCell(sheet, cell){
     .val(content);
   $(sheet.formulaTooltip)
     .attr('size', content.length+3)
-    .css("min-width", $(cell).width()+8)
+    .css("min-width", $(cell).width()+8);
   $(cell).addClass("open");
 }
 function closeCell(sheet){
@@ -262,11 +269,11 @@ var activateSpreadsheet = function(spreadsheet){
     var cell = this;
     $(cell).on('click touch', function(){
       moveTo(spreadsheet, $(cell).data("col"), $(cell).data("row"));
-      return true
+      return true;
     });
     $(cell).on('dblclick', function(){
       openCell(spreadsheet, cell);
-      return false
+      return false;
     });
   });
   // Clear active cells when leaving a spreadsheet
