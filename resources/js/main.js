@@ -1,14 +1,6 @@
 /* Custom elemets */
-// http://stackoverflow.com/questions/15192722/javascript-extending-class#15192747
-// Equivalent to:  class xCell extends HTMLElement {};
-function xCell() {
-  // Call the parent constructor
-  HTMLElement.call(this);
-}
-xCell.prototype = Object.create(HTMLElement.prototype);
-xCell.prototype.constructor = xCell;
-
-window.customElements.define('x-cell', xCell);
+// class xCell extends HTMLElement {};
+// window.customElements.define('x-cell', xCell);
 
 function selectText(element) {
   var doc = document;
