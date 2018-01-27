@@ -30,7 +30,7 @@ h3 Pivot tables with columns
 
 h3 Building a pivot table with formulas
 if software == "Google Sheets"
-  p While pivot tables are supposed to automatically reflect any changes in the original data, there are still cases where you might prefer to mimic the behaviour of a pivot table with regular formulas only. For sums, you can easily do this with a combination of !{f("=UNIQUE()")} and !{f("=SUMIF()")}. In the example below, we use !{f("=UNIQUE(B$2:B$9999)")} to create a column with one row for each unique value in the B column (the first 10000 rows). The we use !{f('=SUMIF(B:B,"="&E2,C:C)')} to summarize column #[cell C], for all rows where column #[cell B] is equal to column #[cell E]. That last criterion has to be constructed #[code "="&amp;E2], a slightly weird syntax that concatenates an equal sign and the contents of #[cell E2], to produce the comparison string that !{f("=SUMIF()")} needs.
+  p While pivot tables are supposed to automatically reflect any changes in the original data, there are still cases where you might prefer to mimic the behaviour of a pivot table with regular formulas only. For sums, you can easily do this with a combination of !{f("=UNIQUE()")} and !{f("=SUMIF()")}. In the example below, we use !{f("=UNIQUE(B$2:B$9999)")} to create a column with one row for each unique value in the B column (the first 10000 rows). The we use !{f('=SUMIF(B:B,"="&E2,C:C)')} to summarize column #[x-cell C], for all rows where column #[x-cell B] is equal to column #[x-cell E]. That last criterion has to be constructed #[code "="&amp;E2], a slightly weird syntax that concatenates an equal sign and the contents of #[x-cell E2], to produce the comparison string that !{f("=SUMIF()")} needs.
   :spreadsheet(1azB6p1VXBSKgDwc31fqWNohs1Kc7plYOMHSJxvXSxas, highlight="E2,F2,F3")
     Building a pivot table with formulas.
   p You could also use !{f("=COUNTIF()")} in exactly the same way, to get the number of values, rather than the sum.
@@ -42,4 +42,4 @@ else
       li Finally use the values on those rows to build your emulated pivot table: !{f('=SUMIF(B:B,"="&G2,C:C)')}
     :spreadsheet(1VLiOAQqTFcQC50rLfsZDODYHc3xCe6mW8WPvD3ajWGA)
       You can use a variant of these formulas to recreate a pivottable. The 2 in F1 tells the formula on the next line where in what row to start searching.
-    p You could also use !{f("=COUNTIF()")} in column #[cell H], to get the number of values, rather than the sum.
+    p You could also use !{f("=COUNTIF()")} in column #[x-cell H], to get the number of values, rather than the sum.

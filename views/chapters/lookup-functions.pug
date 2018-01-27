@@ -1,7 +1,7 @@
 p This chapter will guide yout through combining data from two tables with the !{f("=VLOOKUP()")} function.
 h3 Merging tables
 
-p Given a table of Finnish MP's, and their party name, we want to add a third column separating them into opposition and government politicians. This information can be looked up in the table to the right. We want to look up the party name from #[cell B2] in the table to the right, and insert the value from the second column in that table. This is written !{f('=VLOOKUP(B2, E$2:F$9, 2)')}, where #[code B2] is the value to look up, the #[code E$2:F$9], the table to fetch data from, and #[code 2] meaning ”second column”. An optional fourth argument should, if included, be #[code 0] or #[code #{t("FALSE")}] in this case.
+p Given a table of Finnish MP's, and their party name, we want to add a third column separating them into opposition and government politicians. This information can be looked up in the table to the right. We want to look up the party name from #[x-cell B2] in the table to the right, and insert the value from the second column in that table. This is written !{f('=VLOOKUP(B2, E$2:F$9, 2)')}, where #[code B2] is the value to look up, the #[code E$2:F$9], the table to fetch data from, and #[code 2] meaning ”second column”. An optional fourth argument should, if included, be #[code 0] or #[code #{t("FALSE")}] in this case.
 :spreadsheet(1DvTCLLMO3SRvbHUdTuW4li-XgzrMCrDtX098vz3dv3M, highlight="C2,C3,C4,C5")
       The value in <code>B2</code> is looked up in the table to the right, fetching the content from the second column there.
 
