@@ -1,6 +1,6 @@
-/* Custom elemets */
-// class xCell extends HTMLElement {};
-// window.customElements.define('x-cell', xCell);
+/* Custom elements */
+class xCell extends HTMLElement {}
+window.customElements.define('x-cell', xCell);
 
 function selectText(element) {
   var doc = document;
