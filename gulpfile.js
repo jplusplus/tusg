@@ -1,8 +1,7 @@
 var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     notify = require("gulp-notify"),
-    uglifyjs = require('uglify-js'),
-    minifier = require('gulp-uglify'),
+    uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
     jshint = require('gulp-jshint'),
@@ -26,13 +25,9 @@ gulp.task('css', function() {
 });
 
 gulp.task('compress', function (cb) {
-  var options = {
-    preserveComments: 'license',
-  };
   pump([
       gulp.src('resources/js/main.js'),
-      minifier(options, uglifyjs),
-      //uglify(),
+      uglify(),
       gulp.dest('public/js')
     ], cb);
 });
