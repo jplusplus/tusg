@@ -15,8 +15,6 @@
     "express": "^4.16.2",
     "fast-csv": "^2.4.1",
     "google-spreadsheet": "^2.0.4",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
     "intl": "^1.2.5",
     "memjs": "^1.1.0",
     "morgan": "^1.9.0",
@@ -25,6 +23,9 @@
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
+    "pump": "^2.0.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "gulp-cli": "^2.0.1",
     "gulp-jshint": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
@@ -32,7 +33,6 @@
     "gulp-ruby-sass": "^3.0.0",
     "gulp-uglify": "^3.0.0",
     "jshint": "^2.9.5",
-    "pump": "^2.0.1",
     "uglify-js": "^3.3.9"
   }
 }
