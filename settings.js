@@ -34,7 +34,7 @@ settings.defaults = {
 settings.defaults.locale.allowed = Object.keys(settings.locales)
 
 settings.versions = {
-  "Excel for Windows": ["Excel 2016", "Excel 2013", "Excel 2010", "Excel 2007"], 
+  "Excel for Windows": ["Excel 2016", "Excel 2013", "Excel 2010", "Excel 2007"],
   "Excel for Mac": ["Excel 2016", "Excel 2015", "Excel 2011", "Excel 2008"],
   "LibreOffice/OpenOffice": ["5.0.0", "4.4.0", "4.3.0", "4.2.0", "4.1.0", "3.6.0"],
   "Google Sheets": [],
@@ -44,7 +44,7 @@ settings.versions = {
 settings.forcedOS = {
   "Excel for Windows": "Windows",
   "Excel for Mac": "MacOS",
-  "NeoOffice": "MacOS",  
+  "NeoOffice": "MacOS",
 }
 
 settings.chapters = {
@@ -54,6 +54,7 @@ settings.chapters = {
   "Analyzing: Pivot tables": "pivot-tables",
   "Combining data": "lookup-functions",
   "Splitting columns": "splitting-columns",
+  "Find the winner": "find-the-winner",
 }
 
 settings.defaultSpreadsheetHeight = 15

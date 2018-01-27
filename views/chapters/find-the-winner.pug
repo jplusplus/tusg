@@ -1,0 +1,12 @@
+p Given a set of local election results, how do you find the winner in each locality? This is one of many cases where it's useful to be able to look up the column header of the column matching a certain criteria (largest value, in this example).
+
+p Slight variations of this method can be used to do pretty advanced lookups, that would typically be done in a relational database like SQL.
+
+p Finding the “winner” for each row is a three-step process: We first find the maximum value with !{f("=MAX()")}, then we find the (first) position of that value in the row using !{f("=MATCH()")}, and finally we fetch the column header of that position using !{f("=INDEX()")}. 
+
+:spreadsheet(1imd680GyhKZ21bGsGhzL8CuEMfqodZ8_JQKbizfHsPs, highlight="E2,E3,E4,E5,E6")
+  Finding the biggest party in each municipality
+
+p Note that this formula will fetch only one value in case of a draw (the first).
+
+p You can obviously replace !{f("=MAX()")} with e.g. !{f("=MIN()")}.
