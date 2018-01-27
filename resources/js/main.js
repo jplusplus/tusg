@@ -1,3 +1,4 @@
+'esversion: 6'
 /* Custom elements */
 class xCell extends HTMLElement {}
 window.customElements.define('x-cell', xCell);
@@ -10,7 +11,7 @@ function selectText(element) {
     range.moveToElementText(element);
     range.select();
   } else if (window.getSelection) { // moz, opera, webkit
-    var selection = window.getSelection();            
+    var selection = window.getSelection();
     range = doc.createRange();
     range.selectNodeContents(element);
     selection.removeAllRanges();
@@ -66,7 +67,7 @@ $(function() {
   });
 
   // Update global variables and url params
-  // on form change 
+  // on form change
   $(".form-control").on("change", function(){
     var key = $(this).attr("name");
     var val = $(this).val();
@@ -95,7 +96,7 @@ $(function() {
     var selectedVersion = $("#version").val();
     _g_tusg_options.version = selectedVersion;
     var allowedVersion = {
-      "Excel for Windows": ["Excel 2016", "Excel 2013", "Excel 2010", "Excel 2007"], 
+      "Excel for Windows": ["Excel 2016", "Excel 2013", "Excel 2010", "Excel 2007"],
       "Excel for Mac": ["Excel 2016", "Excel 2015", "Excel 2011", "Excel 2008"],
       "LibreOffice/OpenOffice": ["5.0.0", "4.4.0", "4.3.0", "4.2.0", "4.1.0", "3.6.0"],
       "Google Sheets": [],
@@ -192,7 +193,7 @@ function activateCell(sheet, cell){
   $(sheet).find("th.c"+($(cell).data("col"))).addClass("active");
   activeCell = cell;
   sheet.lastPos = [cell.data("col"), cell.data("row")];
-  $(sheet.fBar).val($(cell).data("formula"));    
+  $(sheet.fBar).val($(cell).data("formula"));
 }
 function deactivateCell(sheet){
   if ($(activeCell).hasClass("open")){
@@ -245,7 +246,7 @@ var loadSpreadsheets = function(sectionElem){
           }
         }
       }
-    });    
+    });
   });
 
 };
