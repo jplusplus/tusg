@@ -1,7 +1,22 @@
 'esversion: 6'
-/* Custom elements */
-class xCell extends HTMLElement {}
-window.customElements.define('x-cell', xCell);
+/* Register custom elements, for es6 browsers
+   In older browsers, everything will still work
+ */
+function checkEs6() {
+  'use strict';
+  if (typeof Symbol == "undefined") return false;
+  try {
+    eval("class Foo {}");
+  } catch (e) { return false; }
+
+  return true;
+}
+if (checkEs6){
+  var s = document.createElement('script');
+  // We still have to inject the code, because the class syntax is not valid
+  s.innerHTML = "class xCell extends HTMLElement {};window.customElements.define('x-cell', xCell);";
+  document.head.appendChild(s);
+}
 
 function selectText(element) {
   var doc = document;
