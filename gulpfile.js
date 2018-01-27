@@ -1,8 +1,8 @@
-var gulp = require('gulp'), 
-    sass = require('gulp-ruby-sass') ,
-    notify = require("gulp-notify") ,
+var gulp = require('gulp'),
+    sass = require('gulp-ruby-sass'),
+    notify = require("gulp-notify"),
     uglifyjs = require('uglify-js'),
-    minifier = require('gulp-uglify/minifier'),
+    minifier = require('gulp-uglify'),
     concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
     jshint = require('gulp-jshint'),
@@ -18,11 +18,11 @@ gulp.task('lint', function () {
     .pipe(jshint.reporter('default'))
 })
 
-gulp.task('css', function() { 
+gulp.task('css', function() {
   return sass(config.sassPath + '/*.scss', {
     style: 'compressed',
   })
-  .pipe(gulp.dest('./public/css')); 
+  .pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('compress', function (cb) {
@@ -59,9 +59,9 @@ gulp.task('start-dev', function () {
 })
 
 // Rerun the task when a file changes
- gulp.task('watch', function() {
-     gulp.watch(config.sassPath + '/**/*.scss', ['css']); 
-     gulp.watch('resources/js/*.js', ['compress']); 
+gulp.task('watch', function() {
+    gulp.watch(config.sassPath + '/**/*.scss', ['css']);
+    gulp.watch('resources/js/*.js', ['compress']);
 });
-  gulp.task('default', ['css', 'compress', 'lint']);
-  gulp.task('develop', ['css', 'compress', 'lint', 'watch', 'start-dev']);
+gulp.task('default', ['css', 'compress', 'lint']);
+gulp.task('develop', ['css', 'compress', 'lint', 'watch', 'start-dev'])
