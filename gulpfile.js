@@ -1,8 +1,6 @@
 var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
-    notify = require("gulp-notify"),
     uglify = require('gulp-uglify'),
-    concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
     jshint = require('gulp-jshint'),
     pump = require('pump');
