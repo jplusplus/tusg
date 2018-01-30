@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     pump = require('pump');
 
 var config = {
-   sassPath: './resources/sass',
+  sassPath: './resources/sass',
 }
 
 gulp.task('lint', function () {
