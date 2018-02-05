@@ -23,12 +23,12 @@
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
-    "pump": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-ruby-sass": "^3.0.0",
     "gulp-uglify": "^3.0.0",
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "pump": "^3.0.0"
   }
 }
