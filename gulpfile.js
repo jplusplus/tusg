@@ -10,7 +10,7 @@ let config = {
 }
 
 gulp.task('lint', function () {
-  gulp.src('./resources/js/*.js')
+  return gulp.src('./resources/js/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
 })
