@@ -1,11 +1,11 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     uglify = require('gulp-uglify'),
     nodemon = require('gulp-nodemon'),
     jshint = require('gulp-jshint'),
-    pump = require('pump');
+    pump = require('pump')
 
-var config = {
+let config = {
   sassPath: './resources/sass',
 }
 
@@ -53,8 +53,8 @@ gulp.task('start-dev', function () {
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
-    gulp.watch(config.sassPath + '/**/*.scss', ['css']);
-    gulp.watch('resources/js/*.js', ['compress']);
-});
-gulp.task('default', ['css', 'compress', 'lint']);
-gulp.task('develop', ['css', 'compress', 'lint', 'watch', 'start-dev'])
+    gulp.watch(config.sassPath + '/**/*.scss', 'css');
+    gulp.watch('resources/js/*.js', 'compress')
+})
+gulp.task('default', gulp.series('css', 'compress', 'lint'))
+gulp.task('develop', gulp.series('css', 'compress', 'lint', 'watch', 'start-dev'))
