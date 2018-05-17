@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "async": "^2.6.0",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "cldr": "^4.8.0",
     "compression": "^1.7.2",
     "debug": "^3.1.0",
@@ -18,7 +18,7 @@
     "memjs": "^1.2.0",
     "morgan": "^1.9.0",
     "pug": "^2.0.3",
-    "request": "^2.85.0",
+    "request": "^2.86.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
