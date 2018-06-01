@@ -1,9 +1,9 @@
-let gulp = require('gulp'),
-    sass = require('gulp-ruby-sass'),
-    uglify = require('gulp-uglify'),
-    nodemon = require('gulp-nodemon'),
-    jshint = require('gulp-jshint'),
-    pump = require('pump')
+const gulp = require('gulp')
+const sass = require('gulp-ruby-sass')
+const uglify = require('gulp-uglify')
+const nodemon = require('gulp-nodemon')
+const jshint = require('gulp-jshint')
+const pump = require('pump')
 
 let config = {
   sassPath: './resources/sass',
