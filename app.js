@@ -28,14 +28,15 @@ var optionsParser = function(req, res, next){
   if (software == "NeoOffice"){
     software = "LibreOffice/OpenOffice"
     var mapping = {
-      "NeoOffice 2015": "3.1.1",
-      "NeoOffice 2014": "3.1.1",
-      "NeoOffice 2013": "3.1.1",
-      "NeoOffice 3.4": "3.1.1",
-      "NeoOffice 3.3": "3.1.1",
-      "NeoOffice 3.2": "3.1.1",
-      "NeoOffice 3.1": "3.1.1",
-      "NeoOffice 3.0": "3.0.1",
+      "NeoOffice 2017": "4.4",
+      "NeoOffice 2015": "3.1",
+      "NeoOffice 2014": "3.1",
+      "NeoOffice 2013": "3.1",
+      "NeoOffice 3.4": "3.1",
+      "NeoOffice 3.3": "3.1",
+      "NeoOffice 3.2": "3.1",
+      "NeoOffice 3.1": "3.1",
+      "NeoOffice 3.0": "3.0",
     }
     var version = mapping[version]
   }
