@@ -6,28 +6,28 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.2",
     "body-parser": "^1.18.3",
-    "cldr": "^4.10.0",
-    "compression": "^1.7.2",
-    "debug": "^3.1.0",
-    "express": "^4.16.3",
+    "cldr": "^4.13.0",
+    "compression": "^1.7.3",
+    "debug": "^3.2.6",
+    "express": "^4.16.4",
     "fast-csv": "^2.4.1",
-    "google-spreadsheet": "^2.0.5",
+    "google-spreadsheet": "^2.0.7",
     "intl": "^1.2.5",
     "memjs": "^1.2.0",
-    "morgan": "^1.9.0",
+    "morgan": "^1.9.1",
     "pug": "^2.0.3",
-    "request": "^2.87.0",
+    "request": "^2.88.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
     "gulp-jshint": "^2.1.0",
-    "gulp-nodemon": "^2.2.1",
+    "gulp-nodemon": "^2.4.2",
     "gulp-ruby-sass": "^3.0.0",
-    "gulp-uglify": "^3.0.0",
-    "jshint": "^2.9.5",
+    "gulp-uglify": "^3.0.1",
+    "jshint": "^2.10.1",
     "pump": "^3.0.0"
   }
 }
