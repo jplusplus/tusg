@@ -11,7 +11,7 @@
     "cldr": "^4.13.0",
     "compression": "^1.7.4",
     "debug": "^3.2.6",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "fast-csv": "^2.5.0",
     "google-spreadsheet": "^2.0.7",
     "intl": "^1.2.5",
@@ -22,10 +22,10 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "gulp": "^4.0.1",
+    "gulp": "^4.0.2",
     "gulp-jshint": "^2.1.0",
     "gulp-nodemon": "^2.4.2",
-    "gulp-ruby-sass": "^3.0.0",
+    "gulp-ruby-sass": "^4.0.0",
     "gulp-uglify": "^3.0.2",
     "jshint": "^2.10.2",
     "pump": "^3.0.0"
