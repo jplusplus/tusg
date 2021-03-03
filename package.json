@@ -17,8 +17,8 @@
     "intl": "^1.2.5",
     "memjs": "^1.2.0",
     "morgan": "^1.9.1",
-    "pug": "^2.0.3",
-    "request": "^2.88.0",
+    "pug": "^3.0.2",
+    "request": "^2.88.2",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
