@@ -8,7 +8,7 @@
   "dependencies": {
     "async": "^2.6.2",
     "body-parser": "^1.18.3",
-    "cldr": "^4.13.0",
+    "cldr": "^7.2.0",
     "compression": "^1.7.4",
     "debug": "^3.2.6",
     "express": "^4.17.1",
